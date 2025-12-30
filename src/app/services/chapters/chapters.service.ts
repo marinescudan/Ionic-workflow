@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Chapter } from '../../models/chapter.model';
-import { CHAPTERS } from './chapters.constants';
+import { CHAPTERS_DATA } from './chapters.constants';
 
 @Injectable({
   providedIn: 'root', // Singleton (one instance app-wide)
@@ -18,8 +18,9 @@ export class ChaptersService {
   }
 
   private loadChapters(): void {
-    const chapters: Chapter[] = CHAPTERS;
-    this.chaptersSubject.next(chapters);
+    // Load from constants (later: replace with API call)
+    this.chaptersSubject.next(CHAPTERS_DATA);
+    this.loadProgress(); // Load saved progress from localStorage
   }
 
   getChapterById(id: number): Chapter | undefined {

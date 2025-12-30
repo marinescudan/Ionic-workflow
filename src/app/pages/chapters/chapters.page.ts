@@ -90,7 +90,7 @@ export class ChaptersPage implements OnInit, OnDestroy {
   }
 
   openChapter(chapter: Chapter) {
-    this.router.navigate(['/chapter-detail', chapter.id]);
+    this.router.navigate(['/chapters', chapter.id]);
   }
 
   openDemo(event: Event, chapter: Chapter) {
