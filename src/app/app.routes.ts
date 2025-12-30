@@ -2,28 +2,25 @@ import { Routes } from '@angular/router';
 
 export const routes: Routes = [
   {
-    path: 'home',
-    loadComponent: () => import('./home/home.page').then((m) => m.HomePage),
-  },
-  {
-    path: '',
-    redirectTo: 'home',
-    pathMatch: 'full',
-  },
-  {
     path: 'chapters',
-    loadComponent: () => import('./chapters/chapters.page').then( m => m.ChaptersPage)
+    loadComponent: () => import('./pages/chapters/chapters.page').then(m => m.ChaptersPage),
   },
   {
-    path: 'chapter-detail',
-    loadComponent: () => import('./chapter-detail/chapter-detail.page').then( m => m.ChapterDetailPage)
+    path: 'chapter-detail/:id',
+    loadComponent: () => import('./pages/chapters/chapter-detail/chapter-detail.page').then(m => m.ChapterDetailPage),
+    // :id is a route parameter (dynamic)
   },
   {
-    path: 'demo',
-    loadComponent: () => import('./demo/demo.page').then( m => m.DemoPage)
+    path: 'demo/:chapterId',
+    loadComponent: () => import('./pages/demo/demo.page').then(m => m.DemoPage),
   },
   {
     path: 'progress',
-    loadComponent: () => import('./progress/progress.page').then( m => m.ProgressPage)
+    loadComponent: () => import('./pages/progress/progress.page').then(m => m.ProgressPage),
+  },
+  {
+    path: '',
+    redirectTo: 'chapters',
+    pathMatch: 'full',
   },
 ];
