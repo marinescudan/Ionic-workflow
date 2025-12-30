@@ -1,0 +1,74 @@
+
+.code-snippet-container {
+  margin: 16px 0;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #2d2d2d;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.snippet-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 12px 16px;
+  background: #1e1e1e;
+  border-bottom: 1px solid #3d3d3d;
+
+  .snippet-info {
+    flex: 1;
+  }
+
+  .snippet-title {
+    margin: 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: #61dafb;
+  }
+
+  .snippet-description {
+    margin: 4px 0 0 0;
+    font-size: 12px;
+    color: #abb2bf;
+  }
+
+  ion-button {
+    --color: #61dafb;
+    margin: 0;
+
+    &:hover {
+      --color: #ffffff;
+    }
+  }
+}
+
+.code-block {
+  margin: 0;
+  padding: 16px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.6;
+
+  code {
+    font-family: 'Courier New', Courier, monospace;
+    color: #abb2bf;
+  }
+}
+
+// Scrollbar styling
+.code-block::-webkit-scrollbar {
+  height: 8px;
+}
+
+.code-block::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+.code-block::-webkit-scrollbar-thumb {
+  background: #4d4d4d;
+  border-radius: 4px;
+
+  &:hover {
+    background: #5d5d5d;
+  }
+}

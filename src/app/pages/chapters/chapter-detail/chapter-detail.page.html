@@ -1,13 +1,125 @@
-<ion-header [translucent]="true">
+
+<ion-header>
   <ion-toolbar>
-    <ion-title>chapter-detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/chapters"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ chapter?.title || 'Chapter' }}</ion-title>
+
+    <!-- Completed badge in header -->
+    <ion-buttons slot="end" *ngIf="chapter?.completed">
+      <ion-chip color="success">
+        <ion-icon name="checkmark-circle"></ion-icon>
+        <ion-label>Completed</ion-label>
+      </ion-chip>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">chapter-detail</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="chapter-detail-container" *ngIf="chapter">
+
+    <!-- Chapter Header -->
+    <div class="chapter-header">
+      <div class="header-content">
+        <ion-icon
+          [name]="chapter.icon"
+          [color]="getCategoryColor(chapter.category)"
+          class="chapter-icon"
+        ></ion-icon>
+        <div class="header-text">
+          <h1>{{ chapter.title }}</h1>
+          <p class="chapter-description">{{ chapter.description }}</p>
+
+          <!-- Category & Sections -->
+          <div class="meta-info">
+            <ion-chip [color]="getCategoryColor(chapter.category)" outline="true">
+              <ion-label>{{ chapter.category | titlecase }}</ion-label>
+            </ion-chip>
+            <span class="section-count">
+              {{ chapter.sections.length }} sections
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <ion-button
+          *ngIf="!chapter.completed"
+          expand="block"
+          color="success"
+          (click)="markComplete()"
+        >
+          <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+          Mark as Complete
+        </ion-button>
+
+        <ion-button
+          *ngIf="chapter.hasDemo"
+          expand="block"
+          fill="outline"
+          (click)="openDemo()"
+        >
+          <ion-icon name="play-circle" slot="start"></ion-icon>
+          View Live Demo
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Sections -->
+    <div class="sections-container">
+      <ion-card *ngFor="let section of chapter.sections" class="section-card">
+        <ion-card-header>
+          <ion-card-title>{{ section.title }}</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <!-- Render HTML content -->
+          <div
+            class="section-content"
+            [innerHTML]="getSafeHtml(section.content)"
+          ></div>
+
+          <!-- Code Snippets -->
+          <div class="code-snippets" *ngIf="section.codeSnippets.length > 0">
+            <app-code-snippet
+              *ngFor="let snippet of section.codeSnippets"
+              [code]="snippet.code"
+              [language]="snippet.language"
+              [title]="snippet.title"
+              [description]="snippet.description"
+              [copyable]="snippet.copyable"
+            ></app-code-snippet>
+          </div>
+
+          <!-- Interview Tips -->
+          <div class="interview-tips" *ngIf="section.interviewTips && section.interviewTips.length > 0">
+            <div class="tips-header">
+              <ion-icon name="alert-circle" color="warning"></ion-icon>
+              <h4>Interview Tips</h4>
+            </div>
+            <ul>
+              <li *ngFor="let tip of section.interviewTips">{{ tip }}</li>
+            </ul>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="chapter.sections.length === 0">
+      <ion-icon name="alert-circle" color="medium"></ion-icon>
+      <p>Content coming soon!</p>
+    </div>
+  </div>
+
+  <!-- Loading/Error State -->
+  <div class="error-state" *ngIf="!chapter">
+    <ion-icon name="alert-circle" color="danger"></ion-icon>
+    <p>Chapter not found</p>
+    <ion-button fill="outline" (click)="goBack()">
+      Go Back
+    </ion-button>
+  </div>
 </ion-content>

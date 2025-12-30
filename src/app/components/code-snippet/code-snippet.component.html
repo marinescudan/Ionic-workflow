@@ -1,0 +1,39 @@
+
+<div class="code-snippet-container">
+  <!-- Header with title and copy button -->
+  <div class="snippet-header" *ngIf="title || copyable">
+    <div class="snippet-info">
+      <h4 *ngIf="title" class="snippet-title">{{ title }}</h4>
+      <p *ngIf="description" class="snippet-description">{{ description }}</p>
+    </div>
+
+    <ion-button
+      *ngIf="copyable"
+      fill="clear"
+      size="small"
+      (click)="copyCode()"
+      [disabled]="copied"
+    >
+      <ion-icon
+        [name]="copied ? 'checkmark-outline' : 'copy-outline'"
+        slot="icon-only"
+      ></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- Code block with syntax highlighting -->
+  <pre class="code-block"><code
+    #codeElement
+    [class]="'language-' + language"
+  >{{ code }}</code></pre>
+
+  <!-- Success toast -->
+  <ion-toast
+    [isOpen]="showToast"
+    message="Code copied to clipboard!"
+    duration="2000"
+    position="bottom"
+    color="success"
+    (didDismiss)="showToast = false"
+  ></ion-toast>
+</div>

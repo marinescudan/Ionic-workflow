@@ -1,20 +1,117 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/angular/standalone';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {
+  IonHeader,
+  IonToolbar,
+  IonTitle,
+  IonContent,
+  IonButtons,
+  IonBackButton,
+  IonButton,
+  IonIcon,
+  IonCard,
+  IonCardHeader,
+  IonCardTitle,
+  IonCardContent,
+  IonChip,
+  IonLabel,
+  IonBadge,
+} from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import {
+  chevronBack,
+  checkmarkCircle,
+  playCircle,
+  alertCircle
+} from 'ionicons/icons';
+import { ChaptersService } from '@services/chapters/chapters.service';
+import { Chapter, Section } from '@app/models/chapter.model';
+import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
 
 @Component({
   selector: 'app-chapter-detail',
   templateUrl: './chapter-detail.page.html',
   styleUrls: ['./chapter-detail.page.scss'],
   standalone: true,
-  imports: [IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule]
+  imports: [
+    CommonModule,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButtons,
+    IonBackButton,
+    IonButton,
+    IonIcon,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonChip,
+    IonLabel,
+    IonBadge,
+    CodeSnippetComponent, // Our custom component
+  ],
 })
 export class ChapterDetailPage implements OnInit {
+  chapter?: Chapter;
+  chapterId?: number;
 
-  constructor() { }
-
-  ngOnInit() {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private chaptersService: ChaptersService,
+    private sanitizer: DomSanitizer
+  ) {
+    addIcons({ chevronBack, checkmarkCircle, playCircle, alertCircle });
   }
 
+  ngOnInit() {
+    // Get chapter ID from route parameter
+    this.route.params.subscribe(params => {
+      this.chapterId = +params['id']; // + converts string to number
+      this.loadChapter();
+    });
+  }
+
+  loadChapter() {
+    if (this.chapterId) {
+      this.chapter = this.chaptersService.getChapterById(this.chapterId);
+    }
+  }
+
+  // Sanitize HTML content for safe rendering
+  getSafeHtml(html: string): SafeHtml {
+    return this.sanitizer.sanitize(1, html) || ''; // 1 = SecurityContext.HTML
+  }
+
+  markComplete() {
+    if (this.chapterId) {
+      this.chaptersService.markChapterComplete(this.chapterId);
+      this.loadChapter(); // Reload to show updated state
+    }
+  }
+
+  openDemo() {
+    if (this.chapter?.hasDemo) {
+      this.router.navigate(['/demo', this.chapterId]);
+    }
+  }
+
+  goBack() {
+    this.router.navigate(['/chapters']);
+  }
+
+  getCategoryColor(category: string): string {
+    const colors: Record<string, string> = {
+      foundation: 'primary',
+      components: 'secondary',
+      navigation: 'tertiary',
+      state: 'success',
+      advanced: 'warning',
+    };
+    return colors[category] || 'medium';
+  }
 }
