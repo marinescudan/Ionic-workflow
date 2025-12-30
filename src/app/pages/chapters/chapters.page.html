@@ -1,13 +1,85 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>chapters</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Ionic Workflow</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">chapters</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Progress Section -->
+  <div class="progress-section">
+    <h2>Your Learning Progress</h2>
+    <div class="progress-stats">
+      <span class="stat-label">
+        {{ progress.completed }} of {{ progress.total }} chapters completed
+      </span>
+      <span class="stat-percentage">
+        {{ progress.percentage.toFixed(0) }}%
+      </span>
+    </div>
+    <ion-progress-bar
+      [value]="progress.percentage / 100"
+      color="success"
+    ></ion-progress-bar>
+  </div>
+
+  <!-- Chapters Grid -->
+  <div class="chapters-container">
+    <ion-card
+      *ngFor="let chapter of chapters"
+      [class.completed]="chapter.completed"
+      (click)="openChapter(chapter)"
+      button
+    >
+      <!-- Completed Badge -->
+      <ion-badge
+        *ngIf="chapter.completed"
+        color="success"
+        class="completed-badge"
+      >
+        <ion-icon name="checkmark-circle"></ion-icon>
+        Completed
+      </ion-badge>
+
+      <ion-card-header>
+        <div class="card-header-content">
+          <ion-icon
+            [name]="chapter.icon"
+            [color]="getCategoryColor(chapter.category)"
+            class="chapter-icon"
+          ></ion-icon>
+          <div>
+            <ion-card-title>{{ chapter.title }}</ion-card-title>
+            <ion-card-subtitle>{{ chapter.description }}</ion-card-subtitle>
+          </div>
+        </div>
+      </ion-card-header>
+
+      <ion-card-content>
+        <!-- Category Chip -->
+        <ion-chip [color]="getCategoryColor(chapter.category)" outline="true">
+          <ion-label>{{ chapter.category | titlecase }}</ion-label>
+        </ion-chip>
+
+        <!-- Sections Count -->
+        <div class="meta-info">
+          <span class="section-count">
+            <ion-icon name="code"></ion-icon>
+            {{ chapter.sections.length }} sections
+          </span>
+        </div>
+
+        <!-- Demo Button -->
+        <ion-button
+          *ngIf="chapter.hasDemo"
+          expand="block"
+          fill="outline"
+          size="small"
+          (click)="openDemo($event, chapter)"
+        >
+          <ion-icon name="play" slot="start"></ion-icon>
+          Live Demo
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

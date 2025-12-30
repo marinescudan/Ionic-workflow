@@ -1,0 +1,135 @@
+.progress-section {
+  padding: 24px 20px;
+  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
+  color: white;
+
+  h2 {
+    margin: 0 0 16px 0;
+    font-size: 22px;
+    font-weight: 700;
+  }
+
+  .progress-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .stat-label {
+      font-size: 14px;
+      opacity: 0.9;
+    }
+
+    .stat-percentage {
+      font-size: 28px;
+      font-weight: 700;
+    }
+  }
+
+  ion-progress-bar {
+    height: 8px;
+    border-radius: 4px;
+    --background: rgba(255, 255, 255, 0.3);
+    --progress-background: white;
+  }
+}
+
+.chapters-container {
+  padding: 20px 16px;
+
+  ion-card {
+    margin-bottom: 16px;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    &.completed {
+      border-left: 4px solid var(--ion-color-success);
+      background: var(--ion-color-light);
+    }
+  }
+
+  .completed-badge {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 6px 12px;
+    font-size: 12px;
+
+    ion-icon {
+      font-size: 16px;
+    }
+  }
+
+  .card-header-content {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+  }
+
+  .chapter-icon {
+    font-size: 48px;
+    flex-shrink: 0;
+  }
+
+  ion-card-title {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  ion-card-subtitle {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+
+  ion-card-content {
+    padding-top: 12px;
+  }
+
+  .meta-info {
+    display: flex;
+    align-items: center;
+    margin: 12px 0;
+
+    .section-count {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--ion-color-medium);
+
+      ion-icon {
+        font-size: 18px;
+      }
+    }
+  }
+}
+
+// Responsive: 2 columns on tablets+
+@media (min-width: 768px) {
+  .chapters-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    ion-card {
+      margin-bottom: 0;
+    }
+  }
+}
+
+// Desktop: 3 columns
+@media (min-width: 1200px) {
+  .chapters-container {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
