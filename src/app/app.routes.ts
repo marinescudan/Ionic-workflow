@@ -6,9 +6,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/chapters/chapters.page').then(m => m.ChaptersPage),
   },
   {
-    path: 'chapter-detail/:id',
-    loadComponent: () => import('./pages/chapters/chapter-detail/chapter-detail.page').then(m => m.ChapterDetailPage),
-    // :id is a route parameter (dynamic)
+    path: 'chapters/:id',
+    loadComponent: () => import('./pages/chapters/chapter-detail/chapter-detail.page')
+      .then(m => m.ChapterDetailPage),
   },
   {
     path: 'demo/:chapterId',
