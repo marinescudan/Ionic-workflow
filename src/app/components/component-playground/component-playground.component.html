@@ -1,0 +1,145 @@
+<div class="playground-container">
+
+  <!-- Component Info -->
+  <div class="component-info">
+    <div class="info-header">
+      <ion-icon [name]="demoComponent.icon" color="primary"></ion-icon>
+      <div>
+        <h2>{{ demoComponent.name }}</h2>
+        <p>{{ demoComponent.description }}</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Split View -->
+  <div class="split-view">
+
+    <!-- Left: Live Preview -->
+    <div class="preview-panel">
+      <div class="panel-header">
+        <h3>Live Preview</h3>
+        <ion-button fill="clear" size="small" (click)="resetProps()">
+          <ion-icon name="refresh-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </div>
+
+      <div class="preview-content">
+        <!-- Dynamic component rendering -->
+        <div
+          class="component-wrapper"
+          [innerHTML]="getPreviewHtml() | safeHtml"
+        ></div>
+      </div>
+    </div>
+
+    <!-- Right: Props Editor -->
+    <div class="props-panel">
+      <div class="panel-header">
+        <h3>Properties</h3>
+      </div>
+
+      <form [formGroup]="propsForm" class="props-form">
+        <div
+          *ngFor="let prop of demoComponent.propDefinitions"
+          class="prop-control"
+        >
+          <!-- Text Input -->
+          <ion-item *ngIf="prop.type === 'text'">
+            <ion-input
+              [formControlName]="prop.name"
+              [label]="prop.label"
+              labelPlacement="stacked"
+              [placeholder]="prop.description"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Number Input -->
+          <ion-item *ngIf="prop.type === 'number'">
+            <ion-input
+              [formControlName]="prop.name"
+              [label]="prop.label"
+              labelPlacement="stacked"
+              type="number"
+              [placeholder]="prop.description"
+            ></ion-input>
+          </ion-item>
+
+          <!-- Select Dropdown -->
+          <ion-item *ngIf="prop.type === 'select'">
+            <ion-select
+              [formControlName]="prop.name"
+              [label]="prop.label"
+              labelPlacement="stacked"
+            >
+              <ion-select-option
+                *ngFor="let option of prop.options"
+                [value]="option.value"
+              >
+                {{ option.label }}
+              </ion-select-option>
+            </ion-select>
+          </ion-item>
+
+          <!-- Boolean Toggle -->
+          <ion-item *ngIf="prop.type === 'boolean'">
+            <ion-toggle [formControlName]="prop.name">
+              {{ prop.label }}
+            </ion-toggle>
+          </ion-item>
+
+          <!-- Description -->
+          <p class="prop-description">{{ prop.description }}</p>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Code Output -->
+  <div class="code-section">
+    <ion-card>
+      <ion-card-header>
+        <div class="code-header">
+          <ion-card-title>Generated Template</ion-card-title>
+          <ion-button fill="clear" size="small" (click)="copyTemplate()">
+            <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <app-code-snippet
+          [code]="generatedTemplate"
+          language="html"
+          [copyable]="false"
+        ></app-code-snippet>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <div class="code-header">
+          <ion-card-title>Generated TypeScript</ion-card-title>
+          <ion-button fill="clear" size="small" (click)="copyTypescript()">
+            <ion-icon name="copy-outline" slot="icon-only"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-header>
+      <ion-card-content>
+        <app-code-snippet
+          [code]="generatedTypescript"
+          language="typescript"
+          [copyable]="false"
+        ></app-code-snippet>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- Success Toast -->
+  <ion-toast
+    [isOpen]="showToast"
+    message="Code copied to clipboard!"
+    duration="2000"
+    position="bottom"
+    color="success"
+    (didDismiss)="showToast = false"
+  ></ion-toast>
+</div>

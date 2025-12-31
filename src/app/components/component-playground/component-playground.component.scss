@@ -1,0 +1,136 @@
+
+.playground-container {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.component-info {
+  padding: 20px;
+  background: var(--ion-color-light);
+
+  .info-header {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+
+    ion-icon {
+      font-size: 48px;
+      flex-shrink: 0;
+    }
+
+    h2 {
+      margin: 0 0 4px 0;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--ion-color-dark);
+    }
+
+    p {
+      margin: 0;
+      font-size: 14px;
+      color: var(--ion-color-medium-shade);
+    }
+  }
+}
+
+.split-view {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 20px;
+
+  @media (max-width: 992px) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.preview-panel,
+.props-panel {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  background: var(--ion-color-light);
+  border-bottom: 1px solid var(--ion-color-light-shade);
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ion-color-dark);
+  }
+
+  ion-button {
+    --color: var(--ion-color-medium-shade);
+
+    &:hover {
+      --color: var(--ion-color-dark);
+    }
+  }
+}
+
+.preview-content {
+  padding: 40px 20px;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8f9fa;
+
+  .component-wrapper {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+.props-form {
+  padding: 20px;
+
+  .prop-control {
+    margin-bottom: 24px;
+
+    ion-item {
+      --background: transparent;
+      --padding-start: 0;
+      --inner-padding-end: 0;
+      margin-bottom: 8px;
+    }
+
+    .prop-description {
+      margin: 4px 0 0 0;
+      font-size: 12px;
+      color: var(--ion-color-medium);
+      padding-left: 4px;
+    }
+  }
+}
+
+.code-section {
+  padding: 0 20px 20px 20px;
+
+  ion-card {
+    margin-bottom: 20px;
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      ion-card-title {
+        font-size: 18px;
+        font-weight: 600;
+      }
+
+      ion-button {
+        --color: var(--ion-color-primary);
+      }
+    }
+  }
+}

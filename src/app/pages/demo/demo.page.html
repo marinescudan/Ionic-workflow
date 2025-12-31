@@ -1,13 +1,46 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>demo</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button [defaultHref]="'/chapters/' + chapterId"></ion-back-button>
+    </ion-buttons>
+    <ion-title>
+      {{ chapter?.title || 'Live Demos' }}
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">demo</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <div class="demo-page-container">
+
+    <!-- Demo Selector (if multiple demos) -->
+    <div class="demo-selector" *ngIf="demos.length > 1">
+      <ion-segment
+        [value]="selectedDemo?.id"
+        (ionChange)="selectDemo(demoService.getDemoById($any($event).detail.value)!)"
+        scrollable
+      >
+        <ion-segment-button
+          *ngFor="let demo of demos"
+          [value]="demo.id"
+        >
+          <ion-icon [name]="demo.icon"></ion-icon>
+          <ion-label>{{ demo.name }}</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+    </div>
+
+    <!-- Component Playground -->
+    <app-component-playground
+      *ngIf="selectedDemo"
+      [demoComponent]="selectedDemo"
+    ></app-component-playground>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="demos.length === 0">
+      <ion-icon name="alert-circle" color="medium"></ion-icon>
+      <h2>No Demos Available</h2>
+      <p>This chapter doesn't have interactive demos yet.</p>
+      <p>Check back later or explore other chapters!</p>
+    </div>
+  </div>
 </ion-content>
