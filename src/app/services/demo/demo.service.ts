@@ -104,15 +104,15 @@ export class DemoService {
         },
       ],
       templateGenerator: (props) => {
-        const expand = props.expand !== 'default' ? ` expand="${props.expand}"` : '';
-        const fill = props.fill !== 'solid' ? ` fill="${props.fill}"` : '';
-        const size = props.size !== 'default' ? ` size="${props.size}"` : '';
-        const color = props.color !== 'primary' ? ` color="${props.color}"` : '';
-        const shape = props.shape !== 'default' ? ` shape="${props.shape}"` : '';
-        const disabled = props.disabled ? ' [disabled]="true"' : '';
+        const expand = props['expand'] !== 'default' ? ` expand="${props['expand']}"` : '';
+        const fill = props['fill'] !== 'solid' ? ` fill="${props['fill']}"` : '';
+        const size = props['size'] !== 'default' ? ` size="${props['size']}"` : '';
+        const color = props['color'] !== 'primary' ? ` color="${props['color']}"` : '';
+        const shape = props['shape'] !== 'default' ? ` shape="${props['shape']}"` : '';
+        const disabled = props['disabled'] ? ' [disabled]="true"' : '';
 
         return `<ion-button${expand}${fill}${size}${color}${shape}${disabled}>
-  ${props.text}
+  ${props['text']}
 </ion-button>`;
       },
       typescriptGenerator: (props) => {
@@ -122,8 +122,8 @@ import { IonButton } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-example',
   template: \`
-    <ion-button${props.expand !== 'default' ? ` expand="${props.expand}"` : ''}${props.fill !== 'solid' ? ` fill="${props.fill}"` : ''}${props.size !== 'default' ? ` size="${props.size}"` : ''}${props.color !== 'primary' ? ` color="${props.color}"` : ''}${props.shape !== 'default' ? ` shape="${props.shape}"` : ''}${props.disabled ? ' [disabled]="true"' : ''}>
-      ${props.text}
+    <ion-button${props['expand'] !== 'default' ? ` expand="${props['expand']}"` : ''}${props['fill'] !== 'solid' ? ` fill="${props['fill']}"` : ''}${props['size'] !== 'default' ? ` size="${props['size']}"` : ''}${props['color'] !== 'primary' ? ` color="${props['color']}"` : ''}${props['shape'] !== 'default' ? ` shape="${props['shape']}"` : ''}${props['disabled'] ? ' [disabled]="true"' : ''}>
+      ${props['text']}
     </ion-button>
   \`,
   standalone: true,
@@ -202,20 +202,20 @@ export class ExampleComponent {}`;
         },
       ],
       templateGenerator: (props) => {
-        const color = props.color !== 'default' ? ` color="${props.color}"` : '';
-        const button = props.button ? ' button' : '';
-        const image = props.showImage
+        const color = props['color'] !== 'default' ? ` color="${props['color']}"` : '';
+        const button = props['button'] ? ' button' : '';
+        const image = props['showImage']
           ? '\n  <img src="https://picsum.photos/400/200" alt="Card image" />\n  '
           : '';
 
         return `<ion-card${color}${button}>
   ${image}<ion-card-header>
-    <ion-card-title>${props.title}</ion-card-title>
-    <ion-card-subtitle>${props.subtitle}</ion-card-subtitle>
+    <ion-card-title>${props['title']}</ion-card-title>
+    <ion-card-subtitle>${props['subtitle']}</ion-card-subtitle>
   </ion-card-header>
 
   <ion-card-content>
-    ${props.content}
+    ${props['content']}
   </ion-card-content>
 </ion-card>`;
       },
@@ -232,15 +232,15 @@ import {
 @Component({
   selector: 'app-example',
   template: \`
-    <ion-card${props.color !== 'default' ? ` color="${props.color}"` : ''}${props.button ? ' button' : ''}>
-      ${props.showImage ? '<img src="https://picsum.photos/400/200" alt="Card image" />' : ''}
+    <ion-card${props['color'] !== 'default' ? ` color="${props['color']}"` : ''}${props['button'] ? ' button' : ''}>
+      ${props['showImage'] ? '<img src="https://picsum.photos/400/200" alt="Card image" />' : ''}
       <ion-card-header>
-        <ion-card-title>${props.title}</ion-card-title>
-        <ion-card-subtitle>${props.subtitle}</ion-card-subtitle>
+        <ion-card-title>${props['title']}</ion-card-title>
+        <ion-card-subtitle>${props['subtitle']}</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>
-        ${props.content}
+        ${props['content']}
       </ion-card-content>
     </ion-card>
   \`,
@@ -292,9 +292,9 @@ export class ExampleComponent {}`;
         },
       ],
       templateGenerator: (props) => {
-        const inset = props.inset ? ' inset="true"' : '';
-        const lines = props.lines !== 'full' ? ` lines="${props.lines}"` : '';
-        const count = Math.min(Math.max(props.itemCount || 3, 1), 5);
+        const inset = props['inset'] ? ' inset="true"' : '';
+        const lines = props['lines'] !== 'full' ? ` lines="${props['lines']}"` : '';
+        const count = Math.min(Math.max(props['itemCount'] || 3, 1), 5);
 
         const items = Array.from({ length: count }, (_, i) =>
           `  <ion-item>
@@ -307,7 +307,7 @@ ${items}
 </ion-list>`;
       },
       typescriptGenerator: (props) => {
-        const count = Math.min(Math.max(props.itemCount || 3, 1), 5);
+        const count = Math.min(Math.max(props['itemCount'] || 3, 1), 5);
         const items = Array.from({ length: count }, (_, i) =>
           `    <ion-item>
       <ion-label>List Item ${i + 1}</ion-label>
@@ -320,7 +320,7 @@ import { IonList, IonItem, IonLabel } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-example',
   template: \`
-    <ion-list${props.inset ? ' inset="true"' : ''}${props.lines !== 'full' ? ` lines="${props.lines}"` : ''}>
+    <ion-list${props['inset'] ? ' inset="true"' : ''}${props['lines'] !== 'full' ? ` lines="${props['lines']}"` : ''}>
 ${items}
     </ion-list>
   \`,
@@ -412,15 +412,15 @@ export class ExampleComponent {}`;
         },
       ],
       templateGenerator: (props) => {
-        const type = props.type !== 'text' ? ` type="${props.type}"` : '';
-        const labelPlacement = props.labelPlacement !== 'floating' ? ` labelPlacement="${props.labelPlacement}"` : '';
-        const placeholder = props.placeholder ? ` placeholder="${props.placeholder}"` : '';
-        const disabled = props.disabled ? ' [disabled]="true"' : '';
-        const readonly = props.readonly ? ' readonly' : '';
-        const clearInput = props.clearInput ? ' clearInput' : '';
+        const type = props['type'] !== 'text' ? ` type="${props['type']}"` : '';
+        const labelPlacement = props['labelPlacement'] !== 'floating' ? ` labelPlacement="${props['labelPlacement']}"` : '';
+        const placeholder = props['placeholder'] ? ` placeholder="${props['placeholder']}"` : '';
+        const disabled = props['disabled'] ? ' [disabled]="true"' : '';
+        const readonly = props['readonly'] ? ' readonly' : '';
+        const clearInput = props['clearInput'] ? ' clearInput' : '';
 
         return `<ion-input${type}${labelPlacement}${placeholder}${disabled}${readonly}${clearInput}>
-  <div slot="label">${props.label}</div>
+  <div slot="label">${props['label']}</div>
 </ion-input>`;
       },
       typescriptGenerator: (props) => {
@@ -430,8 +430,8 @@ import { IonInput } from '@ionic/angular/standalone';
 @Component({
   selector: 'app-example',
   template: \`
-    <ion-input${props.type !== 'text' ? ` type="${props.type}"` : ''}${props.labelPlacement !== 'floating' ? ` labelPlacement="${props.labelPlacement}"` : ''}${props.placeholder ? ` placeholder="${props.placeholder}"` : ''}${props.disabled ? ' [disabled]="true"' : ''}${props.readonly ? ' readonly' : ''}${props.clearInput ? ' clearInput' : ''}>
-      <div slot="label">${props.label}</div>
+    <ion-input${props['type'] !== 'text' ? ` type="${props['type']}"` : ''}${props['labelPlacement'] !== 'floating' ? ` labelPlacement="${props['labelPlacement']}"` : ''}${props['placeholder'] ? ` placeholder="${props['placeholder']}"` : ''}${props['disabled'] ? ' [disabled]="true"' : ''}${props['readonly'] ? ' readonly' : ''}${props['clearInput'] ? ' clearInput' : ''}>
+      <div slot="label">${props['label']}</div>
     </ion-input>
   \`,
   standalone: true,
@@ -493,13 +493,13 @@ export class ExampleComponent {}`;
         },
       ],
       templateGenerator: (props) => {
-        const checked = props.checked ? ' [checked]="true"' : '';
-        const color = props.color !== 'primary' ? ` color="${props.color}"` : '';
-        const disabled = props.disabled ? ' [disabled]="true"' : '';
+        const checked = props['checked'] ? ' [checked]="true"' : '';
+        const color = props['color'] !== 'primary' ? ` color="${props['color']}"` : '';
+        const disabled = props['disabled'] ? ' [disabled]="true"' : '';
 
         return `<ion-item>
   <ion-toggle${checked}${color}${disabled}>
-    ${props.label}
+    ${props['label']}
   </ion-toggle>
 </ion-item>`;
       },
@@ -511,8 +511,8 @@ import { IonItem, IonToggle } from '@ionic/angular/standalone';
   selector: 'app-example',
   template: \`
     <ion-item>
-      <ion-toggle${props.checked ? ' [checked]="true"' : ''}${props.color !== 'primary' ? ` color="${props.color}"` : ''}${props.disabled ? ' [disabled]="true"' : ''}>
-        ${props.label}
+      <ion-toggle${props['checked'] ? ' [checked]="true"' : ''}${props['color'] !== 'primary' ? ` color="${props['color']}"` : ''}${props['disabled'] ? ' [disabled]="true"' : ''}>
+        ${props['label']}
       </ion-toggle>
     </ion-item>
   \`,

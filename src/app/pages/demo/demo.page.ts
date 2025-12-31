@@ -1,4 +1,3 @@
-
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -41,8 +40,6 @@ import { ComponentPlaygroundComponent } from '@components/component-playground/c
     IonSegmentButton,
     IonLabel,
     IonIcon,
-    IonCard,
-    IonCardContent,
     ComponentPlaygroundComponent,
   ],
 })
