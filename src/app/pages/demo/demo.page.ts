@@ -55,7 +55,7 @@ export class DemoPage implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private demoService: DemoService,
+    public demoService: DemoService, // I need it in the template, so make it public, alternatively I could create a wrappermethod in component
     private chaptersService: ChaptersService
   ) {
     addIcons({ chevronBack });
