@@ -71,7 +71,22 @@
     <div class="sections-container">
       <ion-card *ngFor="let section of chapter.sections" class="section-card">
         <ion-card-header>
-          <ion-card-title>{{ section.title }}</ion-card-title>
+          <div class="section-header">
+            <ion-card-title>{{ section.title }}</ion-card-title>
+
+            <!-- Bookmark Button -->
+            <ion-button
+              fill="clear"
+              size="small"
+              [color]="isSectionBookmarked(section) ? 'warning' : 'medium'"
+              (click)="isSectionBookmarked(section) ? removeBookmark(section) : addBookmark(section)"
+            >
+              <ion-icon
+                [name]="isSectionBookmarked(section) ? 'bookmark' : 'bookmark-outline'"
+                slot="icon-only"
+              ></ion-icon>
+            </ion-button>
+          </div>
         </ion-card-header>
 
         <ion-card-content>

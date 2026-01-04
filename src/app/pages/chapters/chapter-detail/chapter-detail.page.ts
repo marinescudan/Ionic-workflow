@@ -17,7 +17,8 @@ import {
   IonCardContent,
   IonChip,
   IonLabel,
-  IonBadge,
+  // IonBadge,
+  ToastController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
@@ -29,6 +30,7 @@ import {
 import { ChaptersService } from '@services/chapters/chapters.service';
 import { Chapter, Section } from '@app/models/chapter.model';
 import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
+import { ProgressService } from '@services/progress/progress.service';
 
 @Component({
   selector: 'app-chapter-detail',
@@ -51,8 +53,8 @@ import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.comp
     IonCardContent,
     IonChip,
     IonLabel,
-    IonBadge,
-    CodeSnippetComponent, // Our custom component
+    // IonBadge,
+    CodeSnippetComponent,
   ],
 })
 export class ChapterDetailPage implements OnInit {
@@ -63,7 +65,9 @@ export class ChapterDetailPage implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private chaptersService: ChaptersService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private progressService: ProgressService,
+    private toastController: ToastController
   ) {
     addIcons({ chevronBack, checkmarkCircle, playCircle, alertCircle });
   }
@@ -113,5 +117,58 @@ export class ChapterDetailPage implements OnInit {
       advanced: 'warning',
     };
     return colors[category] || 'medium';
+  }
+
+  // Add bookmark to section
+  addBookmark(section: Section) {
+    if (this.chapter) {
+      const bookmarkId = this.progressService.addBookmark({
+        chapterId: this.chapter.id,
+        sectionId: section.id,
+        sectionTitle: section.title,
+        chapterTitle: this.chapter.title,
+      });
+
+      section.bookmarked = true;
+      section.bookmarkId = bookmarkId;
+
+      this.showToast('Bookmark added!', 'success');
+    }
+  }
+
+  // Remove bookmark
+  removeBookmark(section: Section) {
+    if (section.bookmarkId) {
+      this.progressService.removeBookmark(section.bookmarkId);
+      section.bookmarked = false;
+      section.bookmarkId = undefined;
+
+      this.showToast('Bookmark removed', 'success');
+    }
+  }
+
+  // Check if section is bookmarked
+  isSectionBookmarked(section: Section): boolean {
+    if (!this.chapter) return false;
+    const bookmarks = this.progressService.getChapterBookmarks(this.chapter.id);
+    const bookmark = bookmarks.find(b => b.sectionId === section.id);
+
+    if (bookmark) {
+      section.bookmarked = true;
+      section.bookmarkId = bookmark.id;
+      return true;
+    }
+
+    return false;
+  }
+
+  private async showToast(message: string, color: string) {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2000,
+      position: 'bottom',
+      color,
+    });
+    await toast.present();
   }
 }
