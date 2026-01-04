@@ -30,62 +30,65 @@
 
   <!-- Chapters Grid -->
   <div class="chapters-container">
-    <ion-card
-      *ngFor="let chapter of chapters"
-      [class.completed]="chapter.completed"
-      (click)="openChapter(chapter)"
-      button
-    >
-      <!-- Completed Badge -->
-      <ion-badge
-        *ngIf="chapter.completed"
-        color="success"
-        class="completed-badge"
+    @for (chapter of chapters; track chapter.id) {
+      <ion-card
+        [class.completed]="chapter.completed"
+        (click)="openChapter(chapter)"
+        button
       >
-        <ion-icon name="checkmark-circle"></ion-icon>
-        Completed
-      </ion-badge>
+        <!-- Completed Badge -->
+        @if (chapter.completed) {
+          <ion-badge
+            color="success"
+            class="completed-badge"
+          >
+            <ion-icon name="checkmark-circle"></ion-icon>
+            Completed
+          </ion-badge>
+        }
 
-      <ion-card-header>
-        <div class="card-header-content">
-          <ion-icon
-            [name]="chapter.icon"
-            [color]="getCategoryColor(chapter.category)"
-            class="chapter-icon"
-          ></ion-icon>
-          <div>
-            <ion-card-title>{{ chapter.title }}</ion-card-title>
-            <ion-card-subtitle>{{ chapter.description }}</ion-card-subtitle>
+        <ion-card-header>
+          <div class="card-header-content">
+            <ion-icon
+              [name]="chapter.icon"
+              [color]="getCategoryColor(chapter.category)"
+              class="chapter-icon"
+            ></ion-icon>
+            <div>
+              <ion-card-title>{{ chapter.title }}</ion-card-title>
+              <ion-card-subtitle>{{ chapter.description }}</ion-card-subtitle>
+            </div>
           </div>
-        </div>
-      </ion-card-header>
+        </ion-card-header>
 
-      <ion-card-content>
-        <!-- Category Chip -->
-        <ion-chip [color]="getCategoryColor(chapter.category)" outline="true">
-          <ion-label>{{ chapter.category | titlecase }}</ion-label>
-        </ion-chip>
+        <ion-card-content>
+          <!-- Category Chip -->
+          <ion-chip [color]="getCategoryColor(chapter.category)" outline="true">
+            <ion-label>{{ chapter.category | titlecase }}</ion-label>
+          </ion-chip>
 
-        <!-- Sections Count -->
-        <div class="meta-info">
-          <span class="section-count">
-            <ion-icon name="code"></ion-icon>
-            {{ chapter.sections.length }} sections
-          </span>
-        </div>
+          <!-- Sections Count -->
+          <div class="meta-info">
+            <span class="section-count">
+              <ion-icon name="code"></ion-icon>
+              {{ chapter.sections.length }} sections
+            </span>
+          </div>
 
-        <!-- Demo Button -->
-        <ion-button
-          *ngIf="chapter.hasDemo"
-          expand="block"
-          fill="outline"
-          size="small"
-          (click)="openDemo($event, chapter)"
-        >
-          <ion-icon name="play" slot="start"></ion-icon>
-          Live Demo
-        </ion-button>
-      </ion-card-content>
-    </ion-card>
+          <!-- Demo Button -->
+          @if (chapter.hasDemo) {
+            <ion-button
+              expand="block"
+              fill="outline"
+              size="small"
+              (click)="openDemo($event, chapter)"
+            >
+              <ion-icon name="play" slot="start"></ion-icon>
+              Live Demo
+            </ion-button>
+          }
+        </ion-card-content>
+      </ion-card>
+    }
   </div>
 </ion-content>

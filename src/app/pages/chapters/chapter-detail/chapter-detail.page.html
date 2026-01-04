@@ -7,134 +7,153 @@
     <ion-title>{{ chapter?.title || 'Chapter' }}</ion-title>
 
     <!-- Completed badge in header -->
-    <ion-buttons slot="end" *ngIf="chapter?.completed">
-      <ion-chip color="success">
-        <ion-icon name="checkmark-circle"></ion-icon>
-        <ion-label>Completed</ion-label>
-      </ion-chip>
-    </ion-buttons>
+    @if (chapter?.completed) {
+      <ion-buttons slot="end">
+        <ion-chip color="success">
+          <ion-icon name="checkmark-circle"></ion-icon>
+          <ion-label>Completed</ion-label>
+        </ion-chip>
+      </ion-buttons>
+    }
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="chapter-detail-container" *ngIf="chapter">
+  @if (chapter) {
+    <div class="chapter-detail-container">
 
-    <!-- Chapter Header -->
-    <div class="chapter-header">
-      <div class="header-content">
-        <ion-icon
-          [name]="chapter.icon"
-          [color]="getCategoryColor(chapter.category)"
-          class="chapter-icon"
-        ></ion-icon>
-        <div class="header-text">
-          <h1>{{ chapter.title }}</h1>
-          <p class="chapter-description">{{ chapter.description }}</p>
+      <!-- Chapter Header -->
+      <div class="chapter-header">
+        <div class="header-content">
+          <ion-icon
+            [name]="chapter.icon"
+            [color]="getCategoryColor(chapter.category)"
+            class="chapter-icon"
+          ></ion-icon>
+          <div class="header-text">
+            <h1>{{ chapter.title }}</h1>
+            <p class="chapter-description">{{ chapter.description }}</p>
 
-          <!-- Category & Sections -->
-          <div class="meta-info">
-            <ion-chip [color]="getCategoryColor(chapter.category)" outline="true">
-              <ion-label>{{ chapter.category | titlecase }}</ion-label>
-            </ion-chip>
-            <span class="section-count">
-              {{ chapter.sections.length }} sections
-            </span>
+            <!-- Category & Sections -->
+            <div class="meta-info">
+              <ion-chip [color]="getCategoryColor(chapter.category)" outline="true">
+                <ion-label>{{ chapter.category | titlecase }}</ion-label>
+              </ion-chip>
+              <span class="section-count">
+                {{ chapter.sections.length }} sections
+              </span>
+            </div>
           </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          @if (!chapter.completed) {
+            <ion-button
+              expand="block"
+              color="success"
+              (click)="markComplete()"
+            >
+              <ion-icon name="checkmark-circle" slot="start"></ion-icon>
+              Mark as Complete
+            </ion-button>
+          }
+
+          @if (chapter.hasDemo) {
+            <ion-button
+              expand="block"
+              fill="outline"
+              (click)="openDemo()"
+            >
+              <ion-icon name="play-circle" slot="start"></ion-icon>
+              View Live Demo
+            </ion-button>
+          }
         </div>
       </div>
 
-      <!-- Action Buttons -->
-      <div class="action-buttons">
-        <ion-button
-          *ngIf="!chapter.completed"
-          expand="block"
-          color="success"
-          (click)="markComplete()"
-        >
-          <ion-icon name="checkmark-circle" slot="start"></ion-icon>
-          Mark as Complete
-        </ion-button>
+      <!-- Sections -->
+      <div class="sections-container">
+        @for (section of chapter.sections; track section.title) {
+          <ion-card class="section-card">
+            <ion-card-header>
+              <div class="section-header">
+                <ion-card-title>{{ section.title }}</ion-card-title>
 
-        <ion-button
-          *ngIf="chapter.hasDemo"
-          expand="block"
-          fill="outline"
-          (click)="openDemo()"
-        >
-          <ion-icon name="play-circle" slot="start"></ion-icon>
-          View Live Demo
-        </ion-button>
+                <!-- Bookmark Button -->
+                <ion-button
+                  fill="clear"
+                  size="small"
+                  [color]="isSectionBookmarked(section) ? 'warning' : 'medium'"
+                  (click)="isSectionBookmarked(section) ? removeBookmark(section) : addBookmark(section)"
+                >
+                  <ion-icon
+                    [name]="isSectionBookmarked(section) ? 'bookmark' : 'bookmark-outline'"
+                    slot="icon-only"
+                  ></ion-icon>
+                </ion-button>
+              </div>
+            </ion-card-header>
+
+            <ion-card-content>
+              <!-- Render HTML content -->
+              <div
+                class="section-content"
+                [innerHTML]="getSafeHtml(section.content)"
+              ></div>
+
+              <!-- Code Snippets -->
+              @if (section.codeSnippets.length > 0) {
+                <div class="code-snippets">
+                  @for (snippet of section.codeSnippets; track snippet.title) {
+                    <app-code-snippet
+                      [code]="snippet.code"
+                      [language]="snippet.language"
+                      [title]="snippet.title"
+                      [description]="snippet.description"
+                      [copyable]="snippet.copyable"
+                    ></app-code-snippet>
+                  }
+                </div>
+              }
+
+              <!-- Interview Tips -->
+              @if (section.interviewTips && section.interviewTips.length > 0) {
+                <div class="interview-tips">
+                  <div class="tips-header">
+                    <ion-icon name="alert-circle" color="warning"></ion-icon>
+                    <h4>Interview Tips</h4>
+                  </div>
+                  <ul>
+                    @for (tip of section.interviewTips; track tip) {
+                      <li>{{ tip }}</li>
+                    }
+                  </ul>
+                </div>
+              }
+            </ion-card-content>
+          </ion-card>
+        }
       </div>
+
+      <!-- Empty State -->
+      @if (chapter.sections.length === 0) {
+        <div class="empty-state">
+          <ion-icon name="alert-circle" color="medium"></ion-icon>
+          <p>Content coming soon!</p>
+        </div>
+      }
     </div>
-
-    <!-- Sections -->
-    <div class="sections-container">
-      <ion-card *ngFor="let section of chapter.sections" class="section-card">
-        <ion-card-header>
-          <div class="section-header">
-            <ion-card-title>{{ section.title }}</ion-card-title>
-
-            <!-- Bookmark Button -->
-            <ion-button
-              fill="clear"
-              size="small"
-              [color]="isSectionBookmarked(section) ? 'warning' : 'medium'"
-              (click)="isSectionBookmarked(section) ? removeBookmark(section) : addBookmark(section)"
-            >
-              <ion-icon
-                [name]="isSectionBookmarked(section) ? 'bookmark' : 'bookmark-outline'"
-                slot="icon-only"
-              ></ion-icon>
-            </ion-button>
-          </div>
-        </ion-card-header>
-
-        <ion-card-content>
-          <!-- Render HTML content -->
-          <div
-            class="section-content"
-            [innerHTML]="getSafeHtml(section.content)"
-          ></div>
-
-          <!-- Code Snippets -->
-          <div class="code-snippets" *ngIf="section.codeSnippets.length > 0">
-            <app-code-snippet
-              *ngFor="let snippet of section.codeSnippets"
-              [code]="snippet.code"
-              [language]="snippet.language"
-              [title]="snippet.title"
-              [description]="snippet.description"
-              [copyable]="snippet.copyable"
-            ></app-code-snippet>
-          </div>
-
-          <!-- Interview Tips -->
-          <div class="interview-tips" *ngIf="section.interviewTips && section.interviewTips.length > 0">
-            <div class="tips-header">
-              <ion-icon name="alert-circle" color="warning"></ion-icon>
-              <h4>Interview Tips</h4>
-            </div>
-            <ul>
-              <li *ngFor="let tip of section.interviewTips">{{ tip }}</li>
-            </ul>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </div>
-
-    <!-- Empty State -->
-    <div class="empty-state" *ngIf="chapter.sections.length === 0">
-      <ion-icon name="alert-circle" color="medium"></ion-icon>
-      <p>Content coming soon!</p>
-    </div>
-  </div>
+  }
 
   <!-- Loading/Error State -->
-  <div class="error-state" *ngIf="!chapter">
-    <ion-icon name="alert-circle" color="danger"></ion-icon>
-    <p>Chapter not found</p>
-    <ion-button fill="outline" (click)="goBack()">
-      Go Back
-    </ion-button>
-  </div>
+  @if (!chapter) {
+    <div class="error-state">
+      <ion-icon name="alert-circle" color="danger"></ion-icon>
+      <p>Chapter not found</p>
+      <ion-button fill="outline" (click)="goBack()">
+        Go Back
+      </ion-button>
+    </div>
+  }
 </ion-content>
