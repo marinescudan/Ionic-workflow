@@ -74,6 +74,20 @@
   }
 }
 
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+
+  ion-card-title {
+    flex: 1;
+  }
+
+  ion-button {
+    margin: -4px -8px 0 0;
+  }
+}
+
 .section-content {
   margin-bottom: 20px;
   line-height: 1.7;

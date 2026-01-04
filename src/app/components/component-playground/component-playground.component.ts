@@ -13,7 +13,7 @@ import {
   IonSelect,
   IonSelectOption,
   IonItem,
-  IonLabel,
+  // IonLabel,
   IonToast,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -45,7 +45,7 @@ declare const Prism: any;
     IonSelect,
     IonSelectOption,
     IonItem,
-    IonLabel,
+    // IonLabel,
     IonToast,
     CodeSnippetComponent,
     SafeHtmlPipe,

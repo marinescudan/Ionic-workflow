@@ -30,6 +30,9 @@ export interface Section {
   content: string; // HTML content with explanations
   codeSnippets: CodeSnippet[];
   interviewTips?: string[]; // Interview preparation tips
+  // Fields for bookmarking
+  bookmarked?: boolean;
+  bookmarkId?: string;
 }
 
 export interface CodeSnippet {
