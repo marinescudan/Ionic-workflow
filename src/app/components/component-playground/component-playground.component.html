@@ -39,57 +39,65 @@
       </div>
 
       <form [formGroup]="propsForm" class="props-form">
-        <div
-          *ngFor="let prop of demoComponent.propDefinitions"
-          class="prop-control"
-        >
-          <!-- Text Input -->
-          <ion-item *ngIf="prop.type === 'text'">
-            <ion-input
-              [formControlName]="prop.name"
-              [label]="prop.label"
-              labelPlacement="stacked"
-              [placeholder]="prop.description"
-            ></ion-input>
-          </ion-item>
+        @for (prop of demoComponent.propDefinitions; track prop.name) {
+          <div class="prop-control">
+            <!-- Text Input -->
+            @if (prop.type === 'text') {
+              <ion-item>
+                <ion-input
+                  [formControlName]="prop.name"
+                  [label]="prop.label"
+                  labelPlacement="stacked"
+                  [placeholder]="prop.description"
+                ></ion-input>
+              </ion-item>
+            }
 
-          <!-- Number Input -->
-          <ion-item *ngIf="prop.type === 'number'">
-            <ion-input
-              [formControlName]="prop.name"
-              [label]="prop.label"
-              labelPlacement="stacked"
-              type="number"
-              [placeholder]="prop.description"
-            ></ion-input>
-          </ion-item>
+            <!-- Number Input -->
+            @if (prop.type === 'number') {
+              <ion-item>
+                <ion-input
+                  [formControlName]="prop.name"
+                  [label]="prop.label"
+                  labelPlacement="stacked"
+                  type="number"
+                  [placeholder]="prop.description"
+                ></ion-input>
+              </ion-item>
+            }
 
-          <!-- Select Dropdown -->
-          <ion-item *ngIf="prop.type === 'select'">
-            <ion-select
-              [formControlName]="prop.name"
-              [label]="prop.label"
-              labelPlacement="stacked"
-            >
-              <ion-select-option
-                *ngFor="let option of prop.options"
-                [value]="option.value"
-              >
-                {{ option.label }}
-              </ion-select-option>
-            </ion-select>
-          </ion-item>
+            <!-- Select Dropdown -->
+            @if (prop.type === 'select') {
+              <ion-item>
+                <ion-select
+                  [formControlName]="prop.name"
+                  [label]="prop.label"
+                  labelPlacement="stacked"
+                >
+                  @for (option of prop.options; track option.value) {
+                    <ion-select-option
+                      [value]="option.value"
+                    >
+                      {{ option.label }}
+                    </ion-select-option>
+                  }
+                </ion-select>
+              </ion-item>
+            }
 
-          <!-- Boolean Toggle -->
-          <ion-item *ngIf="prop.type === 'boolean'">
-            <ion-toggle [formControlName]="prop.name">
-              {{ prop.label }}
-            </ion-toggle>
-          </ion-item>
+            <!-- Boolean Toggle -->
+            @if (prop.type === 'boolean') {
+              <ion-item>
+                <ion-toggle [formControlName]="prop.name">
+                  {{ prop.label }}
+                </ion-toggle>
+              </ion-item>
+            }
 
-          <!-- Description -->
-          <p class="prop-description">{{ prop.description }}</p>
-        </div>
+            <!-- Description -->
+            <p class="prop-description">{{ prop.description }}</p>
+          </div>
+        }
       </form>
     </div>
   </div>
