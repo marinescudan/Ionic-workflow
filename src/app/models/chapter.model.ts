@@ -1,10 +1,3 @@
-/*
-💡 INTERVIEW TIP:
-- Interfaces define structure (no runtime code)
-- Strong typing catches errors at compile time
-- Makes code self-documenting
-- IDE autocomplete works perfectly
-*/
 
 export interface Chapter {
   id: number;

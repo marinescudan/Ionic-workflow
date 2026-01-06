@@ -62,7 +62,7 @@ export class MarbleDiagramComponent implements OnInit, OnDestroy {
     if (this.isPlaying) return;
 
     this.isPlaying = true;
-    const frameTime = 100 / this.speed; // 100ms base, adjusted by speed
+    const frameTime = 1000 / this.speed; // 1000ms base, adjusted by speed
 
     this.animationInterval = interval(frameTime)
       .pipe(takeUntil(this.destroy$))

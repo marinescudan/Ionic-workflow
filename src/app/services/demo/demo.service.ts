@@ -625,10 +625,9 @@ export class ExampleComponent {
   getDemosByChapterId(chapterId: number): DemoComponent[] {
     // Map chapter IDs to demo components
     const chapterDemoMap: Record<number, string[]> = {
-      2: ['ion-button', 'ion-card', 'ion-list'], // Ionic Components chapter
-      3: ['ion-input', 'ion-toggle'], // Navigation chapter (could show nav-related)
-      4: ['ion-input'], // Forms chapter
-      6: ['rxjs-map', 'rxjs-switchmap', 'rxjs-combinelatest'],
+      2: ['ion-button', 'ion-card', 'ion-list'], // Chapter 2: Ionic Components
+      5: ['rxjs-map'],                            // Chapter 5: RxJS (only map operator exists)
+      // Chapter 6: Navigation demos handled separately in demo.page.ts
     };
 
     const demoIds = chapterDemoMap[chapterId] || [];

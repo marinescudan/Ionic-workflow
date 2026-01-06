@@ -105,7 +105,7 @@ export class DemoPage implements OnInit {
     });
 
     // Load patterns if Chapter 6
-    if (this.chapterId === 6) {
+    if (this.chapterId === 5) {
       this.patterns = this.rxjsExamples.getAllPatterns();
     }
   }
