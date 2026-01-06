@@ -35,3 +35,19 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
+
+
+/* Custom Global Styles */
+/* Achievements Card color backgrounds */
+:root {
+  --badge-blue: #3b82f6;
+  --badge-blue-light: #93c5fd;
+  --badge-purple: #8b5cf6;
+  --badge-purple-light: #c4b5fd;
+  --badge-orange: #f97316;
+  --badge-orange-light: #fdba74;
+  --badge-teal: #14b8a6;
+  --badge-teal-light: #5eead4;
+  --badge-pink: #ec4899;
+  --badge-pink-light: #f9a8d4;
+}

@@ -42,13 +42,16 @@ import {
   trophy,
   calendar,
   create,
+  medal,
+  book,
+  star,
 } from 'ionicons/icons';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ChaptersService } from '@services/chapters/chapters.service';
 import { ProgressService } from '@services/progress/progress.service';
 import { Chapter } from '@app/models/chapter.model';
-import { ProgressStats, Bookmark, CategoryProgress, WeeklyGoalStats } from '@app/models/progress.model';
+import { ProgressStats, Bookmark, CategoryProgress, WeeklyGoalStats, Achievement } from '@app/models/progress.model';
 
 @Component({
   selector: 'app-progress',
@@ -88,6 +91,7 @@ export class ProgressPage implements OnInit, OnDestroy {
   bookmarks: Bookmark[] = [];
   chapters: Chapter[] = [];
   weeklyGoalStats: WeeklyGoalStats | null = null;
+  achievements: (Achievement & { earned: boolean; earnedAt?: string })[] = [];
 
   showActions = false;
 
@@ -115,6 +119,9 @@ export class ProgressPage implements OnInit, OnDestroy {
       trophy,
       calendar,
       create,
+      medal,
+      book,
+      star,
     });
   }
 
@@ -133,12 +140,31 @@ export class ProgressPage implements OnInit, OnDestroy {
       this.stats = this.progressService.getStats(chapters);
       this.categoryProgress = this.progressService.getCategoryProgress(chapters);
       this.completedChapters = chapters.filter(c => c.completed);
+      this.progressService.setChaptersForAchievements(chapters);
+      this.achievements = this.progressService.getAllAchievements();
     });
 
     this.progressService.progress$.pipe(takeUntil(this.destroy$)).subscribe(progress => {
       this.bookmarks = progress.bookmarks;
       this.weeklyGoalStats = this.progressService.getWeeklyGoalStats();
+      this.achievements = this.progressService.getAllAchievements();
     });
+
+    // Subscribe to achievement notifications
+    this.progressService.achievementEarned$.pipe(takeUntil(this.destroy$)).subscribe(achievement => {
+      this.showAchievementToast(achievement);
+    });
+  }
+
+  private async showAchievementToast(achievement: Achievement) {
+    const toast = await this.toastController.create({
+      message: `Achievement Unlocked: ${achievement.name}!`,
+      duration: 3000,
+      position: 'top',
+      color: achievement.color,
+      icon: achievement.icon,
+    });
+    await toast.present();
   }
 
   // === WEEKLY GOALS ===
