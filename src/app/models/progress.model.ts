@@ -4,8 +4,14 @@ export interface ProgressData {
   timeTracking: TimeTracking;
   streak: LearningStreak;
   weeklyGoal?: WeeklyGoal;
+  earnedAchievements: EarnedAchievement[];
   lastUpdated: string; // ISO date string
   version: number; // For future migrations
+}
+
+export interface EarnedAchievement {
+  id: string;
+  earnedAt: string; // ISO date string
 }
 
 export interface Bookmark {
@@ -63,4 +69,12 @@ export interface WeeklyGoalStats {
   percentage: number;
   weekStart: string;
   daysRemaining: number;
+}
+
+export interface Achievement {
+  id: string;
+  name: string;
+  description: string;
+  icon: string;
+  color: string;
 }

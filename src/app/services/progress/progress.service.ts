@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, interval } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, interval } from 'rxjs';
 import { StorageService } from '@services/storage/storage.service';
 import {
   ProgressData,
@@ -10,8 +10,66 @@ import {
   CategoryProgress,
   WeeklyGoal,
   WeeklyGoalStats,
+  Achievement,
+  EarnedAchievement,
 } from '@app/models/progress.model';
 import { Chapter } from '@app/models/chapter.model';
+
+// Achievement definitions
+const ACHIEVEMENTS: (Achievement & { condition: (p: ProgressData, chapters: Chapter[]) => boolean })[] = [
+  {
+    id: 'first-chapter',
+    name: 'First Steps',
+    description: 'Complete your first chapter',
+    icon: 'trophy',
+    color: 'warning',
+    condition: (p) => p.completedChapters.length >= 1,
+  },
+  {
+    id: 'five-chapters',
+    name: 'Getting Serious',
+    description: 'Complete 5 chapters',
+    icon: 'medal',
+    color: 'primary',
+    condition: (p) => p.completedChapters.length >= 5,
+  },
+  {
+    id: 'week-streak',
+    name: 'Week Warrior',
+    description: 'Maintain a 7-day learning streak',
+    icon: 'flame',
+    color: 'danger',
+    condition: (p) => p.streak.current >= 7,
+  },
+  {
+    id: 'all-foundations',
+    name: 'Foundation Master',
+    description: 'Complete all foundation chapters',
+    icon: 'book',
+    color: 'success',
+    condition: (p, chapters) => {
+      const foundationChapters = chapters.filter(c => c.category === 'foundation');
+      return foundationChapters.length > 0 &&
+        foundationChapters.every(c => p.completedChapters.includes(c.id));
+    },
+  },
+  {
+    id: 'bookworm',
+    name: 'Bookworm',
+    description: 'Add 5 bookmarks',
+    icon: 'bookmark',
+    color: 'tertiary',
+    condition: (p) => p.bookmarks.length >= 5,
+  },
+  {
+    id: 'time-dedicated',
+    name: 'Dedicated Learner',
+    description: 'Spend 60 minutes learning',
+    icon: 'time',
+    color: 'secondary',
+    condition: (p) => p.timeTracking.totalMinutes >= 60,
+  },
+];
 
 @Injectable({
   providedIn: 'root',
@@ -23,7 +81,12 @@ export class ProgressService {
   private progressSubject = new BehaviorSubject<ProgressData>(this.getDefaultProgress());
   public progress$: Observable<ProgressData> = this.progressSubject.asObservable();
 
+  // Emits newly earned achievements for notifications
+  private achievementEarnedSubject = new Subject<Achievement>();
+  public achievementEarned$: Observable<Achievement> = this.achievementEarnedSubject.asObservable();
+
   private sessionTimerSubscription?: any;
+  private chapters: Chapter[] = []; // Cache for achievement checks
 
   constructor(private storage: StorageService) {
     this.loadProgress();
@@ -45,6 +108,7 @@ export class ProgressService {
         lastActivityDate: '',
         activeDays: [],
       },
+      earnedAchievements: [],
       lastUpdated: new Date().toISOString(),
       version: 1,
     };
@@ -80,6 +144,7 @@ export class ProgressService {
       this.trackWeeklyGoalCompletion(chapterId);
       this.progressSubject.next(data);
       this.saveProgress();
+      this.checkAchievements(); // Check for new achievements
     }
   }
 
@@ -109,6 +174,7 @@ export class ProgressService {
     data.bookmarks.push(newBookmark);
     this.progressSubject.next(data);
     this.saveProgress();
+    this.checkAchievements(); // Check for new achievements
     return newBookmark.id;
   }
 
@@ -462,6 +528,86 @@ export class ProgressService {
     const now = new Date();
     const dayOfWeek = now.getDay();
     return dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
+  }
+
+  // === ACHIEVEMENTS ===
+
+  // Set chapters for achievement checking
+  setChaptersForAchievements(chapters: Chapter[]): void {
+    this.chapters = chapters;
+    this.checkAchievements(); // Check on initial load
+  }
+
+  // Get all available achievements with earned status
+  getAllAchievements(): (Achievement & { earned: boolean; earnedAt?: string })[] {
+    const data = this.progressSubject.value;
+    const earnedIds = new Set(data.earnedAchievements.map(a => a.id));
+
+    return ACHIEVEMENTS.map(achievement => {
+      const earned = data.earnedAchievements.find(a => a.id === achievement.id);
+      return {
+        id: achievement.id,
+        name: achievement.name,
+        description: achievement.description,
+        icon: achievement.icon,
+        color: achievement.color,
+        earned: earnedIds.has(achievement.id),
+        earnedAt: earned?.earnedAt,
+      };
+    });
+  }
+
+  // Get only earned achievements
+  getEarnedAchievements(): (Achievement & { earnedAt: string })[] {
+    const data = this.progressSubject.value;
+
+    return data.earnedAchievements.map(earned => {
+      const achievement = ACHIEVEMENTS.find(a => a.id === earned.id);
+      return {
+        id: earned.id,
+        name: achievement?.name || 'Unknown',
+        description: achievement?.description || '',
+        icon: achievement?.icon || 'trophy',
+        color: achievement?.color || 'medium',
+        earnedAt: earned.earnedAt,
+      };
+    });
+  }
+
+  // Check and award new achievements
+  checkAchievements(): void {
+    const data = this.progressSubject.value;
+    const earnedIds = new Set(data.earnedAchievements.map(a => a.id));
+    let hasNewAchievements = false;
+
+    for (const achievement of ACHIEVEMENTS) {
+      // Skip if already earned
+      if (earnedIds.has(achievement.id)) continue;
+
+      // Check condition
+      if (achievement.condition(data, this.chapters)) {
+        // Award achievement
+        data.earnedAchievements.push({
+          id: achievement.id,
+          earnedAt: new Date().toISOString(),
+        });
+        hasNewAchievements = true;
+
+        // Emit notification
+        this.achievementEarnedSubject.next({
+          id: achievement.id,
+          name: achievement.name,
+          description: achievement.description,
+          icon: achievement.icon,
+          color: achievement.color,
+        });
+      }
+    }
+
+    if (hasNewAchievements) {
+      this.progressSubject.next(data);
+      this.saveProgress();
+    }
   }
 
   // === UTILITY ===

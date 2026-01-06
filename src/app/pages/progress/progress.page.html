@@ -70,6 +70,38 @@
       </ion-card>
     </div>
 
+    <!-- Achievements Section -->
+    <div class="achievements-section" *ngIf="achievements.length > 0">
+      <h2>
+        <ion-icon name="trophy"></ion-icon>
+        Achievements
+      </h2>
+      <ion-card>
+        <ion-card-content>
+          <div class="achievements-grid">
+            <div
+              *ngFor="let achievement of achievements"
+              class="achievement-badge"
+              [class.earned]="achievement.earned"
+              [class.locked]="!achievement.earned"
+            >
+              <div class="badge-icon" [attr.data-color]="achievement.color">
+                <ion-icon [name]="achievement.icon" [color]="achievement.earned ? achievement.color : 'medium'"></ion-icon>
+              </div>
+              <div class="badge-info">
+                <div class="badge-name">{{ achievement.name }}</div>
+                <div class="badge-description">{{ achievement.description }}</div>
+                <div class="badge-status" *ngIf="achievement.earned">
+                  <ion-icon name="checkmark-circle" color="success"></ion-icon>
+                  Earned
+                </div>
+              </div>
+            </div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
     <!-- Overall Statistics -->
     <div class="stats-section">
       <h2>Overall Progress</h2>
