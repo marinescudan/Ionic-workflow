@@ -62,3 +62,56 @@
     max-width: 400px;
   }
 }
+
+
+.marble-section,
+.patterns-section {
+  padding: 20px;
+
+  h2 {
+    margin: 0 0 20px 0;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ion-color-dark);
+  }
+}
+
+.pattern-card {
+  margin-bottom: 20px;
+
+  .use-case {
+    margin: 12px 0;
+    padding: 12px;
+    background: var(--ion-color-light);
+    border-radius: 8px;
+    font-size: 14px;
+  }
+
+  .explanation {
+    margin: 16px 0;
+
+    pre {
+      white-space: pre-wrap;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--ion-color-medium-shade);
+    }
+  }
+
+  .warning {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px;
+    background: #fff3cd;
+    border-left: 4px solid var(--ion-color-warning);
+    border-radius: 4px;
+    font-size: 13px;
+    margin-top: 16px;
+
+    ion-icon {
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+  }
+}

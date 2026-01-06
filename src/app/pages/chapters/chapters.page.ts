@@ -35,6 +35,7 @@ import { ChaptersService } from '@app/services/chapters/chapters.service';
 import { Chapter } from '@app/models/chapter.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { gitNetwork } from 'ionicons/icons';
 
 @Component({
   selector: 'app-chapters',
@@ -74,7 +75,18 @@ export class ChaptersPage implements OnInit, OnDestroy {
     private router: Router
   ) {
     // Register ionicons
-    addIcons({ rocket, apps, navigate, create, layers, checkmarkCircle, play, code, statsChart });
+    addIcons({
+      rocket,
+      apps,
+      navigate,
+      create,
+      layers,
+      checkmarkCircle,
+      play,
+      code,
+      statsChart,
+      gitNetwork
+    });
   }
 
   ngOnInit() {

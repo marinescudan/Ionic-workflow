@@ -1,16 +1,18 @@
-// Chapter-related constants extracted to dedicated file to:
-// - Reduce service file size and improve readability
-// - Allow constants reuse across components without importing service
-// - Separate configuration from logic
+// src/app/services/chapters/chapters.constants.ts
+// Chapter data extracted to dedicated file for:
+// - Better separation of concerns (data vs logic)
+// - Easier maintenance and updates
+// - Reusability across components
 
 import { Chapter } from '../../models/chapter.model';
 
 export const CHAPTERS_DATA: Chapter[] = [
+  // LESSON 1: Ionic Workflow Meta App
   {
     id: 1,
-    title: 'Getting Started',
+    title: 'Getting Started with Ionic',
     description: 'Learn Ionic basics, project setup, and core concepts',
-    icon: 'rocket',
+    icon: 'rocket-outline',
     category: 'foundation',
     completed: false,
     hasDemo: false,
@@ -159,11 +161,13 @@ bootstrapApplication(AppComponent, {
       },
     ],
   },
+
+  // LESSON 2: Chapter Detail Viewer
   {
     id: 2,
-    title: 'Ionic Components',
+    title: 'Ionic Components Library',
     description: 'Master buttons, cards, lists, and 100+ UI components',
-    icon: 'apps',
+    icon: 'grid-outline',
     category: 'components',
     completed: false,
     hasDemo: true,
@@ -282,21 +286,6 @@ export class ExampleComponent {
 </ion-card>`,
             copyable: true,
           },
-          {
-            id: 7,
-            language: 'html',
-            title: 'Clickable Card',
-            code: `<ion-card button (click)="openDetails()">
-  <ion-card-header>
-    <ion-card-title>Tap Me</ion-card-title>
-  </ion-card-header>
-  <ion-card-content>
-    This entire card is clickable
-  </ion-card-content>
-</ion-card>`,
-            description: 'The button attribute adds ripple effect and makes card tappable',
-            copyable: true,
-          },
         ],
         interviewTips: [
           'Cards use elevation (shadow) on Android, border on iOS',
@@ -306,36 +295,540 @@ export class ExampleComponent {
       },
     ],
   },
-  // Add more chapters as needed (keeping original 3, 4, 5)
+
+  // LESSON 3: Demo Playground (Interactive Component Playground)
   {
     id: 3,
-    title: 'Navigation & Routing',
-    description: 'Master routing, navigation, and deep linking',
-    icon: 'navigate',
-    category: 'navigation',
+    title: 'Interactive Demo Playground',
+    description: 'Live component demos with real-time property editing',
+    icon: 'construct-outline',
+    category: 'components',
     completed: false,
     hasDemo: true,
     sections: [],
   },
+
+  // LESSON 4: Progress Tracking & Analytics
   {
     id: 4,
+    title: 'Progress Tracking & Analytics',
+    description: 'Track learning progress with statistics, streaks, and bookmarks',
+    icon: 'analytics-outline',
+    category: 'advanced',
+    completed: false,
+    hasDemo: false,
+    sections: [],
+  },
+
+  // LESSON 5: RxJS Deep Dive (Full content from new lesson)
+  {
+    id: 5,
+    title: 'RxJS & Reactive Programming',
+    description: 'Master observables, operators, and reactive patterns',
+    icon: 'git-network-outline',
+    category: 'foundation',
+    completed: false,
+    hasDemo: true,
+    sections: [
+      {
+        id: 11,
+        title: 'What is RxJS?',
+        content: `
+          <h2>What is RxJS?</h2>
+          <p>RxJS (Reactive Extensions for JavaScript) is a library for reactive programming using Observables. It makes composing asynchronous or callback-based code easier.</p>
+
+          <h3>Observable vs Promise</h3>
+          <table>
+            <tr>
+              <th>Feature</th>
+              <th>Promise</th>
+              <th>Observable</th>
+            </tr>
+            <tr>
+              <td>Values</td>
+              <td>Single value</td>
+              <td>Multiple values over time</td>
+            </tr>
+            <tr>
+              <td>Execution</td>
+              <td>Eager (starts immediately)</td>
+              <td>Lazy (starts on subscribe)</td>
+            </tr>
+            <tr>
+              <td>Cancellable</td>
+              <td>No</td>
+              <td>Yes (unsubscribe)</td>
+            </tr>
+            <tr>
+              <td>Operators</td>
+              <td>then(), catch()</td>
+              <td>100+ operators (map, filter, etc.)</td>
+            </tr>
+          </table>
+
+          <h3>Why Use RxJS?</h3>
+          <ul>
+            <li><strong>Declarative:</strong> Describe what you want, not how to do it</li>
+            <li><strong>Composable:</strong> Chain operators for complex logic</li>
+            <li><strong>Functional:</strong> Pure functions, no side effects</li>
+            <li><strong>Powerful:</strong> Handle events, async data, state management</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 101,
+            language: 'typescript',
+            title: 'Promise vs Observable',
+            code: `// Promise: Single value, eager
+const promise = fetch('/api/data');
+promise.then(data => console.log(data));
+// HTTP request starts immediately
+
+// Observable: Multiple values, lazy
+const observable = new Observable(subscriber => {
+  subscriber.next(1);
+  setTimeout(() => subscriber.next(2), 1000);
+  setTimeout(() => subscriber.next(3), 2000);
+});
+// Nothing happens until subscribe()
+
+observable.subscribe(value => console.log(value));
+// Now it starts: 1, 2 (after 1s), 3 (after 2s)`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'Observable is lazy - nothing happens until subscribe()',
+          'Promises start executing immediately (eager)',
+          'Observables can emit 0 to infinite values',
+          'Use async pipe in Angular to auto-unsubscribe',
+        ],
+      },
+      {
+        id: 12,
+        title: 'Creating Observables',
+        content: `
+          <h2>Creating Observables</h2>
+          <p>RxJS provides many creation operators for different use cases.</p>
+
+          <h3>Common Creation Operators</h3>
+          <ul>
+            <li><strong>of():</strong> Emit values from a list</li>
+            <li><strong>from():</strong> Convert array/promise/iterable to Observable</li>
+            <li><strong>interval():</strong> Emit numbers at intervals</li>
+            <li><strong>timer():</strong> Emit after delay, then at intervals</li>
+            <li><strong>fromEvent():</strong> Convert DOM events to Observable</li>
+            <li><strong>new Observable():</strong> Custom Observable logic</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 103,
+            language: 'typescript',
+            title: 'Creation Operators',
+            code: `import { of, from, interval, timer, fromEvent } from 'rxjs';
+
+// of(): Emit fixed values
+of(1, 2, 3).subscribe(x => console.log(x));
+// Output: 1, 2, 3
+
+// from(): Convert array to Observable
+from([10, 20, 30]).subscribe(x => console.log(x));
+// Output: 10, 20, 30
+
+// interval(): Emit every N milliseconds
+interval(1000).subscribe(x => console.log(x));
+// Output: 0 (after 1s), 1 (after 2s), 2 (after 3s)...`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'of() and from() emit synchronously and complete',
+          'interval() and timer() emit indefinitely (must unsubscribe)',
+          'Always return cleanup function in custom Observables',
+        ],
+      },
+      {
+        id: 13,
+        title: 'Subjects: Multicasting',
+        content: `
+          <h2>Subjects</h2>
+          <p>Subjects are special Observables that can multicast to multiple subscribers.</p>
+
+          <h3>Types of Subjects</h3>
+          <ul>
+            <li><strong>Subject:</strong> No initial value, emits to current subscribers only</li>
+            <li><strong>BehaviorSubject:</strong> Requires initial value, emits current value to new subscribers</li>
+            <li><strong>ReplaySubject:</strong> Replays N previous values to new subscribers</li>
+            <li><strong>AsyncSubject:</strong> Only emits last value when completed</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 105,
+            language: 'typescript',
+            title: 'Subject vs BehaviorSubject',
+            code: `import { Subject, BehaviorSubject } from 'rxjs';
+
+// Subject: No initial value
+const subject$ = new Subject<number>();
+
+subject$.subscribe(x => console.log('Sub A:', x));
+subject$.next(1); // Sub A: 1
+
+subject$.subscribe(x => console.log('Sub B:', x));
+subject$.next(2); // Sub A: 2, Sub B: 2
+// Sub B did NOT receive 1
+
+// BehaviorSubject: Requires initial value
+const behavior$ = new BehaviorSubject<number>(0);
+
+behavior$.subscribe(x => console.log('Sub A:', x)); // Sub A: 0
+behavior$.next(1); // Sub A: 1
+
+behavior$.subscribe(x => console.log('Sub B:', x)); // Sub B: 1 (current)
+behavior$.next(2); // Sub A: 2, Sub B: 2`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'BehaviorSubject is most common for state management',
+          'Always use .asObservable() to prevent external next() calls',
+          'ReplaySubject uses more memory (stores history)',
+        ],
+      },
+      {
+        id: 14,
+        title: 'Transformation Operators',
+        content: `
+          <h2>Transformation Operators</h2>
+          <p>Transform values emitted by an Observable.</p>
+
+          <h3>Essential Operators</h3>
+          <ul>
+            <li><strong>map:</strong> Transform each value</li>
+            <li><strong>switchMap:</strong> Switch to new Observable, cancel previous</li>
+            <li><strong>mergeMap:</strong> Run Observables concurrently</li>
+            <li><strong>concatMap:</strong> Run Observables sequentially</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 108,
+            language: 'typescript',
+            title: 'map vs switchMap',
+            code: `import { of, fromEvent } from 'rxjs';
+import { map, switchMap } from 'rxjs/operators';
+
+// map: Transform value (synchronous)
+of(1, 2, 3).pipe(
+  map(x => x * 10)
+).subscribe(x => console.log(x));
+// Output: 10, 20, 30
+
+// switchMap: Transform to Observable (async)
+fromEvent(searchInput, 'input').pipe(
+  map(event => event.target.value),
+  switchMap(term => this.api.search(term))
+).subscribe(results => {
+  displayResults(results);
+});`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'switchMap is most common (95% of use cases)',
+          'Use switchMap for HTTP requests from user input',
+          'mergeMap = concurrent, concatMap = sequential',
+        ],
+      },
+      {
+        id: 15,
+        title: 'Combination Operators',
+        content: `
+          <h2>Combination Operators</h2>
+          <p>Combine multiple Observables into one.</p>
+
+          <h3>Key Operators</h3>
+          <ul>
+            <li><strong>combineLatest:</strong> Emit when any source emits</li>
+            <li><strong>forkJoin:</strong> Emit once when all complete (like Promise.all)</li>
+            <li><strong>merge:</strong> Emit from any source immediately</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 110,
+            language: 'typescript',
+            title: 'combineLatest vs forkJoin',
+            code: `import { combineLatest, forkJoin, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+
+const user$ = of({ name: 'John' }).pipe(delay(100));
+const settings$ = of({ theme: 'dark' }).pipe(delay(200));
+
+// combineLatest: Emit when ANY source emits
+combineLatest([user$, settings$]).subscribe(
+  ([user, settings]) => {
+    console.log('combineLatest:', { user, settings });
+  }
+);
+
+// forkJoin: Emit ONCE when ALL complete
+forkJoin([user$, settings$]).subscribe(
+  ([user, settings]) => {
+    console.log('forkJoin:', { user, settings });
+  }
+);`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'combineLatest waits for all sources to emit at least once',
+          'forkJoin is like Promise.all (one-time)',
+          'merge for events, combineLatest for state',
+        ],
+      },
+      {
+        id: 16,
+        title: 'Filtering & Utility Operators',
+        content: `
+          <h2>Filtering & Utility Operators</h2>
+          <p>Control which values pass through.</p>
+
+          <h3>Essential Operators</h3>
+          <ul>
+            <li><strong>debounceTime:</strong> Wait for pause in emissions</li>
+            <li><strong>distinctUntilChanged:</strong> Filter consecutive duplicates</li>
+            <li><strong>take:</strong> Take N values then complete</li>
+            <li><strong>takeUntil:</strong> Complete when another Observable emits</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 112,
+            language: 'typescript',
+            title: 'Search with debounceTime',
+            code: `import { fromEvent } from 'rxjs';
+import {
+  map,
+  debounceTime,
+  distinctUntilChanged,
+  switchMap
+} from 'rxjs/operators';
+
+fromEvent(searchInput, 'input').pipe(
+  map(event => event.target.value),
+  debounceTime(300),
+  distinctUntilChanged(),
+  switchMap(term => this.api.search(term))
+).subscribe(results => {
+  displayResults(results);
+});`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'debounceTime 300-500ms is standard for search',
+          'distinctUntilChanged prevents duplicate API calls',
+          'takeUntil is best practice for cleanup',
+        ],
+      },
+      {
+        id: 17,
+        title: 'Error Handling',
+        content: `
+          <h2>Error Handling in RxJS</h2>
+          <p>Handle errors gracefully and implement retry logic.</p>
+
+          <h3>Error Operators</h3>
+          <ul>
+            <li><strong>catchError:</strong> Handle error and return new Observable</li>
+            <li><strong>retry:</strong> Retry N times on error</li>
+            <li><strong>retryWhen:</strong> Conditional retry with custom logic</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 115,
+            language: 'typescript',
+            title: 'catchError Pattern',
+            code: `import { of, throwError } from 'rxjs';
+import { catchError, map } from 'rxjs/operators';
+
+this.http.get('/api/users').pipe(
+  map(users => users.data),
+  catchError(error => {
+    console.error('API Error:', error);
+    return of([]); // Return fallback
+  })
+).subscribe(users => {
+  console.log('Users:', users);
+});`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'catchError must return Observable',
+          'retry for transient errors',
+          'Use exponential backoff for production',
+        ],
+      },
+      {
+        id: 18,
+        title: 'Memory Leak Prevention',
+        content: `
+          <h2>Preventing Memory Leaks</h2>
+          <p>Always cleanup subscriptions!</p>
+
+          <h3>Cleanup Strategies</h3>
+          <ul>
+            <li><strong>async pipe:</strong> Auto-unsubscribes (best)</li>
+            <li><strong>takeUntil pattern:</strong> Complete on destroy</li>
+            <li><strong>Manual unsubscribe:</strong> Call subscription.unsubscribe()</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 118,
+            language: 'typescript',
+            title: 'takeUntil Pattern',
+            code: `import { Component, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+export class MyComponent implements OnDestroy {
+  private destroy$ = new Subject<void>();
+
+  ngOnInit() {
+    this.data$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(data => {
+      console.log(data);
+    });
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+}`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'async pipe is best (auto-cleanup)',
+          'takeUntil pattern for imperative code',
+          'Manual unsubscribe is verbose',
+        ],
+      },
+      {
+        id: 19,
+        title: 'Hot vs Cold Observables',
+        content: `
+          <h2>Hot vs Cold Observables</h2>
+          <p>Understanding hot and cold Observables is crucial.</p>
+
+          <h3>Cold Observables</h3>
+          <ul>
+            <li>Start producing values on subscribe</li>
+            <li>Each subscriber gets independent execution</li>
+            <li>Examples: HTTP requests, timers</li>
+          </ul>
+
+          <h3>Hot Observables</h3>
+          <ul>
+            <li>Produce values regardless of subscribers</li>
+            <li>All subscribers share execution</li>
+            <li>Examples: DOM events, Subjects</li>
+          </ul>
+        `,
+        codeSnippets: [
+          {
+            id: 121,
+            language: 'typescript',
+            title: 'Cold Observable Example',
+            code: `import { Observable } from 'rxjs';
+
+const cold$ = new Observable(subscriber => {
+  console.log('Producer started');
+  subscriber.next(Math.random());
+});
+
+cold$.subscribe(x => console.log('Sub A:', x));
+// Producer started, Sub A: 0.123
+
+cold$.subscribe(x => console.log('Sub B:', x));
+// Producer started (again!), Sub B: 0.456`,
+            copyable: true,
+          },
+        ],
+        interviewTips: [
+          'HTTP requests are cold (each subscribe = new request)',
+          'Use share() to multicast cold Observables',
+          'Subjects are always hot',
+        ],
+      },
+    ],
+  },
+
+  // LESSON 6: Forms & Validation (Future)
+  {
+    id: 6,
     title: 'Forms & Validation',
-    description: 'Build reactive forms with validation',
-    icon: 'create',
+    description: 'Build reactive forms with complex validation patterns',
+    icon: 'create-outline',
     category: 'foundation',
     completed: false,
     hasDemo: true,
     sections: [],
   },
+
+  // LESSON 7: NgRx Store (Future)
   {
-    id: 5,
-    title: 'State Management',
-    description: 'Learn NgRx for enterprise-scale apps',
-    icon: 'layers',
+    id: 7,
+    title: 'NgRx State Management',
+    description: 'Enterprise-scale state with actions, reducers, and effects',
+    icon: 'layers-outline',
     category: 'state',
     completed: false,
     hasDemo: false,
     sections: [],
   },
-];
 
+  // LESSON 8: GraphQL (Future)
+  {
+    id: 8,
+    title: 'GraphQL Integration',
+    description: 'Query and mutate data with Apollo Client',
+    icon: 'git-branch-outline',
+    category: 'advanced',
+    completed: false,
+    hasDemo: false,
+    sections: [],
+  },
+
+  // LESSON 9: Real-time (Future)
+  {
+    id: 9,
+    title: 'Real-time with Socket.io',
+    description: 'Build live chat and notifications',
+    icon: 'flash-outline',
+    category: 'advanced',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  },
+
+  // LESSON 10: Camera (Future)
+  {
+    id: 10,
+    title: 'Native Camera API',
+    description: 'Capture and upload photos with Capacitor',
+    icon: 'camera-outline',
+    category: 'native',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  },
+];
