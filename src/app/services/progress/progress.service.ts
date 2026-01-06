@@ -8,6 +8,8 @@ import {
   LearningStreak,
   ProgressStats,
   CategoryProgress,
+  WeeklyGoal,
+  WeeklyGoalStats,
 } from '@app/models/progress.model';
 import { Chapter } from '@app/models/chapter.model';
 
@@ -75,6 +77,7 @@ export class ProgressService {
     if (!data.completedChapters.includes(chapterId)) {
       data.completedChapters.push(chapterId);
       this.recordActivity();
+      this.trackWeeklyGoalCompletion(chapterId);
       this.progressSubject.next(data);
       this.saveProgress();
     }
@@ -357,6 +360,108 @@ export class ProgressService {
     data.bookmarks = [];
     this.progressSubject.next(data);
     this.saveProgress();
+  }
+
+  // === WEEKLY GOALS ===
+
+  setWeeklyGoal(targetChapters: number): void {
+    const data = this.progressSubject.value;
+    const weekStart = this.getWeekStart();
+
+    data.weeklyGoal = {
+      targetChapters,
+      weekStart,
+      completedThisWeek: [],
+    };
+
+    this.progressSubject.next(data);
+    this.saveProgress();
+  }
+
+  getWeeklyGoalStats(): WeeklyGoalStats | null {
+    const data = this.progressSubject.value;
+
+    if (!data.weeklyGoal) {
+      return null;
+    }
+
+    const currentWeekStart = this.getWeekStart();
+    const isNewWeek = data.weeklyGoal.weekStart !== currentWeekStart;
+
+    // If it's a new week, reset the tracking
+    if (isNewWeek) {
+      this.resetWeeklyGoalForNewWeek();
+      return this.getWeeklyGoalStats();
+    }
+
+    const completed = data.weeklyGoal.completedThisWeek.length;
+    const target = data.weeklyGoal.targetChapters;
+
+    return {
+      target,
+      completed,
+      percentage: target > 0 ? Math.min((completed / target) * 100, 100) : 0,
+      weekStart: data.weeklyGoal.weekStart,
+      daysRemaining: this.getDaysRemainingInWeek(),
+    };
+  }
+
+  hasWeeklyGoal(): boolean {
+    return !!this.progressSubject.value.weeklyGoal;
+  }
+
+  clearWeeklyGoal(): void {
+    const data = this.progressSubject.value;
+    data.weeklyGoal = undefined;
+    this.progressSubject.next(data);
+    this.saveProgress();
+  }
+
+  private resetWeeklyGoalForNewWeek(): void {
+    const data = this.progressSubject.value;
+
+    if (data.weeklyGoal) {
+      data.weeklyGoal = {
+        targetChapters: data.weeklyGoal.targetChapters,
+        weekStart: this.getWeekStart(),
+        completedThisWeek: [],
+      };
+      this.progressSubject.next(data);
+      this.saveProgress();
+    }
+  }
+
+  private trackWeeklyGoalCompletion(chapterId: number): void {
+    const data = this.progressSubject.value;
+
+    if (data.weeklyGoal) {
+      const currentWeekStart = this.getWeekStart();
+
+      if (data.weeklyGoal.weekStart !== currentWeekStart) {
+        this.resetWeeklyGoalForNewWeek();
+      }
+
+      if (!data.weeklyGoal.completedThisWeek.includes(chapterId)) {
+        data.weeklyGoal.completedThisWeek.push(chapterId);
+        this.progressSubject.next(data);
+        this.saveProgress();
+      }
+    }
+  }
+
+  private getWeekStart(): string {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
+    const monday = new Date(now);
+    monday.setDate(now.getDate() + diff);
+    return this.formatDate(monday);
+  }
+
+  private getDaysRemainingInWeek(): number {
+    const now = new Date();
+    const dayOfWeek = now.getDay();
+    return dayOfWeek === 0 ? 0 : 7 - dayOfWeek;
   }
 
   // === UTILITY ===

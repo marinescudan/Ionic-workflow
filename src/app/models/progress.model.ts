@@ -3,6 +3,7 @@ export interface ProgressData {
   bookmarks: Bookmark[];
   timeTracking: TimeTracking;
   streak: LearningStreak;
+  weeklyGoal?: WeeklyGoal;
   lastUpdated: string; // ISO date string
   version: number; // For future migrations
 }
@@ -48,4 +49,18 @@ export interface CategoryProgress {
   total: number;
   completed: number;
   percentage: number;
+}
+
+export interface WeeklyGoal {
+  targetChapters: number;
+  weekStart: string; // YYYY-MM-DD (Monday of the week)
+  completedThisWeek: number[]; // Chapter IDs completed this week
+}
+
+export interface WeeklyGoalStats {
+  target: number;
+  completed: number;
+  percentage: number;
+  weekStart: string;
+  daysRemaining: number;
 }

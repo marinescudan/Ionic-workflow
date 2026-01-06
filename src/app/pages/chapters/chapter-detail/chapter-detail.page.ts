@@ -25,7 +25,9 @@ import {
   chevronBack,
   checkmarkCircle,
   playCircle,
-  alertCircle
+  alertCircle,
+  bookmark,
+  bookmarkOutline,
 } from 'ionicons/icons';
 import { ChaptersService } from '@services/chapters/chapters.service';
 import { Chapter, Section } from '@app/models/chapter.model';
@@ -69,7 +71,7 @@ export class ChapterDetailPage implements OnInit {
     private progressService: ProgressService,
     private toastController: ToastController
   ) {
-    addIcons({ chevronBack, checkmarkCircle, playCircle, alertCircle });
+    addIcons({ chevronBack, checkmarkCircle, playCircle, alertCircle, bookmark, bookmarkOutline });
   }
 
   ngOnInit() {

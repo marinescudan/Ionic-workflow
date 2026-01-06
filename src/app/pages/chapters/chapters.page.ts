@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   IonHeader,
@@ -28,7 +28,8 @@ import {
   layers,
   checkmarkCircle,
   play,
-  code
+  code,
+  statsChart,
 } from 'ionicons/icons';
 import { ChaptersService } from '@app/services/chapters/chapters.service';
 import { Chapter } from '@app/models/chapter.model';
@@ -58,6 +59,7 @@ import { takeUntil } from 'rxjs/operators';
     IonProgressBar,
     IonChip,
     IonLabel,
+    RouterLink,
   ],
 })
 export class ChaptersPage implements OnInit, OnDestroy {
@@ -72,7 +74,7 @@ export class ChaptersPage implements OnInit, OnDestroy {
     private router: Router
   ) {
     // Register ionicons
-    addIcons({ rocket, apps, navigate, create, layers, checkmarkCircle, play, code });
+    addIcons({ rocket, apps, navigate, create, layers, checkmarkCircle, play, code, statsChart });
   }
 
   ngOnInit() {

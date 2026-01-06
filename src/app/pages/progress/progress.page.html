@@ -7,6 +7,69 @@
 <ion-content>
   <div class="progress-container" *ngIf="stats">
 
+    <!-- Weekly Goal Section -->
+    <div class="weekly-goal-section">
+      <h2>
+        <ion-icon name="flag"></ion-icon>
+        Weekly Goal
+      </h2>
+
+      <ion-card class="weekly-goal-card" *ngIf="weeklyGoalStats">
+        <ion-card-content>
+          <div class="goal-header">
+            <div class="goal-progress-circle" [attr.data-color]="getWeeklyGoalColor()">
+              <div class="circle-content">
+                <span class="goal-completed">{{ weeklyGoalStats.completed }}</span>
+                <span class="goal-separator">/</span>
+                <span class="goal-target">{{ weeklyGoalStats.target }}</span>
+              </div>
+              <ion-icon *ngIf="weeklyGoalStats.percentage >= 100" name="trophy" class="trophy-icon" color="warning"></ion-icon>
+            </div>
+            <div class="goal-details">
+              <div class="goal-title">Chapters This Week</div>
+              <div class="goal-message">{{ getWeeklyGoalMessage() }}</div>
+              <div class="goal-days">
+                <ion-icon name="calendar"></ion-icon>
+                {{ weeklyGoalStats.daysRemaining }} days remaining
+              </div>
+            </div>
+          </div>
+
+          <ion-progress-bar
+            [value]="weeklyGoalStats.percentage / 100"
+            [color]="getWeeklyGoalColor()"
+          ></ion-progress-bar>
+
+          <div class="goal-percentage">{{ weeklyGoalStats.percentage.toFixed(0) }}% complete</div>
+
+          <div class="goal-actions">
+            <ion-button fill="outline" size="small" (click)="setWeeklyGoal()">
+              <ion-icon name="create" slot="start"></ion-icon>
+              Edit Goal
+            </ion-button>
+            <ion-button fill="clear" size="small" color="danger" (click)="clearWeeklyGoal()">
+              <ion-icon name="close" slot="start"></ion-icon>
+              Clear
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card class="weekly-goal-card empty-goal" *ngIf="!weeklyGoalStats">
+        <ion-card-content>
+          <div class="empty-goal-content">
+            <ion-icon name="flag" color="medium"></ion-icon>
+            <h3>No Weekly Goal Set</h3>
+            <p>Set a goal to track how many chapters you want to complete this week</p>
+            <ion-button (click)="setWeeklyGoal()">
+              <ion-icon name="flag" slot="start"></ion-icon>
+              Set Weekly Goal
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
     <!-- Overall Statistics -->
     <div class="stats-section">
       <h2>Overall Progress</h2>
