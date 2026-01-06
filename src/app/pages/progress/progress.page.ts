@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   IonHeader,
@@ -38,13 +38,17 @@ import {
   checkmarkCircle,
   close,
   arrowForward,
+  flag,
+  trophy,
+  calendar,
+  create,
 } from 'ionicons/icons';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ChaptersService } from '@services/chapters/chapters.service';
 import { ProgressService } from '@services/progress/progress.service';
 import { Chapter } from '@app/models/chapter.model';
-import { ProgressStats, Bookmark, CategoryProgress } from '@app/models/progress.model';
+import { ProgressStats, Bookmark, CategoryProgress, WeeklyGoalStats } from '@app/models/progress.model';
 
 @Component({
   selector: 'app-progress',
@@ -58,8 +62,8 @@ import { ProgressStats, Bookmark, CategoryProgress } from '@app/models/progress.
     IonTitle,
     IonContent,
     IonCard,
-    IonCardHeader,
-    IonCardTitle,
+    // IonCardHeader,
+    // IonCardTitle,
     IonCardContent,
     IonButton,
     IonIcon,
@@ -69,11 +73,12 @@ import { ProgressStats, Bookmark, CategoryProgress } from '@app/models/progress.
     IonBadge,
     IonProgressBar,
     IonChip,
-    IonActionSheet,
+    // IonActionSheet,
     IonNote,
     IonGrid,
     IonRow,
     IonCol,
+    RouterLink,
   ],
 })
 export class ProgressPage implements OnInit, OnDestroy {
@@ -82,6 +87,7 @@ export class ProgressPage implements OnInit, OnDestroy {
   completedChapters: Chapter[] = [];
   bookmarks: Bookmark[] = [];
   chapters: Chapter[] = [];
+  weeklyGoalStats: WeeklyGoalStats | null = null;
 
   showActions = false;
 
@@ -105,6 +111,10 @@ export class ProgressPage implements OnInit, OnDestroy {
       checkmarkCircle,
       close,
       arrowForward,
+      flag,
+      trophy,
+      calendar,
+      create,
     });
   }
 
@@ -127,7 +137,98 @@ export class ProgressPage implements OnInit, OnDestroy {
 
     this.progressService.progress$.pipe(takeUntil(this.destroy$)).subscribe(progress => {
       this.bookmarks = progress.bookmarks;
+      this.weeklyGoalStats = this.progressService.getWeeklyGoalStats();
     });
+  }
+
+  // === WEEKLY GOALS ===
+
+  async setWeeklyGoal() {
+    const alert = await this.alertController.create({
+      header: 'Set Weekly Goal',
+      message: 'How many chapters do you want to complete this week?',
+      inputs: [
+        {
+          name: 'target',
+          type: 'number',
+          placeholder: 'Number of chapters',
+          min: 1,
+          max: this.chapters.length,
+          value: this.weeklyGoalStats?.target || 3,
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Set Goal',
+          handler: data => {
+            const target = parseInt(data.target, 10);
+            if (target > 0 && target <= this.chapters.length) {
+              this.progressService.setWeeklyGoal(target);
+              this.weeklyGoalStats = this.progressService.getWeeklyGoalStats();
+              this.showToast(`Weekly goal set: ${target} chapters`, 'success');
+            } else {
+              this.showToast('Please enter a valid number', 'warning');
+              return false;
+            }
+            return true;
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async clearWeeklyGoal() {
+    const alert = await this.alertController.create({
+      header: 'Clear Weekly Goal',
+      message: 'Are you sure you want to remove your weekly goal?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+        },
+        {
+          text: 'Clear Goal',
+          role: 'destructive',
+          handler: () => {
+            this.progressService.clearWeeklyGoal();
+            this.weeklyGoalStats = null;
+            this.showToast('Weekly goal cleared', 'success');
+          },
+        },
+      ],
+    });
+
+    await alert.present();
+  }
+
+  getWeeklyGoalColor(): string {
+    if (!this.weeklyGoalStats) return 'medium';
+    const percentage = this.weeklyGoalStats.percentage;
+    if (percentage >= 100) return 'success';
+    if (percentage >= 50) return 'warning';
+    return 'primary';
+  }
+
+  getWeeklyGoalMessage(): string {
+    if (!this.weeklyGoalStats) return '';
+    const { completed, target, percentage, daysRemaining } = this.weeklyGoalStats;
+
+    if (percentage >= 100) {
+      return 'Goal achieved! Great job!';
+    }
+
+    const remaining = target - completed;
+    if (daysRemaining === 0) {
+      return `Last day! ${remaining} more to go`;
+    }
+
+    return `${remaining} more to reach your goal (${daysRemaining} days left)`;
   }
 
   // === EXPORT / IMPORT ===

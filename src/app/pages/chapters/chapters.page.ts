@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   IonHeader,
@@ -58,6 +58,7 @@ import { takeUntil } from 'rxjs/operators';
     IonProgressBar,
     IonChip,
     IonLabel,
+    RouterLink,
   ],
 })
 export class ChaptersPage implements OnInit, OnDestroy {

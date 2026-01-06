@@ -4,6 +4,7 @@
   padding: 20px;
 }
 
+.weekly-goal-section,
 .stats-section,
 .category-section,
 .completed-section,
@@ -22,6 +23,153 @@
 
     ion-icon {
       font-size: 28px;
+    }
+  }
+}
+
+// Weekly Goal Card
+.weekly-goal-card {
+  margin: 0;
+
+  ion-card-content {
+    padding: 24px;
+  }
+
+  .goal-header {
+    display: flex;
+    gap: 24px;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+
+  .goal-progress-circle {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: var(--ion-color-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    border: 4px solid var(--ion-color-primary);
+
+    &[data-color="success"] {
+      border-color: var(--ion-color-success);
+      background: var(--ion-color-success-tint);
+    }
+
+    &[data-color="warning"] {
+      border-color: var(--ion-color-warning);
+    }
+
+    .circle-content {
+      text-align: center;
+    }
+
+    .goal-completed {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--ion-color-dark);
+    }
+
+    .goal-separator {
+      font-size: 20px;
+      color: var(--ion-color-medium);
+      margin: 0 2px;
+    }
+
+    .goal-target {
+      font-size: 20px;
+      color: var(--ion-color-medium);
+    }
+
+    .trophy-icon {
+      position: absolute;
+      top: -10px;
+      right: -10px;
+      font-size: 32px;
+      background: white;
+      border-radius: 50%;
+      padding: 4px;
+    }
+  }
+
+  .goal-details {
+    flex: 1;
+
+    .goal-title {
+      font-size: 18px;
+      font-weight: 600;
+      color: var(--ion-color-dark);
+      margin-bottom: 4px;
+    }
+
+    .goal-message {
+      font-size: 14px;
+      color: var(--ion-color-medium-shade);
+      margin-bottom: 8px;
+    }
+
+    .goal-days {
+      font-size: 13px;
+      color: var(--ion-color-medium);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+
+      ion-icon {
+        font-size: 16px;
+      }
+    }
+  }
+
+  ion-progress-bar {
+    height: 10px;
+    border-radius: 5px;
+    margin-bottom: 8px;
+  }
+
+  .goal-percentage {
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ion-color-medium-shade);
+    margin-bottom: 16px;
+  }
+
+  .goal-actions {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+  }
+
+  &.empty-goal {
+    .empty-goal-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 20px;
+
+      ion-icon {
+        font-size: 64px;
+        margin-bottom: 16px;
+      }
+
+      h3 {
+        margin: 0 0 8px 0;
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--ion-color-dark);
+      }
+
+      p {
+        margin: 0 0 20px 0;
+        font-size: 14px;
+        color: var(--ion-color-medium);
+        max-width: 300px;
+      }
     }
   }
 }
@@ -191,6 +339,19 @@ ion-list {
     ion-card-content {
       flex-direction: column;
       text-align: center;
+    }
+  }
+
+  .weekly-goal-card {
+    .goal-header {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .goal-details {
+      .goal-days {
+        justify-content: center;
+      }
     }
   }
 }
