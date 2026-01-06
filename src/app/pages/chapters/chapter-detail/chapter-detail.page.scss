@@ -6,8 +6,8 @@
 
 .chapter-header {
   padding: 24px 20px;
-  background: linear-gradient(135deg, var(--ion-color-primary) 0%, var(--ion-color-primary-shade) 100%);
-  color: white;
+  background: linear-gradient(135deg, var(--ion-background-color-step-50) 0%, var(--ion-background-color-step-100) 100%);
+  color: var(--ion-background-color-step-750);
 
   .header-content {
     display: flex;
