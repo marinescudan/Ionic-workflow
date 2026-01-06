@@ -46,7 +46,7 @@
 
 .preview-panel,
 .props-panel {
-  background: white;
+  background: var(--ion-background-color-step-50);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
@@ -82,7 +82,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f9fa;
+  background: var(--ion-background-color-step-50);
 
   .component-wrapper {
     width: 100%;
