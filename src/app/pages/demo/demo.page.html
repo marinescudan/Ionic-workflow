@@ -48,5 +48,56 @@
         <p>Check back later or explore other chapters!</p>
       </div>
     }
+
+
+    <!-- Marble Diagram Example (only for Chapter 6) -->
+    @if (chapterId === 6) {
+      <div class="marble-section">
+        <h2>Marble Diagram: map(x => x * 2)</h2>
+        <app-marble-diagram
+          [inputStream]="mapExample.input"
+          [outputStream]="mapExample.output"
+          operatorName="map(x => x * 2)"
+        ></app-marble-diagram>
+      </div>
+    }
+
+    <!-- Common Patterns (only for Chapter 6) -->
+    @if (chapterId === 6 && patterns.length > 0) {
+      <div class="patterns-section">
+        <h2>Common RxJS Patterns</h2>
+
+        <ion-card *ngFor="let pattern of patterns" class="pattern-card">
+          <ion-card-header>
+            <ion-card-title>{{ pattern.name }}</ion-card-title>
+            <ion-card-subtitle>{{ pattern.description }}</ion-card-subtitle>
+          </ion-card-header>
+
+          <ion-card-content>
+            <p class="use-case">
+              <strong>Use Case:</strong> {{ pattern.useCase }}
+            </p>
+
+            <app-code-snippet
+              [code]="pattern.code"
+              language="typescript"
+              [title]="pattern.name"
+              [copyable]="true"
+            ></app-code-snippet>
+
+            <div class="explanation">
+              <strong>Explanation:</strong>
+              <pre>{{ pattern.explanation }}</pre>
+            </div>
+
+            <div class="warning" *ngIf="pattern.avoidCommonMistake">
+              <ion-icon name="warning" color="warning"></ion-icon>
+              {{ pattern.avoidCommonMistake }}
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    }
+
   </div>
 </ion-content>

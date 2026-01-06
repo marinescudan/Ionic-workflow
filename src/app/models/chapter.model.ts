@@ -22,7 +22,8 @@ export type ChapterCategory =
   | 'components'
   | 'navigation'
   | 'state'
-  | 'advanced';
+  | 'advanced'
+  | 'native';
 
 export interface Section {
   id: number;

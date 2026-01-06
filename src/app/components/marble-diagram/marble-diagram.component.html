@@ -1,0 +1,96 @@
+<ion-card class="marble-diagram">
+  <ion-card-header>
+    <div class="diagram-header">
+      <ion-card-title>{{ operatorName }}</ion-card-title>
+
+      <div class="controls">
+        <ion-button fill="clear" size="small" (click)="isPlaying ? pause() : play()">
+          <ion-icon [name]="isPlaying ? 'pause' : 'play'" slot="icon-only"></ion-icon>
+        </ion-button>
+
+        <ion-button fill="clear" size="small" (click)="reset()">
+          <ion-icon name="refresh" slot="icon-only"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </ion-card-header>
+
+  <ion-card-content>
+    <!-- Input Stream -->
+    <div class="stream-container">
+      <div class="stream-label">Input:</div>
+      <div class="timeline">
+        <div class="timeline-line"></div>
+
+        <!-- Marbles -->
+        <div
+          *ngFor="let marble of getVisibleMarbles(inputStream)"
+          class="marble"
+          [style.left.%]="getMarblePosition(marble)"
+          [style.background-color]="marble.color"
+          [class.error]="marble.type === 'error'"
+          [class.complete]="marble.type === 'complete'"
+        >
+          <span class="marble-value" *ngIf="marble.type === 'value'">
+            {{ marble.value }}
+          </span>
+          <span class="marble-symbol" *ngIf="marble.type === 'error'">X</span>
+          <span class="marble-symbol" *ngIf="marble.type === 'complete'">|</span>
+        </div>
+
+        <!-- Playhead -->
+        <div class="playhead" [style.left.%]="getPlayheadPosition()"></div>
+      </div>
+    </div>
+
+    <!-- Operator Arrow -->
+    <div class="operator-arrow">
+      <div class="arrow-line"></div>
+      <div class="operator-label">{{ operatorName }}</div>
+      <div class="arrow-head">▼</div>
+    </div>
+
+    <!-- Output Stream -->
+    <div class="stream-container">
+      <div class="stream-label">Output:</div>
+      <div class="timeline">
+        <div class="timeline-line"></div>
+
+        <!-- Marbles -->
+        <div
+          *ngFor="let marble of getVisibleMarbles(outputStream)"
+          class="marble"
+          [style.left.%]="getMarblePosition(marble)"
+          [style.background-color]="marble.color"
+          [class.error]="marble.type === 'error'"
+          [class.complete]="marble.type === 'complete'"
+        >
+          <span class="marble-value" *ngIf="marble.type === 'value'">
+            {{ marble.value }}
+          </span>
+          <span class="marble-symbol" *ngIf="marble.type === 'error'">X</span>
+          <span class="marble-symbol" *ngIf="marble.type === 'complete'">|</span>
+        </div>
+
+        <!-- Playhead -->
+        <div class="playhead" [style.left.%]="getPlayheadPosition()"></div>
+      </div>
+    </div>
+
+    <!-- Speed Control -->
+    <div class="speed-control">
+      <span>Speed:</span>
+      <ion-range
+        [value]="speed"
+        min="0.5"
+        max="2"
+        step="0.5"
+        snaps="true"
+        (ionChange)="onSpeedChange($event)"
+      >
+        <span slot="start">0.5x</span>
+        <span slot="end">2x</span>
+      </ion-range>
+    </div>
+  </ion-card-content>
+</ion-card>
