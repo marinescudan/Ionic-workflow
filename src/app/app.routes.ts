@@ -19,8 +19,62 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/progress/progress.page').then(m => m.ProgressPage),
   },
   {
+    path: 'tabs',
+    component: TabsPage,
+    children: [
+      {
+        path: 'home',
+        loadComponent: () =>
+          import('./pages/tabs/home/home.page').then(m => m.HomePage),
+      },
+      {
+        path: 'explore',
+        loadComponent: () =>
+          import('./pages/tabs/explore/explore.page').then(m => m.ExplorePage),
+      },
+      {
+        path: 'notifications',
+        loadComponent: () =>
+          import('./pages/tabs/notifications/notifications.page').then(
+            m => m.NotificationsPage
+          ),
+      },
+      {
+        path: 'profile',
+        loadComponent: () =>
+          import('./pages/tabs/profile/profile.page').then(m => m.ProfilePage),
+      },
+      {
+        path: '',
+        redirectTo: '/tabs/home',
+        pathMatch: 'full',
+      },
+    ],
+  },
+  {
     path: '',
     redirectTo: 'chapters',
     pathMatch: 'full',
   },
+  {
+    path: 'tabs',
+    loadComponent: () => import('./pages/tabs/tabs/tabs.page').then( m => m.TabsPage)
+  },
+  {
+    path: 'home',
+    loadComponent: () => import('./pages/tabs/home/home.page').then( m => m.HomePage)
+  },
+  {
+    path: 'explore',
+    loadComponent: () => import('./pages/tabs/explore/explore.page').then( m => m.ExplorePage)
+  },
+  {
+    path: 'notifications',
+    loadComponent: () => import('./pages/tabs/notifications/notifications.page').then( m => m.NotificationsPage)
+  },
+  {
+    path: 'profile',
+    loadComponent: () => import('./pages/tabs/profile/profile.page').then( m => m.ProfilePage)
+  },
+
 ];

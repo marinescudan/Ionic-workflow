@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="submit()" [disabled]="!form.valid" color="primary">
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <form [formGroup]="form" class="ion-padding">
+    <ion-item>
+      <ion-input
+        formControlName="name"
+        label="Name"
+        labelPlacement="stacked"
+        placeholder="Enter name"
+      ></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-textarea
+        formControlName="description"
+        label="Description"
+        labelPlacement="stacked"
+        placeholder="Enter description"
+        rows="4"
+      ></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-select
+        formControlName="priority"
+        label="Priority"
+        labelPlacement="stacked"
+      >
+        <ion-select-option value="low">Low</ion-select-option>
+        <ion-select-option value="medium">Medium</ion-select-option>
+        <ion-select-option value="high">High</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+</ion-content>
