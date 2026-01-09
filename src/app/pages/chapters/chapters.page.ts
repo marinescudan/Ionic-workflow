@@ -21,11 +21,21 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
-  rocket,
-  apps,
-  navigate,
-  create,
-  layers,
+  rocketOutline,
+  gridOutline,
+  constructOutline,
+  analyticsOutline,
+  gitNetworkOutline,
+  navigateOutline,
+  createOutline,
+  layersOutline,
+  cloudOutline,
+  flashOutline,
+  cameraOutline,
+  musicalNotesOutline,
+  serverOutline,
+  cloudOfflineOutline,
+  checkmarkDoneOutline,
   checkmarkCircle,
   play,
   code,
@@ -35,7 +45,6 @@ import { ChaptersService } from '@app/services/chapters/chapters.service';
 import { Chapter } from '@app/models/chapter.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { gitNetwork } from 'ionicons/icons';
 import {
   getCategoryChipClass,
   getCategoryColorConfig,
@@ -78,18 +87,28 @@ export class ChaptersPage implements OnInit, OnDestroy {
     private chaptersService: ChaptersService,
     private router: Router
   ) {
-    // Register ionicons
+    // Register ionicons - chapter icons (outline variants)
     addIcons({
-      rocket,
-      apps,
-      navigate,
-      create,
-      layers,
+      rocketOutline,
+      gridOutline,
+      constructOutline,
+      analyticsOutline,
+      gitNetworkOutline,
+      navigateOutline,
+      createOutline,
+      layersOutline,
+      cloudOutline,
+      flashOutline,
+      cameraOutline,
+      musicalNotesOutline,
+      serverOutline,
+      cloudOfflineOutline,
+      checkmarkDoneOutline,
+      // UI icons
       checkmarkCircle,
       play,
       code,
       statsChart,
-      gitNetwork
     });
   }
 
