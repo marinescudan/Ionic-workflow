@@ -36,6 +36,10 @@ import { Chapter } from '@app/models/chapter.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { gitNetwork } from 'ionicons/icons';
+import {
+  getCategoryChipClass,
+  getCategoryColorConfig,
+} from '@constants/category-colors.constants';
 
 @Component({
   selector: 'app-chapters',
@@ -114,14 +118,12 @@ export class ChaptersPage implements OnInit, OnDestroy {
     this.router.navigate(['/demo', chapter.id]);
   }
 
-  getCategoryColor(category: string): string {
-    const colors: Record<string, string> = {
-      foundation: 'primary',
-      components: 'secondary',
-      navigation: 'tertiary',
-      state: 'success',
-      advanced: 'warning',
-    };
-    return colors[category] || 'medium';
+  getCategoryChipClass(category: string): string {
+    return getCategoryChipClass(category);
+  }
+
+  getCategoryIconStyle(category: string): { [key: string]: string } {
+    const config = getCategoryColorConfig(category);
+    return { color: `var(${config.cssVar})` };
   }
 }

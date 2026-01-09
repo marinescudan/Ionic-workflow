@@ -33,6 +33,10 @@ import { ChaptersService } from '@services/chapters/chapters.service';
 import { Chapter, Section } from '@app/models/chapter.model';
 import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
 import { ProgressService } from '@services/progress/progress.service';
+import {
+  getCategoryChipClass,
+  getCategoryColorConfig,
+} from '@constants/category-colors.constants';
 
 @Component({
   selector: 'app-chapter-detail',
@@ -110,15 +114,13 @@ export class ChapterDetailPage implements OnInit {
     this.router.navigate(['/chapters']);
   }
 
-  getCategoryColor(category: string): string {
-    const colors: Record<string, string> = {
-      foundation: 'primary',
-      components: 'secondary',
-      navigation: 'tertiary',
-      state: 'success',
-      advanced: 'warning',
-    };
-    return colors[category] || 'medium';
+  getCategoryChipClass(category: string): string {
+    return getCategoryChipClass(category);
+  }
+
+  getCategoryIconStyle(category: string): { [key: string]: string } {
+    const config = getCategoryColorConfig(category);
+    return { color: `var(${config.cssVar})` };
   }
 
   // Add bookmark to section
