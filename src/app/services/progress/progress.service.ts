@@ -14,62 +14,7 @@ import {
   EarnedAchievement,
 } from '@app/models/progress.model';
 import { Chapter } from '@app/models/chapter.model';
-
-// Achievement definitions
-const ACHIEVEMENTS: (Achievement & { condition: (p: ProgressData, chapters: Chapter[]) => boolean })[] = [
-  {
-    id: 'first-chapter',
-    name: 'First Steps',
-    description: 'Complete your first chapter',
-    icon: 'trophy',
-    color: 'warning',
-    condition: (p) => p.completedChapters.length >= 1,
-  },
-  {
-    id: 'five-chapters',
-    name: 'Getting Serious',
-    description: 'Complete 5 chapters',
-    icon: 'medal',
-    color: 'primary',
-    condition: (p) => p.completedChapters.length >= 5,
-  },
-  {
-    id: 'week-streak',
-    name: 'Week Warrior',
-    description: 'Maintain a 7-day learning streak',
-    icon: 'flame',
-    color: 'danger',
-    condition: (p) => p.streak.current >= 7,
-  },
-  {
-    id: 'all-foundations',
-    name: 'Foundation Master',
-    description: 'Complete all foundation chapters',
-    icon: 'book',
-    color: 'success',
-    condition: (p, chapters) => {
-      const foundationChapters = chapters.filter(c => c.category === 'foundation');
-      return foundationChapters.length > 0 &&
-        foundationChapters.every(c => p.completedChapters.includes(c.id));
-    },
-  },
-  {
-    id: 'bookworm',
-    name: 'Bookworm',
-    description: 'Add 5 bookmarks',
-    icon: 'bookmark',
-    color: 'tertiary',
-    condition: (p) => p.bookmarks.length >= 5,
-  },
-  {
-    id: 'time-dedicated',
-    name: 'Dedicated Learner',
-    description: 'Spend 60 minutes learning',
-    icon: 'time',
-    color: 'secondary',
-    condition: (p) => p.timeTracking.totalMinutes >= 60,
-  },
-];
+import { ACHIEVEMENTS } from './data/achievements.constants';
 
 @Injectable({
   providedIn: 'root',
