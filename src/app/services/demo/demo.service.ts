@@ -6,7 +6,7 @@ import { DEMO_COMPONENTS, CHAPTER_DEMO_MAP } from './demo.constants';
   providedIn: 'root',
 })
 export class DemoService {
-  private demoComponents: DemoComponent[] = DEMO_COMPONENTS;
+  private readonly demoComponents: DemoComponent[] = DEMO_COMPONENTS;
 
   constructor() {}
 
