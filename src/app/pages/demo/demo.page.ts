@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import {
   IonHeader,
@@ -16,10 +16,19 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardSubtitle,
-  IonCardContent
+  IonCardContent,
+  IonButton,
+  ModalController,
+  NavController,
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { chevronBack, gitNetwork } from 'ionicons/icons';
+import {
+  chevronBack,
+  gitNetwork,
+  arrowForward,
+  arrowBack,
+  home,
+} from 'ionicons/icons';
 import { DemoService } from '@services/demo/demo.service';
 import { ChaptersService } from '@services/chapters/chapters.service';
 import { DemoComponent } from '@app/models/demo.model';
@@ -30,6 +39,9 @@ import { MarbleDiagramComponent } from '@components/marble-diagram/marble-diagra
 import { RxjsExamplesService } from '@services/rxjs/rxjs-examples.service';
 import { RxJSPattern } from '@app/models/rxjs.model';
 import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.component';
+import { SimpleModalComponent } from '@components/modals/simple-modal/simple-modal.component';
+import { FormModalComponent } from '@components/modals/form-modal/form-modal.component';
+import { FullpageModalComponent } from '@components/modals/fullpage-modal/fullpage-modal.component';
 
 
 @Component({
@@ -54,6 +66,8 @@ import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.comp
     IonCardTitle,
     IonCardSubtitle,
     IonCardContent,
+    IonButton,
+    RouterLink,
     ComponentPlaygroundComponent,
     MarbleDiagramComponent,
     CodeSnippetComponent,
@@ -93,9 +107,11 @@ export class DemoPage implements OnInit {
     private router: Router,
     public demoService: DemoService, // I need it in the template, so make it public, alternatively I could create a wrappermethod in component
     private chaptersService: ChaptersService,
-    private rxjsExamples: RxjsExamplesService
+    private rxjsExamples: RxjsExamplesService,
+    private modalCtrl: ModalController,
+    private navCtrl: NavController
   ) {
-    addIcons({ chevronBack, gitNetwork });
+    addIcons({ chevronBack, gitNetwork, arrowForward, arrowBack, home });
   }
 
   ngOnInit() {
@@ -105,7 +121,7 @@ export class DemoPage implements OnInit {
     });
 
     // Load patterns if Chapter 6
-    if (this.chapterId === 6) {
+    if (this.chapterId === 5) {
       this.patterns = this.rxjsExamples.getAllPatterns();
     }
   }
@@ -135,5 +151,66 @@ export class DemoPage implements OnInit {
     } else {
       this.router.navigate(['/chapters']);
     }
+  }
+
+  // === Navigation Demos (Chapter 6) ===
+
+  navigateForward() {
+    this.navCtrl.navigateForward('/tabs/explore');
+  }
+
+  navigateBack() {
+    this.navCtrl.navigateBack('/tabs/home');
+  }
+
+  navigateRoot() {
+    this.navCtrl.navigateRoot('/tabs/home');
+  }
+
+  // === Modal Demos ===
+
+  async openSimpleModal() {
+    const modal = await this.modalCtrl.create({
+      component: SimpleModalComponent,
+      componentProps: {
+        title: 'Simple Modal',
+        message: 'This is a basic modal with confirm/cancel buttons.',
+      },
+    });
+
+    await modal.present();
+
+    const { data, role } = await modal.onWillDismiss();
+    console.log('Modal dismissed:', { data, role });
+  }
+
+  async openFormModal() {
+    const modal = await this.modalCtrl.create({
+      component: FormModalComponent,
+      componentProps: {
+        title: 'Add Item',
+      },
+      breakpoints: [0, 0.5, 1],
+      initialBreakpoint: 0.5,
+    });
+
+    await modal.present();
+
+    const { data } = await modal.onWillDismiss();
+    if (data) {
+      console.log('Form submitted:', data);
+    }
+  }
+
+  async openFullpageModal() {
+    const modal = await this.modalCtrl.create({
+      component: FullpageModalComponent,
+      componentProps: {
+        title: 'Full Page Modal',
+        content: 'This modal takes up the entire screen. Use it for immersive experiences like reading long content, viewing media, or complex forms.',
+      },
+    });
+
+    await modal.present();
   }
 }

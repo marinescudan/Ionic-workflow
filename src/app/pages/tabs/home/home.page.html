@@ -1,0 +1,40 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Home</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <h1>Welcome to Ionic Workflow</h1>
+  <p>Your learning journey starts here.</p>
+
+  <ion-card button (click)="navigateToChapters()">
+    <ion-card-header>
+      <ion-icon name="book" color="primary"></ion-icon>
+      <ion-card-title>Continue Learning</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Browse chapters and track your progress
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card button (click)="navigateToProgress()">
+    <ion-card-header>
+      <ion-icon name="analytics" color="success"></ion-icon>
+      <ion-card-title>View Progress</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      See your learning statistics and achievements
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card button (click)="navigateToDemo()">
+    <ion-card-header>
+      <ion-icon name="construct" color="secondary"></ion-icon>
+      <ion-card-title>Interactive Demos</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      Experiment with Ionic components
+    </ion-card-content>
+  </ion-card>
+</ion-content>

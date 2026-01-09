@@ -50,8 +50,67 @@
     }
 
 
-    <!-- Marble Diagram Example (only for Chapter 6) -->
+    <!-- Navigation Demos (only for Chapter 6) -->
     @if (chapterId === 6) {
+      <div class="navigation-demos">
+        <h2>Navigation Patterns</h2>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>NavController Methods</ion-card-title>
+            <ion-card-subtitle>Stack-based navigation with native animations</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="block" (click)="navigateForward()">
+              <ion-icon name="arrow-forward" slot="start"></ion-icon>
+              Navigate Forward
+            </ion-button>
+            <ion-button expand="block" (click)="navigateBack()">
+              <ion-icon name="arrow-back" slot="start"></ion-icon>
+              Navigate Back
+            </ion-button>
+            <ion-button expand="block" (click)="navigateRoot()">
+              <ion-icon name="home" slot="start"></ion-icon>
+              Navigate Root
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Modal Examples</ion-card-title>
+            <ion-card-subtitle>Overlay patterns for focused tasks</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="block" (click)="openSimpleModal()">
+              Simple Modal
+            </ion-button>
+            <ion-button expand="block" (click)="openFormModal()">
+              Form Modal (Bottom Sheet)
+            </ion-button>
+            <ion-button expand="block" (click)="openFullpageModal()">
+              Full-Page Modal
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Tab Navigation</ion-card-title>
+            <ion-card-subtitle>Bottom tab navigation pattern</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Navigate to tabs to see tab navigation in action.</p>
+            <ion-button expand="block" routerLink="/tabs/home">
+              Open Tabs
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    }
+
+    <!-- Marble Diagram Example (only for Chapter 5) -->
+    @if (chapterId === 5) {
       <div class="marble-section">
         <h2>Marble Diagram: map(x => x * 2)</h2>
         <app-marble-diagram
@@ -63,7 +122,7 @@
     }
 
     <!-- Common Patterns (only for Chapter 6) -->
-    @if (chapterId === 6 && patterns.length > 0) {
+    @if (chapterId === 5 && patterns.length > 0) {
       <div class="patterns-section">
         <h2>Common RxJS Patterns</h2>
 

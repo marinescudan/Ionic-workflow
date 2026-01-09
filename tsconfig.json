@@ -26,7 +26,8 @@
       "@services/*": ["src/app/services/*"],
       "@pages/*": ["src/app/pages/*"],
       "@components/*": ["src/app/components/*"],
-      "@constants/*": ["src/app/constants/*"]
+      "@constants/*": ["src/app/constants/*"],
+      "@guards/*": ["src/app/guards/*"]
     }
   },
   "angularCompilerOptions": {
