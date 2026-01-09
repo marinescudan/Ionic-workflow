@@ -27,7 +27,7 @@
         <div class="header-content">
           <ion-icon
             [name]="chapter.icon"
-            [color]="getCategoryColor(chapter.category)"
+            [ngStyle]="getCategoryIconStyle(chapter.category)"
             class="chapter-icon"
           ></ion-icon>
           <div class="header-text">
@@ -36,7 +36,7 @@
 
             <!-- Category & Sections -->
             <div class="meta-info">
-              <ion-chip [color]="getCategoryColor(chapter.category)" outline="true">
+              <ion-chip [class]="getCategoryChipClass(chapter.category)">
                 <ion-label>{{ chapter.category | titlecase }}</ion-label>
               </ion-chip>
               <span class="section-count">

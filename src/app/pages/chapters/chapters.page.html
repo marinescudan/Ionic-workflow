@@ -35,22 +35,11 @@
         (click)="openChapter(chapter)"
         button
       >
-        <!-- Completed Badge -->
-        @if (chapter.completed) {
-          <ion-badge
-            color="success"
-            class="completed-badge"
-          >
-            <ion-icon name="checkmark-circle"></ion-icon>
-            Completed
-          </ion-badge>
-        }
-
         <ion-card-header>
           <div class="card-header-content">
             <ion-icon
               [name]="chapter.icon"
-              [color]="getCategoryColor(chapter.category)"
+              [ngStyle]="getCategoryIconStyle(chapter.category)"
               class="chapter-icon"
             ></ion-icon>
             <div>
@@ -61,10 +50,18 @@
         </ion-card-header>
 
         <ion-card-content>
-          <!-- Category Chip -->
-          <ion-chip [color]="getCategoryColor(chapter.category)" outline="true">
-            <ion-label>{{ chapter.category | titlecase }}</ion-label>
-          </ion-chip>
+          <!-- Category & Status Chips -->
+          <div class="chips-row">
+            <ion-chip [class]="getCategoryChipClass(chapter.category)">
+              <ion-label>{{ chapter.category | titlecase }}</ion-label>
+            </ion-chip>
+            @if (chapter.completed) {
+              <ion-chip color="success" class="completed-chip">
+                <ion-icon name="checkmark-circle"></ion-icon>
+                <ion-label>Completed</ion-label>
+              </ion-chip>
+            }
+          </div>
 
           <!-- Sections Count -->
           <div class="meta-info">

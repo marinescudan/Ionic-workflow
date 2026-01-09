@@ -42,6 +42,7 @@ import { CodeSnippetComponent } from '@components/code-snippet/code-snippet.comp
 import { SimpleModalComponent } from '@components/modals/simple-modal/simple-modal.component';
 import { FormModalComponent } from '@components/modals/form-modal/form-modal.component';
 import { FullpageModalComponent } from '@components/modals/fullpage-modal/fullpage-modal.component';
+import { MARBLE_MAP_EXAMPLE } from '@services/rxjs/data/marble-diagrams.constants';
 
 
 @Component({
@@ -79,26 +80,8 @@ export class DemoPage implements OnInit {
   demos: DemoComponent[] = [];
   selectedDemo?: DemoComponent;
   mapExample: { input: MarbleStream; output: MarbleStream } = {
-    input: {
-      id: 'input-1',
-      name: 'Input',
-      duration: 5000,
-      events: [
-        { id: '1', value: 1, time: 500, color: '#2196F3', type: 'value' },
-        { id: '2', value: 2, time: 1500, color: '#2196F3', type: 'value' },
-        { id: '3', value: 3, time: 3000, color: '#2196F3', type: 'value' },
-      ],
-    },
-    output: {
-      id: 'output-1',
-      name: 'Output',
-      duration: 5000,
-      events: [
-        { id: '1', value: 2, time: 500, color: '#4CAF50', type: 'value' },
-        { id: '2', value: 4, time: 1500, color: '#4CAF50', type: 'value' },
-        { id: '3', value: 6, time: 3000, color: '#4CAF50', type: 'value' },
-      ],
-    },
+    input: MARBLE_MAP_EXAMPLE.input,
+    output: MARBLE_MAP_EXAMPLE.output,
   };
   patterns: RxJSPattern[] = [];
 

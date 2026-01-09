@@ -7,7 +7,7 @@ export const CHAPTER_01_DATA: Chapter = {
   title: 'Getting Started with Ionic',
   description: 'Learn Ionic basics, project setup, and core concepts',
   icon: 'rocket-outline',
-  category: 'foundation',
+  category: 'fundamentals',
   completed: false,
   hasDemo: false,
   sections: [

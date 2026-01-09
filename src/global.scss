@@ -38,8 +38,18 @@
 
 
 /* Custom Global Styles */
-/* Achievements Card color backgrounds */
+
+/* ============================================
+   CATEGORY COLOR PALETTES
+   Switch palettes by adding class to <body>:
+   - palette-1 (default): Professional Blues to Purples
+   - palette-2: Nature Spectrum
+   - palette-3: Warm to Cool
+   - palette-4: Distinct but Harmonious
+   ============================================ */
+
 :root {
+  /* Achievement badge colors */
   --badge-blue: #3b82f6;
   --badge-blue-light: #93c5fd;
   --badge-purple: #8b5cf6;
@@ -50,4 +60,206 @@
   --badge-teal-light: #5eead4;
   --badge-pink: #ec4899;
   --badge-pink-light: #f9a8d4;
+
+  /* Default: Palette 1 - Professional Blues to Purples */
+  /* Progression: fundamentals → essentials → intermediate → advanced → expert */
+  --category-fundamentals: #0ea5e9;
+  --category-fundamentals-light: #e0f2fe;
+  --category-fundamentals-contrast: #ffffff;
+
+  --category-essentials: #6366f1;
+  --category-essentials-light: #e0e7ff;
+  --category-essentials-contrast: #ffffff;
+
+  --category-intermediate: #8b5cf6;
+  --category-intermediate-light: #ede9fe;
+  --category-intermediate-contrast: #ffffff;
+
+  --category-advanced: #a855f7;
+  --category-advanced-light: #f3e8ff;
+  --category-advanced-contrast: #ffffff;
+
+  --category-expert: #d946ef;
+  --category-expert-light: #fae8ff;
+  --category-expert-contrast: #ffffff;
+}
+
+/* Palette 1: Professional Blues to Purples (Learning Journey) */
+body.palette-1, :root {
+  --category-fundamentals: #0ea5e9;
+  --category-fundamentals-light: #e0f2fe;
+  --category-fundamentals-contrast: #ffffff;
+
+  --category-essentials: #6366f1;
+  --category-essentials-light: #e0e7ff;
+  --category-essentials-contrast: #ffffff;
+
+  --category-intermediate: #8b5cf6;
+  --category-intermediate-light: #ede9fe;
+  --category-intermediate-contrast: #ffffff;
+
+  --category-advanced: #a855f7;
+  --category-advanced-light: #f3e8ff;
+  --category-advanced-contrast: #ffffff;
+
+  --category-expert: #d946ef;
+  --category-expert-light: #fae8ff;
+  --category-expert-contrast: #ffffff;
+}
+
+/* Palette 2: Nature Spectrum (Growth) */
+body.palette-2 {
+  --category-fundamentals: #10b981;
+  --category-fundamentals-light: #d1fae5;
+  --category-fundamentals-contrast: #ffffff;
+
+  --category-essentials: #14b8a6;
+  --category-essentials-light: #ccfbf1;
+  --category-essentials-contrast: #ffffff;
+
+  --category-intermediate: #06b6d4;
+  --category-intermediate-light: #cffafe;
+  --category-intermediate-contrast: #ffffff;
+
+  --category-advanced: #3b82f6;
+  --category-advanced-light: #dbeafe;
+  --category-advanced-contrast: #ffffff;
+
+  --category-expert: #8b5cf6;
+  --category-expert-light: #ede9fe;
+  --category-expert-contrast: #ffffff;
+}
+
+/* Palette 3: Warm to Cool (Energy Level) */
+body.palette-3 {
+  --category-fundamentals: #f59e0b;
+  --category-fundamentals-light: #fef3c7;
+  --category-fundamentals-contrast: #000000;
+
+  --category-essentials: #f97316;
+  --category-essentials-light: #ffedd5;
+  --category-essentials-contrast: #ffffff;
+
+  --category-intermediate: #f43f5e;
+  --category-intermediate-light: #ffe4e6;
+  --category-intermediate-contrast: #ffffff;
+
+  --category-advanced: #a855f7;
+  --category-advanced-light: #f3e8ff;
+  --category-advanced-contrast: #ffffff;
+
+  --category-expert: #6366f1;
+  --category-expert-light: #e0e7ff;
+  --category-expert-contrast: #ffffff;
+}
+
+/* Palette 4: Distinct but Harmonious */
+body.palette-4 {
+  --category-fundamentals: #3b82f6;
+  --category-fundamentals-light: #dbeafe;
+  --category-fundamentals-contrast: #ffffff;
+
+  --category-essentials: #10b981;
+  --category-essentials-light: #d1fae5;
+  --category-essentials-contrast: #ffffff;
+
+  --category-intermediate: #f59e0b;
+  --category-intermediate-light: #fef3c7;
+  --category-intermediate-contrast: #000000;
+
+  --category-advanced: #8b5cf6;
+  --category-advanced-light: #ede9fe;
+  --category-advanced-contrast: #ffffff;
+
+  --category-expert: #f43f5e;
+  --category-expert-light: #ffe4e6;
+  --category-expert-contrast: #ffffff;
+}
+
+/* Dark mode adjustments for all palettes */
+@media (prefers-color-scheme: dark) {
+  :root, body.palette-1 {
+    --category-fundamentals-light: rgba(14, 165, 233, 0.2);
+    --category-essentials-light: rgba(99, 102, 241, 0.2);
+    --category-intermediate-light: rgba(139, 92, 246, 0.2);
+    --category-advanced-light: rgba(168, 85, 247, 0.2);
+    --category-expert-light: rgba(217, 70, 239, 0.2);
+  }
+
+  body.palette-2 {
+    --category-fundamentals-light: rgba(16, 185, 129, 0.2);
+    --category-essentials-light: rgba(20, 184, 166, 0.2);
+    --category-intermediate-light: rgba(6, 182, 212, 0.2);
+    --category-advanced-light: rgba(59, 130, 246, 0.2);
+    --category-expert-light: rgba(139, 92, 246, 0.2);
+  }
+
+  body.palette-3 {
+    --category-fundamentals-light: rgba(245, 158, 11, 0.2);
+    --category-essentials-light: rgba(249, 115, 22, 0.2);
+    --category-intermediate-light: rgba(244, 63, 94, 0.2);
+    --category-advanced-light: rgba(168, 85, 247, 0.2);
+    --category-expert-light: rgba(99, 102, 241, 0.2);
+  }
+
+  body.palette-4 {
+    --category-fundamentals-light: rgba(59, 130, 246, 0.2);
+    --category-essentials-light: rgba(16, 185, 129, 0.2);
+    --category-intermediate-light: rgba(245, 158, 11, 0.2);
+    --category-advanced-light: rgba(139, 92, 246, 0.2);
+    --category-expert-light: rgba(244, 63, 94, 0.2);
+  }
+}
+
+/* Category chip/badge utility classes */
+/* Progression levels: fundamentals → essentials → intermediate → advanced → expert */
+.category-chip {
+  --background: var(--category-fundamentals);
+  --color: var(--category-fundamentals-contrast);
+}
+
+.category-chip.fundamentals {
+  --background: var(--category-fundamentals);
+  --color: var(--category-fundamentals-contrast);
+}
+
+.category-chip.essentials {
+  --background: var(--category-essentials);
+  --color: var(--category-essentials-contrast);
+}
+
+.category-chip.intermediate {
+  --background: var(--category-intermediate);
+  --color: var(--category-intermediate-contrast);
+}
+
+.category-chip.advanced {
+  --background: var(--category-advanced);
+  --color: var(--category-advanced-contrast);
+}
+
+.category-chip.expert {
+  --background: var(--category-expert);
+  --color: var(--category-expert-contrast);
+}
+
+/* Category progress bar colors */
+ion-progress-bar.category-fundamentals {
+  --progress-background: var(--category-fundamentals);
+}
+
+ion-progress-bar.category-essentials {
+  --progress-background: var(--category-essentials);
+}
+
+ion-progress-bar.category-intermediate {
+  --progress-background: var(--category-intermediate);
+}
+
+ion-progress-bar.category-advanced {
+  --progress-background: var(--category-advanced);
+}
+
+ion-progress-bar.category-expert {
+  --progress-background: var(--category-expert);
 }

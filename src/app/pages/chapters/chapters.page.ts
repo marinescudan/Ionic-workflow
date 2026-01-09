@@ -12,7 +12,6 @@ import {
   IonCardSubtitle,
   IonCardContent,
   IonIcon,
-  IonBadge,
   IonButton,
   IonButtons,
   IonProgressBar,
@@ -21,11 +20,21 @@ import {
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import {
-  rocket,
-  apps,
-  navigate,
-  create,
-  layers,
+  rocketOutline,
+  gridOutline,
+  constructOutline,
+  analyticsOutline,
+  gitNetworkOutline,
+  navigateOutline,
+  createOutline,
+  layersOutline,
+  cloudOutline,
+  flashOutline,
+  cameraOutline,
+  musicalNotesOutline,
+  serverOutline,
+  cloudOfflineOutline,
+  checkmarkDoneOutline,
   checkmarkCircle,
   play,
   code,
@@ -35,7 +44,10 @@ import { ChaptersService } from '@app/services/chapters/chapters.service';
 import { Chapter } from '@app/models/chapter.model';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { gitNetwork } from 'ionicons/icons';
+import {
+  getCategoryChipClass,
+  getCategoryColorConfig,
+} from '@constants/category-colors.constants';
 
 @Component({
   selector: 'app-chapters',
@@ -54,7 +66,6 @@ import { gitNetwork } from 'ionicons/icons';
     IonCardSubtitle,
     IonCardContent,
     IonIcon,
-    IonBadge,
     IonButton,
     IonButtons,
     IonProgressBar,
@@ -74,18 +85,28 @@ export class ChaptersPage implements OnInit, OnDestroy {
     private chaptersService: ChaptersService,
     private router: Router
   ) {
-    // Register ionicons
+    // Register ionicons - chapter icons (outline variants)
     addIcons({
-      rocket,
-      apps,
-      navigate,
-      create,
-      layers,
+      rocketOutline,
+      gridOutline,
+      constructOutline,
+      analyticsOutline,
+      gitNetworkOutline,
+      navigateOutline,
+      createOutline,
+      layersOutline,
+      cloudOutline,
+      flashOutline,
+      cameraOutline,
+      musicalNotesOutline,
+      serverOutline,
+      cloudOfflineOutline,
+      checkmarkDoneOutline,
+      // UI icons
       checkmarkCircle,
       play,
       code,
       statsChart,
-      gitNetwork
     });
   }
 
@@ -114,14 +135,12 @@ export class ChaptersPage implements OnInit, OnDestroy {
     this.router.navigate(['/demo', chapter.id]);
   }
 
-  getCategoryColor(category: string): string {
-    const colors: Record<string, string> = {
-      foundation: 'primary',
-      components: 'secondary',
-      navigation: 'tertiary',
-      state: 'success',
-      advanced: 'warning',
-    };
-    return colors[category] || 'medium';
+  getCategoryChipClass(category: string): string {
+    return getCategoryChipClass(category);
+  }
+
+  getCategoryIconStyle(category: string): { [key: string]: string } {
+    const config = getCategoryColorConfig(category);
+    return { color: `var(${config.cssVar})` };
   }
 }

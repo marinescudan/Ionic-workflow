@@ -7,7 +7,7 @@ export const CHAPTER_07_DATA: Chapter = {
   title: 'Forms & Validation',
   description: 'Build reactive forms with complex validation patterns',
   icon: 'create-outline',
-  category: 'foundation',
+  category: 'intermediate',
   completed: false,
   hasDemo: true,
   sections: [

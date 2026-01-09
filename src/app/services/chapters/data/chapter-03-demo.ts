@@ -7,7 +7,7 @@ export const CHAPTER_03_DATA: Chapter = {
   title: 'Interactive Demo Playground',
   description: 'Live component demos with real-time property editing',
   icon: 'construct-outline',
-  category: 'components',
+  category: 'essentials',
   completed: false,
   hasDemo: false, // No demo - this chapter explains the playground itself
   sections: [

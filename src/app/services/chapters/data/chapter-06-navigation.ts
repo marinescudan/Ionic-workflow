@@ -7,7 +7,7 @@ export const CHAPTER_06_DATA: Chapter = {
   title: 'Navigation & Routing',
   description: 'Master tabs, modals, guards, and navigation patterns',
   icon: 'navigate-outline',
-  category: 'navigation',
+  category: 'intermediate',
   completed: false,
   hasDemo: true,
   sections: [
