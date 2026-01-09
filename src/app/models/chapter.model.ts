@@ -10,13 +10,14 @@ export interface Chapter {
   hasDemo: boolean; // Does this chapter have a live demo?
 }
 
+// Progression-based category naming:
+// fundamentals → essentials → intermediate → advanced → expert
 export type ChapterCategory =
-  | 'foundation'
-  | 'components'
-  | 'navigation'
-  | 'state'
+  | 'fundamentals'
+  | 'essentials'
+  | 'intermediate'
   | 'advanced'
-  | 'native';
+  | 'expert';
 
 export interface Section {
   id: number;
