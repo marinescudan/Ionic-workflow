@@ -9,7 +9,6 @@ import {
   IonCardHeader,
   IonCardTitle,
   IonCardContent,
-  IonButton,
   IonIcon,
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
@@ -31,7 +30,6 @@ import { book, analytics, construct } from 'ionicons/icons';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonButton,
     IonIcon,
   ],
 })

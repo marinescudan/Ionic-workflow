@@ -19,7 +19,6 @@ import {
   IonTextarea,
   IonSelect,
   IonSelectOption,
-  IonLabel,
 } from '@ionic/angular/standalone';
 
 @Component({
@@ -41,7 +40,6 @@ import {
     IonTextarea,
     IonSelect,
     IonSelectOption,
-    IonLabel,
   ],
 })
 export class FormModalComponent implements OnInit {
