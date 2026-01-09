@@ -109,6 +109,60 @@
       </div>
     }
 
+    <!-- Forms Demos (only for Chapter 7) -->
+    @if (chapterId === 7) {
+      <div class="forms-demos">
+        <h2>Forms & Validation Demos</h2>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Interactive Form Demo</ion-card-title>
+            <ion-card-subtitle>Try reactive forms with validation</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <p>Experience a full registration form with:</p>
+            <ul>
+              <li>Async username validation</li>
+              <li>Password strength indicator</li>
+              <li>Cross-field validation</li>
+              <li>Real-time error display</li>
+            </ul>
+
+            <ion-button expand="block" (click)="navigateToFormsDemo()">
+              <ion-icon name="create" slot="start"></ion-icon>
+              Open Forms Demo
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Form States</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <div class="state-grid">
+              <div class="state-item">
+                <strong>valid/invalid</strong>
+                <span>Validation status</span>
+              </div>
+              <div class="state-item">
+                <strong>pristine/dirty</strong>
+                <span>Value changed?</span>
+              </div>
+              <div class="state-item">
+                <strong>touched/untouched</strong>
+                <span>Field focused?</span>
+              </div>
+              <div class="state-item">
+                <strong>pending</strong>
+                <span>Async validating</span>
+              </div>
+            </div>
+          </ion-card-content>
+        </ion-card>
+      </div>
+    }
+
     <!-- Marble Diagram Example (only for Chapter 5) -->
     @if (chapterId === 5) {
       <div class="marble-section">

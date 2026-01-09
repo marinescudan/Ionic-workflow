@@ -213,4 +213,8 @@ export class DemoPage implements OnInit {
 
     await modal.present();
   }
+
+  navigateToFormsDemo(): void {
+    this.router.navigate(['/forms-demo']);
+  }
 }

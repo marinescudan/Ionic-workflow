@@ -46,5 +46,9 @@ export const routes: Routes = [
     path: '',
     redirectTo: 'chapters',
     pathMatch: 'full',
+  },  {
+    path: 'forms-demo',
+    loadComponent: () => import('./pages/forms-demo/forms-demo.page').then( m => m.FormsDemoPage)
   },
+
 ];
