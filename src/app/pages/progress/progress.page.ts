@@ -52,6 +52,11 @@ import { ChaptersService } from '@services/chapters/chapters.service';
 import { ProgressService } from '@services/progress/progress.service';
 import { Chapter } from '@app/models/chapter.model';
 import { ProgressStats, Bookmark, CategoryProgress, WeeklyGoalStats, Achievement } from '@app/models/progress.model';
+import {
+  getCategoryChipClass,
+  getCategoryProgressClass,
+  getCategoryColorConfig,
+} from '@constants/category-colors.constants';
 
 @Component({
   selector: 'app-progress',
@@ -416,15 +421,17 @@ export class ProgressPage implements OnInit, OnDestroy {
     return `${mins}m`;
   }
 
-  getCategoryColor(category: string): string {
-    const colors: Record<string, string> = {
-      foundation: 'primary',
-      components: 'secondary',
-      navigation: 'tertiary',
-      state: 'success',
-      advanced: 'warning',
-    };
-    return colors[category] || 'medium';
+  getCategoryChipClass(category: string): string {
+    return getCategoryChipClass(category);
+  }
+
+  getCategoryProgressClass(category: string): string {
+    return getCategoryProgressClass(category);
+  }
+
+  getCategoryIconStyle(category: string): { [key: string]: string } {
+    const config = getCategoryColorConfig(category);
+    return { color: `var(${config.cssVar})` };
   }
 
   private async showToast(message: string, color: string) {

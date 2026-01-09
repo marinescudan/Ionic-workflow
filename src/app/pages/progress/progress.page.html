@@ -191,7 +191,7 @@
             class="category-progress-item"
           >
             <div class="category-header">
-              <ion-chip [color]="getCategoryColor(cat.category)" outline="true">
+              <ion-chip [class]="getCategoryChipClass(cat.category)">
                 <ion-label>{{ cat.category | titlecase }}</ion-label>
               </ion-chip>
               <span class="category-stats">
@@ -200,7 +200,7 @@
             </div>
             <ion-progress-bar
               [value]="cat.percentage / 100"
-              [color]="getCategoryColor(cat.category)"
+              [class]="getCategoryProgressClass(cat.category)"
             ></ion-progress-bar>
             <div class="category-percentage">{{ cat.percentage.toFixed(0) }}%</div>
           </div>
@@ -220,7 +220,7 @@
           >
             <ion-icon
               [name]="chapter.icon"
-              [color]="getCategoryColor(chapter.category)"
+              [ngStyle]="getCategoryIconStyle(chapter.category)"
               slot="start"
             ></ion-icon>
             <ion-label>
