@@ -7,7 +7,7 @@ export const CHAPTER_02_DATA: Chapter = {
   title: 'Ionic Components Library',
   description: 'Master buttons, cards, lists, and 100+ UI components',
   icon: 'grid-outline',
-  category: 'components',
+  category: 'essentials',
   completed: false,
   hasDemo: true,
   sections: [

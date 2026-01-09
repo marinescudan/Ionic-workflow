@@ -7,7 +7,7 @@ export const CHAPTER_05_DATA: Chapter = {
   title: 'RxJS & Reactive Programming',
   description: 'Master observables, operators, and reactive patterns',
   icon: 'git-network-outline',
-  category: 'foundation',
+  category: 'intermediate',
   completed: false,
   hasDemo: true,
   sections: [
