@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { VALIDATION_MESSAGES } from '@constants/validation-messages.constants';
 
 export interface ValidationMessage {
   key: string;
@@ -10,31 +11,8 @@ export interface ValidationMessage {
   providedIn: 'root'
 })
 export class ValidationService {
-  // Default error messages
-  private defaultMessages: Record<string, string | ((err: any) => string)> = {
-    required: 'This field is required',
-    email: 'Please enter a valid email address',
-    minlength: (err) => `Minimum ${err.requiredLength} characters required (currently ${err.actualLength})`,
-    maxlength: (err) => `Maximum ${err.requiredLength} characters allowed`,
-    min: (err) => `Value must be at least ${err.min}`,
-    max: (err) => `Value cannot exceed ${err.max}`,
-    pattern: 'Invalid format',
-
-    // Custom validators
-    whitespace: 'Value cannot contain spaces',
-    forbiddenValue: (err) => `"${err.value}" is not allowed`,
-    noUppercase: 'Must contain an uppercase letter',
-    noLowercase: 'Must contain a lowercase letter',
-    noNumber: 'Must contain a number',
-    noSpecial: 'Must contain a special character (!@#$%^&*)',
-    passwordMismatch: 'Passwords do not match',
-    usernameTaken: 'Username is already taken',
-    emailExists: 'Email is already registered',
-    invalidUrl: 'Please enter a valid URL',
-    tooYoung: (err) => `Must be at least ${err.min} years old`,
-    tooOld: (err) => `Must be under ${err.max} years old`,
-    serverError: (err) => err // Server error is the message itself
-  };
+  // Default error messages (from app constants)
+  private defaultMessages = VALIDATION_MESSAGES;
 
   constructor() {}
 
