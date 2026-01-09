@@ -618,6 +618,176 @@ export class ExampleComponent {
 }`;
       },
     },
+
+    // Forms Demos (Chapter 7)
+    {
+      id: 'reactive-form',
+      name: 'Reactive Form',
+      description: 'Form with FormBuilder and validators',
+      category: 'input',
+      icon: 'create-outline',
+      defaultProps: {
+        showLabels: true,
+        labelPlacement: 'floating',
+        required: true,
+      },
+      propDefinitions: [
+        {
+          name: 'showLabels',
+          label: 'Show Labels',
+          type: 'boolean',
+          defaultValue: true,
+          description: 'Display input labels',
+        },
+        {
+          name: 'labelPlacement',
+          label: 'Label Placement',
+          type: 'select',
+          options: [
+            { value: 'floating', label: 'Floating' },
+            { value: 'stacked', label: 'Stacked' },
+            { value: 'fixed', label: 'Fixed' },
+          ],
+          defaultValue: 'floating',
+          description: 'Label position',
+        },
+        {
+          name: 'required',
+          label: 'Required',
+          type: 'boolean',
+          defaultValue: true,
+          description: 'Make fields required',
+        },
+      ],
+      templateGenerator: (props) => {
+        const labelPlacement = `labelPlacement="${props['labelPlacement']}"`;
+        return `<form [formGroup]="form">
+  <ion-item>
+    <ion-input
+      formControlName="email"
+      type="email"
+      label="Email"
+      ${labelPlacement}
+    ></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <ion-input
+      formControlName="password"
+      type="password"
+      label="Password"
+      ${labelPlacement}
+    ></ion-input>
+  </ion-item>
+
+  <ion-button type="submit" expand="block">
+    Submit
+  </ion-button>
+</form>`;
+      },
+      typescriptGenerator: (props) => {
+        const required = props['required'] ? 'Validators.required, ' : '';
+        return `import { Component } from '@angular/core';
+import { FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
+import { IonItem, IonInput, IonButton } from '@ionic/angular/standalone';
+
+@Component({
+  selector: 'app-login',
+  standalone: true,
+  imports: [ReactiveFormsModule, IonItem, IonInput, IonButton],
+  template: \`/* see HTML tab */\`
+})
+export class LoginComponent {
+  form = this.fb.group({
+    email: ['', [${required}Validators.email]],
+    password: ['', [${required}Validators.minLength(6)]]
+  });
+
+  constructor(private fb: FormBuilder) {}
+}`;
+      },
+    },
+
+    // Form Validation Demo
+    {
+      id: 'form-validation',
+      name: 'Form Validation',
+      description: 'Validation states and error display',
+      category: 'input',
+      icon: 'checkmark-circle',
+      defaultProps: {
+        showErrors: true,
+        validationType: 'sync',
+      },
+      propDefinitions: [
+        {
+          name: 'showErrors',
+          label: 'Show Errors',
+          type: 'boolean',
+          defaultValue: true,
+          description: 'Display error messages',
+        },
+        {
+          name: 'validationType',
+          label: 'Validation Type',
+          type: 'select',
+          options: [
+            { value: 'sync', label: 'Synchronous' },
+            { value: 'async', label: 'Asynchronous' },
+          ],
+          defaultValue: 'sync',
+          description: 'Type of validation',
+        },
+      ],
+      templateGenerator: (props) => {
+        const showErrors = props['showErrors'];
+        return `<ion-item [class.ion-invalid]="email.invalid && email.touched">
+  <ion-input
+    formControlName="email"
+    type="email"
+    label="Email"
+    labelPlacement="floating"
+  ></ion-input>
+</ion-item>
+
+${showErrors ? `@if (email.invalid && email.touched) {
+  <ion-text color="danger">
+    @if (email.errors?.['required']) {
+      <p>Email is required</p>
+    }
+    @if (email.errors?.['email']) {
+      <p>Invalid email format</p>
+    }
+  </ion-text>
+}` : '<!-- Errors hidden -->'}`;
+      },
+      typescriptGenerator: (props) => {
+        const isAsync = props['validationType'] === 'async';
+        return `// Control states:
+// - valid/invalid: Validation passed/failed
+// - pristine/dirty: Value changed?
+// - touched/untouched: Field focused?
+// - pending: Async validation in progress
+
+get email() {
+  return this.form.get('email')!;
+}
+
+// Check specific error
+hasError(field: string, error: string): boolean {
+  const control = this.form.get(field);
+  return control?.hasError(error) && control?.touched || false;
+}${isAsync ? `
+
+// Async validator
+emailValidator(): AsyncValidatorFn {
+  return (control) => timer(500).pipe(
+    switchMap(() => checkEmailAPI(control.value)),
+    map(exists => exists ? { emailTaken: true } : null)
+  );
+}` : ''}`;
+      },
+    },
   ];
 
   constructor() {}
@@ -628,6 +798,7 @@ export class ExampleComponent {
       2: ['ion-button', 'ion-card', 'ion-list'], // Chapter 2: Ionic Components
       5: ['rxjs-map'],                            // Chapter 5: RxJS (only map operator exists)
       // Chapter 6: Navigation demos handled separately in demo.page.ts
+      7: ['reactive-form', 'form-validation'],    // Chapter 7: Forms & Validation
     };
 
     const demoIds = chapterDemoMap[chapterId] || [];
