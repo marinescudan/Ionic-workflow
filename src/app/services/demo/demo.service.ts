@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DemoComponent, DemoCategory } from '@app/models/demo.model';
 import { DEMO_COMPONENTS, CHAPTER_DEMO_MAP } from './demo.constants';
+import { DEMO_CATEGORY_DEFINITIONS } from './data/demo-categories.constants';
 
 @Injectable({
   providedIn: 'root',
@@ -24,38 +25,11 @@ export class DemoService {
   }
 
   getDemoCategories(): DemoCategory[] {
-    const categories: DemoCategory[] = [
-      {
-        id: 'button',
-        name: 'Buttons',
-        description: 'Interactive button components',
-        components: this.demoComponents.filter(d => d.category === 'button'),
-      },
-      {
-        id: 'input',
-        name: 'Inputs',
-        description: 'Form input components',
-        components: this.demoComponents.filter(d => d.category === 'input'),
-      },
-      {
-        id: 'card',
-        name: 'Cards',
-        description: 'Content container components',
-        components: this.demoComponents.filter(d => d.category === 'card'),
-      },
-      {
-        id: 'list',
-        name: 'Lists',
-        description: 'List and item components',
-        components: this.demoComponents.filter(d => d.category === 'list'),
-      },
-      {
-        id: 'toggle',
-        name: 'Toggles',
-        description: 'Toggle and checkbox components',
-        components: this.demoComponents.filter(d => d.category === 'toggle'),
-      },
-    ];
+    // Build categories from definitions, computing components at runtime
+    const categories: DemoCategory[] = DEMO_CATEGORY_DEFINITIONS.map(def => ({
+      ...def,
+      components: this.demoComponents.filter(d => d.category === def.id),
+    }));
 
     return categories.filter(cat => cat.components.length > 0);
   }
