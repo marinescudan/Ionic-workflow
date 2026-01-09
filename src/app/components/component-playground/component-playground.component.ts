@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import {
   IonCard,
@@ -32,7 +32,6 @@ declare const Prism: any;
   styleUrls: ['./component-playground.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     IonCard,
     IonCardHeader,
@@ -45,11 +44,10 @@ declare const Prism: any;
     IonSelect,
     IonSelectOption,
     IonItem,
-    // IonLabel,
     IonToast,
     CodeSnippetComponent,
-    SafeHtmlPipe,
-  ],
+    SafeHtmlPipe
+],
 })
 export class ComponentPlaygroundComponent implements OnInit, OnDestroy {
   @Input() demoComponent!: DemoComponent;

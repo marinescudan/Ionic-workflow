@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { CommonModule } from '@angular/common';
+
 import {
   IonHeader,
   IonToolbar,
@@ -51,7 +51,6 @@ import { MARBLE_MAP_EXAMPLE } from '@services/rxjs/data/marble-diagrams.constant
   styleUrls: ['./demo.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -71,8 +70,8 @@ import { MARBLE_MAP_EXAMPLE } from '@services/rxjs/data/marble-diagrams.constant
     RouterLink,
     ComponentPlaygroundComponent,
     MarbleDiagramComponent,
-    CodeSnippetComponent,
-  ],
+    CodeSnippetComponent
+],
 })
 export class DemoPage implements OnInit {
   chapterId?: number;

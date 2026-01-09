@@ -23,20 +23,27 @@
         <div class="timeline-line"></div>
 
         <!-- Marbles -->
-        <div
-          *ngFor="let marble of getVisibleMarbles(inputStream)"
-          class="marble"
-          [style.left.%]="getMarblePosition(marble)"
-          [style.background-color]="marble.color"
-          [class.error]="marble.type === 'error'"
-          [class.complete]="marble.type === 'complete'"
-        >
-          <span class="marble-value" *ngIf="marble.type === 'value'">
-            {{ marble.value }}
-          </span>
-          <span class="marble-symbol" *ngIf="marble.type === 'error'">X</span>
-          <span class="marble-symbol" *ngIf="marble.type === 'complete'">|</span>
-        </div>
+        @for (marble of getVisibleMarbles(inputStream); track marble) {
+          <div
+            class="marble"
+            [style.left.%]="getMarblePosition(marble)"
+            [style.background-color]="marble.color"
+            [class.error]="marble.type === 'error'"
+            [class.complete]="marble.type === 'complete'"
+            >
+            @if (marble.type === 'value') {
+              <span class="marble-value">
+                {{ marble.value }}
+              </span>
+            }
+            @if (marble.type === 'error') {
+              <span class="marble-symbol">X</span>
+            }
+            @if (marble.type === 'complete') {
+              <span class="marble-symbol">|</span>
+            }
+          </div>
+        }
 
         <!-- Playhead -->
         <div class="playhead" [style.left.%]="getPlayheadPosition()"></div>
@@ -57,20 +64,27 @@
         <div class="timeline-line"></div>
 
         <!-- Marbles -->
-        <div
-          *ngFor="let marble of getVisibleMarbles(outputStream)"
-          class="marble"
-          [style.left.%]="getMarblePosition(marble)"
-          [style.background-color]="marble.color"
-          [class.error]="marble.type === 'error'"
-          [class.complete]="marble.type === 'complete'"
-        >
-          <span class="marble-value" *ngIf="marble.type === 'value'">
-            {{ marble.value }}
-          </span>
-          <span class="marble-symbol" *ngIf="marble.type === 'error'">X</span>
-          <span class="marble-symbol" *ngIf="marble.type === 'complete'">|</span>
-        </div>
+        @for (marble of getVisibleMarbles(outputStream); track marble) {
+          <div
+            class="marble"
+            [style.left.%]="getMarblePosition(marble)"
+            [style.background-color]="marble.color"
+            [class.error]="marble.type === 'error'"
+            [class.complete]="marble.type === 'complete'"
+            >
+            @if (marble.type === 'value') {
+              <span class="marble-value">
+                {{ marble.value }}
+              </span>
+            }
+            @if (marble.type === 'error') {
+              <span class="marble-symbol">X</span>
+            }
+            @if (marble.type === 'complete') {
+              <span class="marble-symbol">|</span>
+            }
+          </div>
+        }
 
         <!-- Playhead -->
         <div class="playhead" [style.left.%]="getPlayheadPosition()"></div>
@@ -87,7 +101,7 @@
         step="0.5"
         snaps="true"
         (ionChange)="onSpeedChange($event)"
-      >
+        >
         <span slot="start">0.5x</span>
         <span slot="end">2x</span>
       </ion-range>

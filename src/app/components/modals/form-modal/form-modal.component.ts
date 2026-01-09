@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   FormBuilder,
   FormGroup,
@@ -27,7 +27,6 @@ import {
   styleUrls: ['./form-modal.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     IonHeader,
     IonToolbar,
@@ -39,8 +38,8 @@ import {
     IonInput,
     IonTextarea,
     IonSelect,
-    IonSelectOption,
-  ],
+    IonSelectOption
+],
 })
 export class FormModalComponent implements OnInit {
   @Input() title = 'Add Item';

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, OnDestroy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { interval, Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 import {
@@ -21,15 +21,14 @@ import { MarbleEvent, MarbleStream } from '@app/models/rxjs.model';
   styleUrls: ['./marble-diagram.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     IonCard,
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
     IonButton,
     IonIcon,
-    IonRange,
-  ],
+    IonRange
+],
 })
 export class MarbleDiagramComponent implements OnInit, OnDestroy {
   @Input() inputStream!: MarbleStream;

@@ -15,9 +15,11 @@
     <ion-tab-button tab="notifications">
       <ion-icon name="notifications"></ion-icon>
       <ion-label>Notifications</ion-label>
-      <ion-badge *ngIf="notificationCount > 0" color="danger">
-        {{ notificationCount }}
-      </ion-badge>
+      @if (notificationCount > 0) {
+        <ion-badge color="danger">
+          {{ notificationCount }}
+        </ion-badge>
+      }
     </ion-tab-button>
 
     <ion-tab-button tab="profile">

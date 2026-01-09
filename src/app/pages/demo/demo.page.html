@@ -19,11 +19,11 @@
           [value]="selectedDemo?.id"
           (ionChange)="selectDemo(demoService.getDemoById($any($event).detail.value)!)"
           scrollable
-        >
+          >
           @for (demo of demos; track demo.id) {
             <ion-segment-button
               [value]="demo.id"
-            >
+              >
               <ion-icon [name]="demo.icon"></ion-icon>
               <ion-label>{{ demo.name }}</ion-label>
             </ion-segment-button>
@@ -180,35 +180,35 @@
       <div class="patterns-section">
         <h2>Common RxJS Patterns</h2>
 
-        <ion-card *ngFor="let pattern of patterns" class="pattern-card">
-          <ion-card-header>
-            <ion-card-title>{{ pattern.name }}</ion-card-title>
-            <ion-card-subtitle>{{ pattern.description }}</ion-card-subtitle>
-          </ion-card-header>
-
-          <ion-card-content>
-            <p class="use-case">
-              <strong>Use Case:</strong> {{ pattern.useCase }}
-            </p>
-
-            <app-code-snippet
-              [code]="pattern.code"
-              language="typescript"
-              [title]="pattern.name"
-              [copyable]="true"
-            ></app-code-snippet>
-
-            <div class="explanation">
-              <strong>Explanation:</strong>
-              <pre>{{ pattern.explanation }}</pre>
-            </div>
-
-            <div class="warning" *ngIf="pattern.avoidCommonMistake">
-              <ion-icon name="warning" color="warning"></ion-icon>
-              {{ pattern.avoidCommonMistake }}
-            </div>
-          </ion-card-content>
-        </ion-card>
+        @for (pattern of patterns; track pattern) {
+          <ion-card class="pattern-card">
+            <ion-card-header>
+              <ion-card-title>{{ pattern.name }}</ion-card-title>
+              <ion-card-subtitle>{{ pattern.description }}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+              <p class="use-case">
+                <strong>Use Case:</strong> {{ pattern.useCase }}
+              </p>
+              <app-code-snippet
+                [code]="pattern.code"
+                language="typescript"
+                [title]="pattern.name"
+                [copyable]="true"
+              ></app-code-snippet>
+              <div class="explanation">
+                <strong>Explanation:</strong>
+                <pre>{{ pattern.explanation }}</pre>
+              </div>
+              @if (pattern.avoidCommonMistake) {
+                <div class="warning">
+                  <ion-icon name="warning" color="warning"></ion-icon>
+                  {{ pattern.avoidCommonMistake }}
+                </div>
+              }
+            </ion-card-content>
+          </ion-card>
+        }
       </div>
     }
 

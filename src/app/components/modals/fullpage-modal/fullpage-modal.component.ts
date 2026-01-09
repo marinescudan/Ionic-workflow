@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   ModalController,
   IonHeader,
@@ -19,15 +19,14 @@ import { close } from 'ionicons/icons';
   styleUrls: ['./fullpage-modal.component.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     IonHeader,
     IonToolbar,
     IonTitle,
     IonButtons,
     IonButton,
     IonContent,
-    IonIcon,
-  ],
+    IonIcon
+],
 })
 export class FullpageModalComponent {
   @Input() title = 'Details';

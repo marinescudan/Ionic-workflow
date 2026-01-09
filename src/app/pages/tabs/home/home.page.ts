@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   IonHeader,
   IonToolbar,
@@ -21,7 +21,6 @@ import { book, analytics, construct } from 'ionicons/icons';
   styleUrls: ['./home.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     IonHeader,
     IonToolbar,
     IonTitle,
@@ -30,8 +29,8 @@ import { book, analytics, construct } from 'ionicons/icons';
     IonCardHeader,
     IonCardTitle,
     IonCardContent,
-    IonIcon,
-  ],
+    IonIcon
+],
 })
 export class HomePage {
   constructor(private router: Router) {

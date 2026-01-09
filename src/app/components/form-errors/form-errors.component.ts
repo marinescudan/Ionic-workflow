@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { AbstractControl } from '@angular/forms';
 import { IonText, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
@@ -9,7 +9,7 @@ import { ValidationService } from '@services/validation/validation.service';
 @Component({
   selector: 'app-form-errors',
   standalone: true,
-  imports: [CommonModule, IonText, IonIcon],
+  imports: [IonText, IonIcon],
   template: `
     @if (shouldShow) {
       <div class="errors-container">

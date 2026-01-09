@@ -1,6 +1,6 @@
 
 import { Component, Input, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonButton, IonIcon, IonToast } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { copyOutline, checkmarkOutline } from 'ionicons/icons';
@@ -12,7 +12,7 @@ declare const Prism: any; // Prism is loaded globally from angular.json
   templateUrl: './code-snippet.component.html',
   styleUrls: ['./code-snippet.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonButton, IonIcon, IonToast],
+  imports: [IonButton, IonIcon, IonToast],
 })
 export class CodeSnippetComponent implements AfterViewInit {
   @Input() code!: string;
