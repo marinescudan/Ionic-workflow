@@ -44,7 +44,6 @@ type FormType = 'registration' | 'profile' | 'dynamic';
     IonSegment,
     IonSegmentButton,
     IonLabel,
-    IonList,
     IonItem,
     IonInput,
     IonButton,

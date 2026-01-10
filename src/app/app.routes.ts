@@ -1,10 +1,14 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@guards/auth.guard';
 import { TABS_ROUTES } from '@app/pages/tabs/tabs/tabs.routes';
+import { NOTES_ROUTES } from '@app/features/notes/pages/notes.routes';
 
 export const routes: Routes = [
   // Tabs (main navigation)
   ...TABS_ROUTES,
+
+  // Notes feature routes
+  ...NOTES_ROUTES,
 
   // Chapters
   {
@@ -41,14 +45,18 @@ export const routes: Routes = [
       import('./pages/login/login.page').then(m => m.LoginPage),
   },
 
+  // Forms
+  {
+    path: 'forms-demo',
+    loadComponent: () => import('./pages/forms-demo/forms-demo.page').then( m => m.FormsDemoPage)
+  },
+
   // Default redirect
   {
     path: '',
     redirectTo: 'chapters',
     pathMatch: 'full',
-  },  {
-    path: 'forms-demo',
-    loadComponent: () => import('./pages/forms-demo/forms-demo.page').then( m => m.FormsDemoPage)
   },
+
 
 ];

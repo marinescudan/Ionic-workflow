@@ -8,7 +8,7 @@ import { ValidationService } from '@services/validation/validation.service';
 @Component({
   selector: 'app-password-strength',
   standalone: true,
-  imports: [IonProgressBar, IonText, IonIcon],
+  imports: [IonProgressBar, IonIcon],
   template: `
     @if (password) {
       <div class="strength-container">
