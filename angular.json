@@ -98,7 +98,10 @@
               "progress": false
             }
           },
-          "defaultConfiguration": "development"
+          "defaultConfiguration": "development",
+          "options": {
+            "allowedHosts": ["epa-radical-appropriations-requesting.trycloudflare.com"]
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
