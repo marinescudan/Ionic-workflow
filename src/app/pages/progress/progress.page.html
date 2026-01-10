@@ -8,317 +8,325 @@
 </ion-header>
 
 <ion-content>
-  <div class="progress-container" *ngIf="stats">
-
-    <!-- Weekly Goal Section -->
-    <div class="weekly-goal-section">
-      <h2>
-        <ion-icon name="flag"></ion-icon>
-        Weekly Goal
-      </h2>
-
-      <ion-card class="weekly-goal-card" *ngIf="weeklyGoalStats">
-        <ion-card-content>
-          <div class="goal-header">
-            <div class="goal-progress-circle" [attr.data-color]="getWeeklyGoalColor()">
-              <div class="circle-content">
-                <span class="goal-completed">{{ weeklyGoalStats.completed }}</span>
-                <span class="goal-separator">/</span>
-                <span class="goal-target">{{ weeklyGoalStats.target }}</span>
-              </div>
-              <ion-icon *ngIf="weeklyGoalStats.percentage >= 100" name="trophy" class="trophy-icon" color="warning"></ion-icon>
-            </div>
-            <div class="goal-details">
-              <div class="goal-title">Chapters This Week</div>
-              <div class="goal-message">{{ getWeeklyGoalMessage() }}</div>
-              <div class="goal-days">
-                <ion-icon name="calendar"></ion-icon>
-                {{ weeklyGoalStats.daysRemaining }} days remaining
-              </div>
-            </div>
-          </div>
-
-          <ion-progress-bar
-            [value]="weeklyGoalStats.percentage / 100"
-            [color]="getWeeklyGoalColor()"
-          ></ion-progress-bar>
-
-          <div class="goal-percentage">{{ weeklyGoalStats.percentage.toFixed(0) }}% complete</div>
-
-          <div class="goal-actions">
-            <ion-button fill="outline" size="small" (click)="setWeeklyGoal()">
-              <ion-icon name="create" slot="start"></ion-icon>
-              Edit Goal
-            </ion-button>
-            <ion-button fill="clear" size="small" color="danger" (click)="clearWeeklyGoal()">
-              <ion-icon name="close" slot="start"></ion-icon>
-              Clear
-            </ion-button>
-          </div>
-        </ion-card-content>
-      </ion-card>
-
-      <ion-card class="weekly-goal-card empty-goal" *ngIf="!weeklyGoalStats">
-        <ion-card-content>
-          <div class="empty-goal-content">
-            <ion-icon name="flag" color="medium"></ion-icon>
-            <h3>No Weekly Goal Set</h3>
-            <p>Set a goal to track how many chapters you want to complete this week</p>
-            <ion-button (click)="setWeeklyGoal()">
-              <ion-icon name="flag" slot="start"></ion-icon>
-              Set Weekly Goal
-            </ion-button>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </div>
-
-    <!-- Achievements Section -->
-    <div class="achievements-section" *ngIf="achievements.length > 0">
-      <h2>
-        <ion-icon name="trophy"></ion-icon>
-        Achievements
-      </h2>
-      <ion-card>
-        <ion-card-content>
-          <div class="achievements-grid">
-            <div
-              *ngFor="let achievement of achievements"
-              class="achievement-badge"
-              [class.earned]="achievement.earned"
-              [class.locked]="!achievement.earned"
-            >
-              <div class="badge-icon" [attr.data-color]="achievement.color">
-                <ion-icon [name]="achievement.icon" [color]="achievement.earned ? achievement.color : 'medium'"></ion-icon>
-              </div>
-              <div class="badge-info">
-                <div class="badge-name">{{ achievement.name }}</div>
-                <div class="badge-description">{{ achievement.description }}</div>
-                <div class="badge-status" *ngIf="achievement.earned">
-                  <ion-icon name="checkmark-circle" color="success"></ion-icon>
-                  Earned
+  @if (stats) {
+    <div class="progress-container">
+      <!-- Weekly Goal Section -->
+      <div class="weekly-goal-section">
+        <h2>
+          <ion-icon name="flag"></ion-icon>
+          Weekly Goal
+        </h2>
+        @if (weeklyGoalStats) {
+          <ion-card class="weekly-goal-card">
+            <ion-card-content>
+              <div class="goal-header">
+                <div class="goal-progress-circle" [attr.data-color]="getWeeklyGoalColor()">
+                  <div class="circle-content">
+                    <span class="goal-completed">{{ weeklyGoalStats.completed }}</span>
+                    <span class="goal-separator">/</span>
+                    <span class="goal-target">{{ weeklyGoalStats.target }}</span>
+                  </div>
+                  @if (weeklyGoalStats.percentage >= 100) {
+                    <ion-icon name="trophy" class="trophy-icon" color="warning"></ion-icon>
+                  }
                 </div>
-              </div>
-            </div>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </div>
-
-    <!-- Overall Statistics -->
-    <div class="stats-section">
-      <h2>Overall Progress</h2>
-
-      <ion-grid>
-        <ion-row>
-          <!-- Completion -->
-          <ion-col size="12" sizeMd="6">
-            <ion-card class="stat-card">
-              <ion-card-content>
-                <div class="stat-icon-wrapper">
-                  <ion-icon name="checkmark-circle" color="success"></ion-icon>
-                </div>
-                <div class="stat-content">
-                  <div class="stat-value">{{ stats.completedChapters }}/{{ stats.totalChapters }}</div>
-                  <div class="stat-label">Chapters Completed</div>
-                  <ion-progress-bar
-                    [value]="stats.completionPercentage / 100"
-                    color="success"
-                  ></ion-progress-bar>
-                  <div class="stat-percentage">{{ stats.completionPercentage.toFixed(0) }}%</div>
-                </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-
-          <!-- Streak -->
-          <ion-col size="12" sizeMd="6">
-            <ion-card class="stat-card">
-              <ion-card-content>
-                <div class="stat-icon-wrapper">
-                  <ion-icon name="flame" color="warning"></ion-icon>
-                </div>
-                <div class="stat-content">
-                  <div class="stat-value">{{ stats.currentStreak }}</div>
-                  <div class="stat-label">Day Streak</div>
-                  <div class="stat-detail">Best: {{ stats.longestStreak }} days</div>
-                </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-
-          <!-- Time Today -->
-          <ion-col size="12" sizeMd="6">
-            <ion-card class="stat-card">
-              <ion-card-content>
-                <div class="stat-icon-wrapper">
-                  <ion-icon name="time" color="primary"></ion-icon>
-                </div>
-                <div class="stat-content">
-                  <div class="stat-value">{{ formatTime(stats.todayMinutes) }}</div>
-                  <div class="stat-label">Today</div>
-                  <div class="stat-detail">This week: {{ formatTime(stats.weekMinutes) }}</div>
-                </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-
-          <!-- Total Time -->
-          <ion-col size="12" sizeMd="6">
-            <ion-card class="stat-card">
-              <ion-card-content>
-                <div class="stat-icon-wrapper">
-                  <ion-icon name="stats-chart" color="tertiary"></ion-icon>
-                </div>
-                <div class="stat-content">
-                  <div class="stat-value">{{ formatTime(stats.totalTimeMinutes) }}</div>
-                  <div class="stat-label">Total Learning Time</div>
-                  <div class="stat-detail" *ngIf="stats.completedChapters > 0">
-                    Avg: {{ formatTime(stats.averageTimePerChapter) }}/chapter
+                <div class="goal-details">
+                  <div class="goal-title">Chapters This Week</div>
+                  <div class="goal-message">{{ getWeeklyGoalMessage() }}</div>
+                  <div class="goal-days">
+                    <ion-icon name="calendar"></ion-icon>
+                    {{ weeklyGoalStats.daysRemaining }} days remaining
                   </div>
                 </div>
-              </ion-card-content>
-            </ion-card>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </div>
-
-    <!-- Category Progress -->
-    <div class="category-section" *ngIf="categoryProgress.length > 0">
-      <h2>Progress by Category</h2>
-      <ion-card>
-        <ion-card-content>
-          <div
-            *ngFor="let cat of categoryProgress"
-            class="category-progress-item"
-          >
-            <div class="category-header">
-              <ion-chip [class]="getCategoryChipClass(cat.category)">
-                <ion-label>{{ cat.category | titlecase }}</ion-label>
-              </ion-chip>
-              <span class="category-stats">
-                {{ cat.completed }}/{{ cat.total }}
-              </span>
+              </div>
+              <ion-progress-bar
+                [value]="weeklyGoalStats.percentage / 100"
+                [color]="getWeeklyGoalColor()"
+              ></ion-progress-bar>
+              <div class="goal-percentage">{{ weeklyGoalStats.percentage.toFixed(0) }}% complete</div>
+              <div class="goal-actions">
+                <ion-button fill="outline" size="small" (click)="setWeeklyGoal()">
+                  <ion-icon name="create" slot="start"></ion-icon>
+                  Edit Goal
+                </ion-button>
+                <ion-button fill="clear" size="small" color="danger" (click)="clearWeeklyGoal()">
+                  <ion-icon name="close" slot="start"></ion-icon>
+                  Clear
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        }
+        @if (!weeklyGoalStats) {
+          <ion-card class="weekly-goal-card empty-goal">
+            <ion-card-content>
+              <div class="empty-goal-content">
+                <ion-icon name="flag" color="medium"></ion-icon>
+                <h3>No Weekly Goal Set</h3>
+                <p>Set a goal to track how many chapters you want to complete this week</p>
+                <ion-button (click)="setWeeklyGoal()">
+                  <ion-icon name="flag" slot="start"></ion-icon>
+                  Set Weekly Goal
+                </ion-button>
+              </div>
+            </ion-card-content>
+          </ion-card>
+        }
+      </div>
+      <!-- Achievements Section -->
+      @if (achievements.length > 0) {
+        <div class="achievements-section">
+          <h2>
+            <ion-icon name="trophy"></ion-icon>
+            Achievements
+          </h2>
+          <ion-card>
+            <ion-card-content>
+              <div class="achievements-grid">
+                @for (achievement of achievements; track achievement) {
+                  <div
+                    class="achievement-badge"
+                    [class.earned]="achievement.earned"
+                    [class.locked]="!achievement.earned"
+                    >
+                    <div class="badge-icon" [attr.data-color]="achievement.color">
+                      <ion-icon [name]="achievement.icon" [color]="achievement.earned ? achievement.color : 'medium'"></ion-icon>
+                    </div>
+                    <div class="badge-info">
+                      <div class="badge-name">{{ achievement.name }}</div>
+                      <div class="badge-description">{{ achievement.description }}</div>
+                      @if (achievement.earned) {
+                        <div class="badge-status">
+                          <ion-icon name="checkmark-circle" color="success"></ion-icon>
+                          Earned
+                        </div>
+                      }
+                    </div>
+                  </div>
+                }
+              </div>
+            </ion-card-content>
+          </ion-card>
+        </div>
+      }
+      <!-- Overall Statistics -->
+      <div class="stats-section">
+        <h2>Overall Progress</h2>
+        <ion-grid>
+          <ion-row>
+            <!-- Completion -->
+            <ion-col size="12" sizeMd="6">
+              <ion-card class="stat-card">
+                <ion-card-content>
+                  <div class="stat-icon-wrapper">
+                    <ion-icon name="checkmark-circle" color="success"></ion-icon>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-value">{{ stats.completedChapters }}/{{ stats.totalChapters }}</div>
+                    <div class="stat-label">Chapters Completed</div>
+                    <ion-progress-bar
+                      [value]="stats.completionPercentage / 100"
+                      color="success"
+                    ></ion-progress-bar>
+                    <div class="stat-percentage">{{ stats.completionPercentage.toFixed(0) }}%</div>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <!-- Streak -->
+            <ion-col size="12" sizeMd="6">
+              <ion-card class="stat-card">
+                <ion-card-content>
+                  <div class="stat-icon-wrapper">
+                    <ion-icon name="flame" color="warning"></ion-icon>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-value">{{ stats.currentStreak }}</div>
+                    <div class="stat-label">Day Streak</div>
+                    <div class="stat-detail">Best: {{ stats.longestStreak }} days</div>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <!-- Time Today -->
+            <ion-col size="12" sizeMd="6">
+              <ion-card class="stat-card">
+                <ion-card-content>
+                  <div class="stat-icon-wrapper">
+                    <ion-icon name="time" color="primary"></ion-icon>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-value">{{ formatTime(stats.todayMinutes) }}</div>
+                    <div class="stat-label">Today</div>
+                    <div class="stat-detail">This week: {{ formatTime(stats.weekMinutes) }}</div>
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+            <!-- Total Time -->
+            <ion-col size="12" sizeMd="6">
+              <ion-card class="stat-card">
+                <ion-card-content>
+                  <div class="stat-icon-wrapper">
+                    <ion-icon name="stats-chart" color="tertiary"></ion-icon>
+                  </div>
+                  <div class="stat-content">
+                    <div class="stat-value">{{ formatTime(stats.totalTimeMinutes) }}</div>
+                    <div class="stat-label">Total Learning Time</div>
+                    @if (stats.completedChapters > 0) {
+                      <div class="stat-detail">
+                        Avg: {{ formatTime(stats.averageTimePerChapter) }}/chapter
+                      </div>
+                    }
+                  </div>
+                </ion-card-content>
+              </ion-card>
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+      <!-- Category Progress -->
+      @if (categoryProgress.length > 0) {
+        <div class="category-section">
+          <h2>Progress by Category</h2>
+          <ion-card>
+            <ion-card-content>
+              @for (cat of categoryProgress; track cat) {
+                <div
+                  class="category-progress-item"
+                  >
+                  <div class="category-header">
+                    <ion-chip [class]="getCategoryChipClass(cat.category)">
+                      <ion-label>{{ cat.category | titlecase }}</ion-label>
+                    </ion-chip>
+                    <span class="category-stats">
+                      {{ cat.completed }}/{{ cat.total }}
+                    </span>
+                  </div>
+                  <ion-progress-bar
+                    [value]="cat.percentage / 100"
+                    [class]="getCategoryProgressClass(cat.category)"
+                  ></ion-progress-bar>
+                  <div class="category-percentage">{{ cat.percentage.toFixed(0) }}%</div>
+                </div>
+              }
+            </ion-card-content>
+          </ion-card>
+        </div>
+      }
+      <!-- Completed Chapters -->
+      @if (completedChapters.length > 0) {
+        <div class="completed-section">
+          <h2>Completed Chapters ({{ completedChapters.length }})</h2>
+          <ion-card>
+            <ion-list>
+              @for (chapter of completedChapters; track chapter) {
+                <ion-item
+                  button
+                  (click)="openChapter(chapter)"
+                  >
+                  <ion-icon
+                    [name]="chapter.icon"
+                    [ngStyle]="getCategoryIconStyle(chapter.category)"
+                    slot="start"
+                  ></ion-icon>
+                  <ion-label>
+                    <h3>{{ chapter.title }}</h3>
+                    <p>{{ chapter.description }}</p>
+                  </ion-label>
+                  <ion-badge slot="end" color="success">
+                    <ion-icon name="checkmark-circle"></ion-icon>
+                  </ion-badge>
+                </ion-item>
+              }
+            </ion-list>
+          </ion-card>
+        </div>
+      }
+      <!-- Bookmarks -->
+      @if (bookmarks.length > 0) {
+        <div class="bookmarks-section">
+          <h2>
+            <ion-icon name="bookmark"></ion-icon>
+            Bookmarks ({{ bookmarks.length }})
+          </h2>
+          <ion-card>
+            <ion-list>
+              @for (bookmark of bookmarks; track bookmark) {
+                <ion-item
+                  button
+                  (click)="goToBookmark(bookmark)"
+                  >
+                  <ion-label>
+                    <h3>{{ bookmark.chapterTitle }}</h3>
+                    <p>{{ bookmark.sectionTitle }}</p>
+                    @if (bookmark.note) {
+                      <ion-note>{{ bookmark.note }}</ion-note>
+                    }
+                  </ion-label>
+                  <ion-button
+                    slot="end"
+                    fill="clear"
+                    color="danger"
+                    (click)="removeBookmark(bookmark, $event)"
+                    >
+                    <ion-icon name="close" slot="icon-only"></ion-icon>
+                  </ion-button>
+                </ion-item>
+              }
+            </ion-list>
+          </ion-card>
+        </div>
+      }
+      <!-- Empty State -->
+      @if (completedChapters.length === 0) {
+        <div class="empty-state">
+          <ion-icon name="stats-chart" color="medium"></ion-icon>
+          <h3>No Progress Yet</h3>
+          <p>Start learning to see your progress here!</p>
+          <ion-button routerLink="/chapters" expand="block">
+            Browse Chapters
+            <ion-icon name="arrow-forward" slot="end"></ion-icon>
+          </ion-button>
+        </div>
+      }
+      <!-- Actions -->
+      <div class="actions-section">
+        <h2>Data Management</h2>
+        <ion-card>
+          <ion-card-content>
+            <div class="action-buttons">
+              <ion-button expand="block" fill="outline" (click)="exportProgress()">
+                <ion-icon name="download" slot="start"></ion-icon>
+                Export Progress
+              </ion-button>
+              <ion-button expand="block" fill="outline" (click)="importProgress()">
+                <ion-icon name="cloud-upload" slot="start"></ion-icon>
+                Import Progress
+              </ion-button>
+              <ion-button
+                expand="block"
+                fill="outline"
+                color="warning"
+                (click)="confirmClearBookmarks()"
+                [disabled]="bookmarks.length === 0"
+                >
+                <ion-icon name="bookmark" slot="start"></ion-icon>
+                Clear Bookmarks
+              </ion-button>
+              <ion-button
+                expand="block"
+                fill="outline"
+                color="danger"
+                (click)="confirmReset()"
+                >
+                <ion-icon name="trash" slot="start"></ion-icon>
+                Reset All Progress
+              </ion-button>
             </div>
-            <ion-progress-bar
-              [value]="cat.percentage / 100"
-              [class]="getCategoryProgressClass(cat.category)"
-            ></ion-progress-bar>
-            <div class="category-percentage">{{ cat.percentage.toFixed(0) }}%</div>
-          </div>
-        </ion-card-content>
-      </ion-card>
+          </ion-card-content>
+        </ion-card>
+      </div>
     </div>
-
-    <!-- Completed Chapters -->
-    <div class="completed-section" *ngIf="completedChapters.length > 0">
-      <h2>Completed Chapters ({{ completedChapters.length }})</h2>
-      <ion-card>
-        <ion-list>
-          <ion-item
-            *ngFor="let chapter of completedChapters"
-            button
-            (click)="openChapter(chapter)"
-          >
-            <ion-icon
-              [name]="chapter.icon"
-              [ngStyle]="getCategoryIconStyle(chapter.category)"
-              slot="start"
-            ></ion-icon>
-            <ion-label>
-              <h3>{{ chapter.title }}</h3>
-              <p>{{ chapter.description }}</p>
-            </ion-label>
-            <ion-badge slot="end" color="success">
-              <ion-icon name="checkmark-circle"></ion-icon>
-            </ion-badge>
-          </ion-item>
-        </ion-list>
-      </ion-card>
-    </div>
-
-    <!-- Bookmarks -->
-    <div class="bookmarks-section" *ngIf="bookmarks.length > 0">
-      <h2>
-        <ion-icon name="bookmark"></ion-icon>
-        Bookmarks ({{ bookmarks.length }})
-      </h2>
-      <ion-card>
-        <ion-list>
-          <ion-item
-            *ngFor="let bookmark of bookmarks"
-            button
-            (click)="goToBookmark(bookmark)"
-          >
-            <ion-label>
-              <h3>{{ bookmark.chapterTitle }}</h3>
-              <p>{{ bookmark.sectionTitle }}</p>
-              <ion-note *ngIf="bookmark.note">{{ bookmark.note }}</ion-note>
-            </ion-label>
-            <ion-button
-              slot="end"
-              fill="clear"
-              color="danger"
-              (click)="removeBookmark(bookmark, $event)"
-            >
-              <ion-icon name="close" slot="icon-only"></ion-icon>
-            </ion-button>
-          </ion-item>
-        </ion-list>
-      </ion-card>
-    </div>
-
-    <!-- Empty State -->
-    <div class="empty-state" *ngIf="completedChapters.length === 0">
-      <ion-icon name="stats-chart" color="medium"></ion-icon>
-      <h3>No Progress Yet</h3>
-      <p>Start learning to see your progress here!</p>
-      <ion-button routerLink="/chapters" expand="block">
-        Browse Chapters
-        <ion-icon name="arrow-forward" slot="end"></ion-icon>
-      </ion-button>
-    </div>
-
-    <!-- Actions -->
-    <div class="actions-section">
-      <h2>Data Management</h2>
-      <ion-card>
-        <ion-card-content>
-          <div class="action-buttons">
-            <ion-button expand="block" fill="outline" (click)="exportProgress()">
-              <ion-icon name="download" slot="start"></ion-icon>
-              Export Progress
-            </ion-button>
-
-            <ion-button expand="block" fill="outline" (click)="importProgress()">
-              <ion-icon name="cloud-upload" slot="start"></ion-icon>
-              Import Progress
-            </ion-button>
-
-            <ion-button
-              expand="block"
-              fill="outline"
-              color="warning"
-              (click)="confirmClearBookmarks()"
-              [disabled]="bookmarks.length === 0"
-            >
-              <ion-icon name="bookmark" slot="start"></ion-icon>
-              Clear Bookmarks
-            </ion-button>
-
-            <ion-button
-              expand="block"
-              fill="outline"
-              color="danger"
-              (click)="confirmReset()"
-            >
-              <ion-icon name="trash" slot="start"></ion-icon>
-              Reset All Progress
-            </ion-button>
-          </div>
-        </ion-card-content>
-      </ion-card>
-    </div>
-  </div>
+  }
 </ion-content>

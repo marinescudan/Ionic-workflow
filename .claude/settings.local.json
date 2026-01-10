@@ -3,7 +3,11 @@
     "allow": [
       "mcp__ide__getDiagnostics",
       "Bash(npm run build)",
-      "Bash(npx ionic:*)"
+      "Bash(npx ionic:*)",
+      "Bash(npm install:*)",
+      "Bash(wc:*)",
+      "Bash(ls:*)",
+      "Bash(find:*)"
     ]
   }
 }

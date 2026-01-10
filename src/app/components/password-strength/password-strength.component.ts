@@ -1,5 +1,5 @@
 import { Component, Input, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { IonProgressBar, IonText, IonIcon } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { checkmarkCircle, closeCircle } from 'ionicons/icons';
@@ -8,7 +8,7 @@ import { ValidationService } from '@services/validation/validation.service';
 @Component({
   selector: 'app-password-strength',
   standalone: true,
-  imports: [CommonModule, IonProgressBar, IonText, IonIcon],
+  imports: [IonProgressBar, IonIcon],
   template: `
     @if (password) {
       <div class="strength-container">

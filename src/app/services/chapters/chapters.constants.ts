@@ -9,6 +9,7 @@ import { CHAPTER_04_DATA } from './data/chapter-04-progress';
 import { CHAPTER_05_DATA } from './data/chapter-05-rxjs';
 import { CHAPTER_06_DATA } from './data/chapter-06-navigation';
 import { CHAPTER_07_DATA } from './data/chapter-07-forms';
+import { CHAPTER_08_DATA } from './data/chapter-08-ngrx';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -18,17 +19,7 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_05_DATA,  // RxJS
   CHAPTER_06_DATA,  // Navigation & Routing
   CHAPTER_07_DATA,  // Forms & Validation
-
-  {
-    id: 8,
-    title: 'NgRx State Management',
-    description: 'Enterprise-scale state with actions, reducers, and effects',
-    icon: 'layers-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: false,
-    sections: [],
-  },
+  CHAPTER_08_DATA,  // NgRx State Management
   {
     id: 9,
     title: 'HTTP & REST APIs',

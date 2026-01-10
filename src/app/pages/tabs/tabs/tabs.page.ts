@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import {
   IonTabs,
   IonTabBar,
@@ -26,14 +26,13 @@ import {
   styleUrls: ['./tabs.page.scss'],
   standalone: true,
   imports: [
-    CommonModule,
     IonTabs,
     IonTabBar,
     IonTabButton,
     IonIcon,
     IonLabel,
-    IonBadge,
-  ],
+    IonBadge
+],
 })
 export class TabsPage {
   notificationCount = 5; // Mock notification count

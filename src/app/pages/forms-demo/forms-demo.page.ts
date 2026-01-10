@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonButtons,
@@ -34,16 +34,30 @@ type FormType = 'registration' | 'profile' | 'dynamic';
   selector: 'app-forms-demo',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
-    IonHeader, IonToolbar, IonTitle, IonContent, IonButtons,
-    IonBackButton, IonSegment, IonSegmentButton, IonLabel,
-    IonList, IonItem, IonInput, IonButton, IonSpinner,
-    IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-    IonIcon, IonText, IonNote,
+    IonHeader,
+    IonToolbar,
+    IonTitle,
+    IonContent,
+    IonButtons,
+    IonBackButton,
+    IonSegment,
+    IonSegmentButton,
+    IonLabel,
+    IonItem,
+    IonInput,
+    IonButton,
+    IonSpinner,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonIcon,
+    IonText,
+    IonNote,
     FormErrorsComponent,
     PasswordStrengthComponent
-  ],
+],
   templateUrl: './forms-demo.page.html',
   styleUrls: ['./forms-demo.page.scss']
 })

@@ -1,0 +1,108 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/notes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ isEditMode ? 'Edit Note' : 'New Note' }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="cancel()">
+        <ion-icon slot="icon-only" name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="noteForm" (ngSubmit)="onSubmit()">
+    <ion-list>
+      <!-- Title -->
+      <ion-item [class.ion-invalid]="title?.invalid && title?.touched">
+        <ion-input
+          formControlName="title"
+          label="Title"
+          labelPlacement="stacked"
+          placeholder="Enter note title"
+          [clearInput]="true"
+        ></ion-input>
+      </ion-item>
+      @if (title?.invalid && title?.touched) {
+        <ion-note color="danger" class="ion-padding-start">
+          @if (title?.errors?.['required']) {
+            Title is required
+          } @else if (title?.errors?.['minlength']) {
+            Title must be at least 3 characters
+          } @else if (title?.errors?.['maxlength']) {
+            Title must be less than 100 characters
+          }
+        </ion-note>
+      }
+
+      <!-- Content -->
+      <ion-item [class.ion-invalid]="content?.invalid && content?.touched">
+        <ion-textarea
+          formControlName="content"
+          label="Content"
+          labelPlacement="stacked"
+          placeholder="Enter note content"
+          [rows]="6"
+          [autoGrow]="true"
+        ></ion-textarea>
+      </ion-item>
+      @if (content?.invalid && content?.touched) {
+        <ion-note color="danger" class="ion-padding-start">
+          @if (content?.errors?.['required']) {
+            Content is required
+          } @else if (content?.errors?.['minlength']) {
+            Content must be at least 10 characters
+          }
+        </ion-note>
+      }
+
+      <!-- Category -->
+      <ion-item>
+        <ion-select
+          formControlName="category"
+          label="Category"
+          labelPlacement="stacked"
+          placeholder="Select category"
+        >
+          @for (cat of categories; track cat) {
+            <ion-select-option [value]="cat">
+              {{ getCategoryLabel(cat) }}
+            </ion-select-option>
+          }
+        </ion-select>
+      </ion-item>
+
+      <!-- Pinned (only in edit mode) -->
+      @if (isEditMode) {
+        <ion-item>
+          <ion-toggle formControlName="pinned" labelPlacement="start">
+            Pin this note
+          </ion-toggle>
+        </ion-item>
+      }
+    </ion-list>
+
+    <div class="form-actions">
+      <ion-button
+        type="submit"
+        expand="block"
+        [disabled]="noteForm.invalid || (loading$ | async)"
+      >
+        <ion-icon slot="start" name="save"></ion-icon>
+        {{ isEditMode ? 'Update Note' : 'Create Note' }}
+      </ion-button>
+
+      <ion-button
+        type="button"
+        expand="block"
+        fill="outline"
+        color="medium"
+        (click)="cancel()"
+      >
+        Cancel
+      </ion-button>
+    </div>
+  </form>
+</ion-content>

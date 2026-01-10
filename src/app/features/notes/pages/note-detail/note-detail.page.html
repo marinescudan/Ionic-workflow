@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/notes"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Note Details</ion-title>
+    @if (note$ | async; as note) {
+      <ion-buttons slot="end">
+        <ion-button (click)="togglePin(note)">
+          <ion-icon slot="icon-only" [name]="note.pinned ? 'pin' : 'pin-outline'"></ion-icon>
+        </ion-button>
+        <ion-button (click)="editNote(note)">
+          <ion-icon slot="icon-only" name="create"></ion-icon>
+        </ion-button>
+        <ion-button color="danger" (click)="confirmDelete(note)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    }
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (note$ | async; as note) {
+    <ion-card>
+      <ion-card-header>
+        <div class="note-header">
+          <ion-chip [color]="getCategoryColor(note.category)">
+            <ion-label>{{ note.category | titlecase }}</ion-label>
+          </ion-chip>
+          @if (note.pinned) {
+            <ion-icon name="pin" color="warning" class="pin-icon"></ion-icon>
+          }
+        </div>
+        <ion-card-title>{{ note.title }}</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div class="note-content">
+          {{ note.content }}
+        </div>
+
+        <div class="note-meta">
+          <p class="date">
+            <strong>Created:</strong> {{ note.createdAt | date:'medium' }}
+          </p>
+          <p class="date">
+            <strong>Updated:</strong> {{ note.updatedAt | date:'medium' }}
+          </p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  } @else {
+    <div class="no-note">
+      <p>Note not found</p>
+      <ion-button (click)="goBack()">
+        <ion-icon slot="start" name="arrow-back"></ion-icon>
+        Back to Notes
+      </ion-button>
+    </div>
+  }
+</ion-content>

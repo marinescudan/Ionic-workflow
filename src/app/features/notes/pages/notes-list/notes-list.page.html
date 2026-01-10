@@ -1,0 +1,139 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/chapters"></ion-back-button>
+    </ion-buttons>
+    <ion-title>My Notes</ion-title>
+  </ion-toolbar>
+
+  <!-- Category Filter -->
+  <ion-toolbar>
+    <ion-segment
+      [value]="(filterCategory$ | async) ?? 'all'"
+      (ionChange)="filterByCategory($event.detail.value === 'all' ? null : $event.detail.value)"
+    >
+      <ion-segment-button value="all">
+        <ion-label>All</ion-label>
+      </ion-segment-button>
+      @for (cat of categories; track cat) {
+        <ion-segment-button [value]="cat">
+          <ion-label>{{ cat | titlecase }}</ion-label>
+        </ion-segment-button>
+      }
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <!-- Pull to Refresh -->
+  <ion-refresher slot="fixed" (ionRefresh)="refresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <!-- Loading State -->
+  @if (loading$ | async) {
+    <div class="loading-container">
+      <ion-spinner name="crescent"></ion-spinner>
+      <p>Loading notes...</p>
+    </div>
+  }
+
+  <!-- Error State -->
+  @if (error$ | async; as error) {
+    <div class="error-container">
+      <ion-icon name="alert-circle" color="danger"></ion-icon>
+      <p>{{ error }}</p>
+      <ion-button (click)="loadNotes()">Retry</ion-button>
+    </div>
+  }
+
+  <!-- Notes Count -->
+  <div class="notes-header">
+    <span class="count">{{ totalNotes$ | async }} notes</span>
+  </div>
+
+  <!-- Pinned Notes Section -->
+  @if ((pinnedNotes$ | async)?.length) {
+    <div class="section-header">
+      <ion-icon name="pin"></ion-icon>
+      <span>Pinned</span>
+    </div>
+    <ion-list>
+      @for (note of pinnedNotes$ | async; track note.id) {
+        <ion-item-sliding>
+          <ion-item button [routerLink]="['/notes', note.id]">
+            <ion-badge slot="start" [color]="getCategoryColor(note.category)">
+              {{ note.category }}
+            </ion-badge>
+            <ion-label>
+              <h2>{{ note.title }}</h2>
+              <p>{{ note.content | slice:0:60 }}...</p>
+            </ion-label>
+            <ion-button
+              slot="end"
+              fill="clear"
+              (click)="togglePin($event, note.id)"
+            >
+              <ion-icon name="pin" color="primary"></ion-icon>
+            </ion-button>
+          </ion-item>
+
+          <ion-item-options side="end">
+            <ion-item-option color="danger" (click)="confirmDelete($event, note)">
+              <ion-icon slot="icon-only" name="trash"></ion-icon>
+            </ion-item-option>
+          </ion-item-options>
+        </ion-item-sliding>
+      }
+    </ion-list>
+  }
+
+  <!-- All Notes Section -->
+  <div class="section-header">
+    <span>All Notes</span>
+  </div>
+  <ion-list>
+    @for (note of notes$ | async; track note.id) {
+      <ion-item-sliding>
+        <ion-item button [routerLink]="['/notes', note.id]">
+          <ion-badge slot="start" [color]="getCategoryColor(note.category)">
+            {{ note.category }}
+          </ion-badge>
+          <ion-label>
+            <h2>
+              {{ note.title }}
+              @if (note.pinned) {
+                <ion-icon name="pin" color="primary" size="small"></ion-icon>
+              }
+            </h2>
+            <p>{{ note.content | slice:0:60 }}...</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item-options side="end">
+          <ion-item-option (click)="togglePin($event, note.id)">
+            <ion-icon slot="icon-only" name="pin"></ion-icon>
+          </ion-item-option>
+          <ion-item-option color="danger" (click)="confirmDelete($event, note)">
+            <ion-icon slot="icon-only" name="trash"></ion-icon>
+          </ion-item-option>
+        </ion-item-options>
+      </ion-item-sliding>
+    } @empty {
+      @if (!(loading$ | async)) {
+        <ion-item>
+          <ion-label class="ion-text-center">
+            <p>No notes yet. Create your first note!</p>
+          </ion-label>
+        </ion-item>
+      }
+    }
+  </ion-list>
+
+  <!-- FAB Button -->
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button routerLink="/notes/new">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>
