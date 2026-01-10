@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
 import { NotesListPage } from './notes-list.page';
 import { NotesActions } from '../../store/notes.actions';
@@ -27,7 +28,10 @@ describe('NotesListPage', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [NotesListPage],
-      providers: [provideMockStore({ initialState })],
+      providers: [
+        provideRouter([]),
+        provideMockStore({ initialState }),
+      ],
     }).compileComponents();
 
     store = TestBed.inject(MockStore);
