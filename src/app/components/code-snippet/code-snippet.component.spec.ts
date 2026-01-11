@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { CodeSnippetComponent } from './code-snippet.component';
 
 describe('CodeSnippetComponent', () => {
@@ -9,8 +8,10 @@ describe('CodeSnippetComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ CodeSnippetComponent ],
-      imports: [IonicModule.forRoot()]
+      imports: [CodeSnippetComponent],
+      providers: [
+        provideIonicAngular(),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CodeSnippetComponent);

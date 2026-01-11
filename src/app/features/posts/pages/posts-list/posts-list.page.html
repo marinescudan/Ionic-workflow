@@ -1,0 +1,31 @@
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Posts</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      @if (loading()) {
+        <div class="spinner-container">
+          <ion-spinner></ion-spinner>
+          <p>Loading posts...</p>
+        </div>
+      } @else if (error()) {
+        <div class="error-container">
+          <ion-icon name="alert-circle-outline"></ion-icon>
+          <p>{{ error() }}</p>
+          <ion-button (click)="loadPosts()">Retry</ion-button>
+        </div>
+      } @else {
+        <ion-list>
+          @for (post of posts(); track post.id) {
+            <ion-item>
+              <ion-label>
+                <h2>{{ post.title }}</h2>
+                <p>{{ post.body }}</p>
+              </ion-label>
+            </ion-item>
+          }
+        </ion-list>
+      }
+    </ion-content>

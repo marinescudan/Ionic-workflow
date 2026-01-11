@@ -1,6 +1,6 @@
 import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
 import { PreloadAllModules, provideRouter, RouteReuseStrategy, withPreloading } from '@angular/router';
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
@@ -9,13 +9,27 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { notesReducer } from './features/notes/store/notes.reducer';
 import { NotesEffects } from './features/notes/store/notes.effects';
+import { loggingInterceptor } from '@app/core/interceptors/logging.interceptor';
+import { authInterceptor } from '@app/core/interceptors/auth.interceptor';
+import { cacheInterceptor } from '@app/core/interceptors/cache.interceptor';
+import { errorInterceptor } from '@app/core/interceptors/error.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideRouter(routes, withPreloading(PreloadAllModules)),
-    provideHttpClient(),
+
+    // Modern HttpClient setup (Angular 15+)
+    provideHttpClient(
+      withInterceptors([
+        // Order matters! Interceptors execute in array order
+        loggingInterceptor,   // 1. Log request
+        authInterceptor,      // 2. Add auth token
+        cacheInterceptor,     // 3. Check/update cache
+        errorInterceptor,     // 4. Handle errors
+      ])
+    ),
     provideIonicAngular(),
 
     // NgRx Store - register feature reducers

@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-
+import { provideIonicAngular } from '@ionic/angular/standalone';
 import { FullpageModalComponent } from './fullpage-modal.component';
 
 describe('FullpageModalComponent', () => {
@@ -9,6 +9,9 @@ describe('FullpageModalComponent', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [FullpageModalComponent],
+      providers: [
+        provideIonicAngular(),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(FullpageModalComponent);

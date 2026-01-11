@@ -57,6 +57,27 @@ export const routes: Routes = [
     redirectTo: 'chapters',
     pathMatch: 'full',
   },
+  {
+    path: 'posts-list',
+    loadComponent: () => import('./features/posts/pages/posts-list/posts-list.page').then( m => m.PostsListPage)
+  },  {
+    path: 'file-upload.page.ts',
+    loadComponent: () => import('./features/files/pages/file-upload/file-upload.page.ts/file-upload.page.ts.page').then( m => m.FileUploadPageTsPage)
+  },
+  {
+    path: 'file-upload',
+    loadComponent: () => import('./features/files/pages/file-upload/file-upload/file-upload.page').then( m => m.FileUploadPage)
+  },
+  {
+    path: 'search',
+    loadComponent: () => import('./features/search/pages/search/search/search.page').then( m => m.SearchPage)
+  },
+  {
+    path: 'posts-list-v2',
+    loadComponent: () => import('./features/posts/pages/posts-list-v2/posts-list-v2.page').then( m => m.PostsListV2Page)
+  },
+
+
 
 
 ];
