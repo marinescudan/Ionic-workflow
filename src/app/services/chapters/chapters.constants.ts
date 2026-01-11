@@ -10,6 +10,7 @@ import { CHAPTER_05_DATA } from './data/chapter-05-rxjs';
 import { CHAPTER_06_DATA } from './data/chapter-06-navigation';
 import { CHAPTER_07_DATA } from './data/chapter-07-forms';
 import { CHAPTER_08_DATA } from './data/chapter-08-ngrx';
+import { CHAPTER_09_DATA } from './data/chapter-09.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -20,16 +21,7 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_06_DATA,  // Navigation & Routing
   CHAPTER_07_DATA,  // Forms & Validation
   CHAPTER_08_DATA,  // NgRx State Management
-  {
-    id: 9,
-    title: 'HTTP & REST APIs',
-    description: 'Integrate with backend APIs using HttpClient',
-    icon: 'cloud-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: false,
-    sections: [],
-  },
+  CHAPTER_09_DATA,  // HTTP & API Integration
   {
     id: 10,
     title: 'Real-time with WebSockets',

@@ -1,0 +1,36 @@
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>Upload File</ion-title>
+      </ion-toolbar>
+    </ion-header>
+
+    <ion-content>
+      <div class="upload-container">
+        <input
+          type="file"
+          #fileInput
+          (change)="onFileSelected($event)"
+          accept="image/*"
+        />
+
+        @if (uploading()) {
+          <ion-progress-bar [value]="progress() / 100"></ion-progress-bar>
+          <p>Uploading: {{ progress() }}%</p>
+        }
+
+        @if (uploadedFile()) {
+          <div class="success">
+            <ion-icon name="checkmark-circle" color="success"></ion-icon>
+            <p>Upload successful!</p>
+            <a [href]="uploadedFile()!.url" target="_blank">View file</a>
+          </div>
+        }
+
+        @if (error()) {
+          <ion-text color="danger">
+            <p>{{ error() }}</p>
+          </ion-text>
+          <ion-button (click)="retry()">Retry</ion-button>
+        }
+      </div>
+    </ion-content>
