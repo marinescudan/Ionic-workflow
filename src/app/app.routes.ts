@@ -51,6 +51,12 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/forms-demo/forms-demo.page').then( m => m.FormsDemoPage)
   },
 
+  // Real-time Demo
+  {
+    path: 'realtime-demo',
+    loadComponent: () => import('./features/realtime/pages/realtime-demo/realtime-demo.page').then(m => m.RealtimeDemoPage)
+  },
+
   // Default redirect
   {
     path: '',

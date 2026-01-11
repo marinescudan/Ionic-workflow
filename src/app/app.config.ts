@@ -9,10 +9,13 @@ import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { routes } from './app.routes';
 import { notesReducer } from './features/notes/store/notes.reducer';
 import { NotesEffects } from './features/notes/store/notes.effects';
+import { realtimeReducer } from './features/realtime/store/realtime.reducer';
+import { RealtimeEffects } from './features/realtime/store/realtime.effects';
 import { loggingInterceptor } from '@app/core/interceptors/logging.interceptor';
 import { authInterceptor } from '@app/core/interceptors/auth.interceptor';
 import { cacheInterceptor } from '@app/core/interceptors/cache.interceptor';
 import { errorInterceptor } from '@app/core/interceptors/error.interceptor';
+import { SOCKET_CONFIG, defaultSocketConfig } from '@app/core/services/socket/socket.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -32,15 +35,20 @@ export const appConfig: ApplicationConfig = {
     ),
     provideIonicAngular(),
 
+    // Socket.IO Configuration
+    { provide: SOCKET_CONFIG, useValue: defaultSocketConfig },
+
     // NgRx Store - register feature reducers
     provideStore({
       notes: notesReducer,
+      realtime: realtimeReducer,
       // Add more feature reducers here
     }),
 
     // NgRx Effects - register effect classes
     provideEffects([
       NotesEffects,
+      RealtimeEffects,
       // Add more effects classes here
     ]),
 
