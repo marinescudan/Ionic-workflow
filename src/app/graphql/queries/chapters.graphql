@@ -1,0 +1,82 @@
+# Query to get all chapters
+query GetChapters($category: ChapterCategory, $completed: Boolean) {
+  chapters(category: $category, completed: $completed) {
+    id
+    title
+    description
+    category
+    completed
+    completedAt
+    hasDemo
+  }
+}
+
+# Query to get a single chapter with full details
+query GetChapter($id: ID!) {
+  chapter(id: $id) {
+    id
+    title
+    description
+    category
+    completed
+    completedAt
+    hasDemo
+    sections {
+      id
+      title
+      content
+      codeSnippets {
+        id
+        language
+        code
+        title
+        description
+      }
+    }
+    progress {
+      id
+      percentage
+      timeSpent
+      lastAccessed
+    }
+    bookmarks {
+      id
+      sectionId
+      note
+      createdAt
+    }
+  }
+}
+
+# Query to search chapters
+query SearchChapters($query: String!) {
+  searchChapters(query: $query) {
+    id
+    title
+    description
+    category
+    completed
+  }
+}
+
+# Query for paginated chapters (offset-based)
+query PaginatedChapters($offset: Int!, $limit: Int!) {
+  paginatedChapters(offset: $offset, limit: $limit) {
+    edges {
+      node {
+        id
+        title
+        category
+        completed
+      }
+      cursor
+    }
+    pageInfo {
+      hasNextPage
+      hasPreviousPage
+      startCursor
+      endCursor
+    }
+    totalCount
+  }
+}

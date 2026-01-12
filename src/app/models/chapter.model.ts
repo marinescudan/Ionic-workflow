@@ -32,7 +32,7 @@ export interface Section {
 
 export interface CodeSnippet {
   id: number;
-  language: 'typescript' | 'html' | 'scss' | 'bash';
+  language: 'typescript' | 'html' | 'scss' | 'bash' | 'graphql' | 'yaml';
   code: string;
   title: string;
   description?: string;

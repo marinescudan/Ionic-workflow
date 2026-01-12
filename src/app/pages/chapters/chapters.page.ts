@@ -82,8 +82,8 @@ export class ChaptersPage implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   constructor(
-    private chaptersService: ChaptersService,
-    private router: Router
+    private readonly chaptersService: ChaptersService,
+    private readonly router: Router
   ) {
     // Register ionicons - chapter icons (outline variants)
     addIcons({

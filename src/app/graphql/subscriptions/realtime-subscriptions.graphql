@@ -1,0 +1,31 @@
+# Subscription for chapter completion events
+subscription OnChapterCompleted {
+  chapterCompleted {
+    id
+    title
+    completed
+    completedAt
+  }
+}
+
+# Subscription for progress updates on a specific chapter
+subscription OnProgressUpdated($chapterId: ID!) {
+  progressUpdated(chapterId: $chapterId) {
+    id
+    chapterId
+    percentage
+    timeSpent
+    lastAccessed
+  }
+}
+
+# Subscription for all progress updates
+subscription OnAllProgressUpdates {
+  allProgressUpdates {
+    id
+    chapterId
+    percentage
+    timeSpent
+    lastAccessed
+  }
+}

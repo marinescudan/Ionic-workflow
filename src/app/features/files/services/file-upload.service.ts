@@ -3,7 +3,7 @@ import { HttpClient, HttpEventType, HttpProgressEvent } from '@angular/common/ht
 import { Observable } from 'rxjs';
 import { map, filter } from 'rxjs/operators';
 
-interface UploadResult {
+export interface UploadResult {
   url: string;
   filename: string;
   size: number;

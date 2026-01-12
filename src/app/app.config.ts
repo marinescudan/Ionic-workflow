@@ -5,6 +5,7 @@ import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalo
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
+import { provideApollo } from 'apollo-angular';
 
 import { routes } from './app.routes';
 import { notesReducer } from './features/notes/store/notes.reducer';
@@ -16,6 +17,7 @@ import { authInterceptor } from '@app/core/interceptors/auth.interceptor';
 import { cacheInterceptor } from '@app/core/interceptors/cache.interceptor';
 import { errorInterceptor } from '@app/core/interceptors/error.interceptor';
 import { SOCKET_CONFIG, defaultSocketConfig } from '@app/core/services/socket/socket.config';
+import { createApollo } from './core/services/graphql/apollo.config';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,6 +39,9 @@ export const appConfig: ApplicationConfig = {
 
     // Socket.IO Configuration
     { provide: SOCKET_CONFIG, useValue: defaultSocketConfig },
+
+    // Apollo GraphQL
+    provideApollo(createApollo),
 
     // NgRx Store - register feature reducers
     provideStore({

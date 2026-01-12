@@ -1,0 +1,43 @@
+.tab-content {
+  padding: 16px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.search-section {
+  margin: 16px 0;
+}
+
+.mutation-section,
+.subscription-section,
+.cache-info,
+.cache-inspect {
+  margin: 24px 0;
+
+  h3 {
+    margin-bottom: 12px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
+ion-range {
+  padding: 8px 0;
+}
+
+ion-chip {
+  margin: 4px;
+}
+
+ion-card {
+  margin-bottom: 16px;
+}
+
+ion-segment {
+  margin: 16px;
+}

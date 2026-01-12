@@ -1,0 +1,278 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>GraphQL Demo</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Segment for switching between tabs -->
+  <ion-segment [(ngModel)]="activeTab" (ionChange)="switchTab(activeTab)">
+    <ion-segment-button value="queries">
+      <ion-label>Queries</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="mutations">
+      <ion-label>Mutations</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="subscriptions">
+      <ion-label>Subscriptions</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="cache">
+      <ion-label>Cache</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- QUERIES TAB -->
+  <div *ngIf="activeTab === 'queries'" class="tab-content">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Query Operations</ion-card-title>
+        <ion-card-subtitle>Fetch data with GraphQL queries</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Get All Chapters -->
+        <ion-button expand="block" (click)="loadChapters()">
+          <ion-icon name="refresh" slot="start"></ion-icon>
+          Get All Chapters
+        </ion-button>
+
+        <!-- Search Chapters -->
+        <div class="search-section">
+          <ion-searchbar
+            [(ngModel)]="searchQuery"
+            (ionInput)="searchChapters()"
+            placeholder="Search chapters..."
+          ></ion-searchbar>
+
+          <div *ngIf="searchResults.length > 0">
+            <ion-list>
+              <ion-item *ngFor="let chapter of searchResults">
+                <ion-label>
+                  <h3>{{ chapter.title }}</h3>
+                  <p>{{ chapter.description }}</p>
+                </ion-label>
+              </ion-item>
+            </ion-list>
+          </div>
+        </div>
+
+        <!-- Chapter List -->
+        <ion-list *ngIf="chapters.length > 0">
+          <ion-item *ngFor="let chapter of chapters" (click)="loadChapter(chapter.id)">
+            <ion-label>
+              <h2>{{ chapter.title }}</h2>
+              <p>{{ chapter.category }}</p>
+              <p *ngIf="chapter.completed">
+                <ion-icon name="checkmark-circle" color="success"></ion-icon>
+                Completed
+              </p>
+            </ion-label>
+            <ion-badge slot="end" [color]="chapter.completed ? 'success' : 'medium'">
+              {{ chapter.completed ? 'Done' : 'Pending' }}
+            </ion-badge>
+          </ion-item>
+        </ion-list>
+
+        <!-- Loading Spinner -->
+        <div *ngIf="loading" class="loading-container">
+          <ion-spinner></ion-spinner>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Selected Chapter Details -->
+    <ion-card *ngIf="selectedChapter">
+      <ion-card-header>
+        <ion-card-title>{{ selectedChapter.title }}</ion-card-title>
+        <ion-card-subtitle>{{ selectedChapter.category }}</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <p>{{ selectedChapter.description }}</p>
+        <ion-chip *ngIf="selectedChapter.completed" color="success">
+          <ion-icon name="checkmark-circle"></ion-icon>
+          <ion-label>Completed</ion-label>
+        </ion-chip>
+        <ion-chip *ngIf="selectedChapter.hasDemo" color="primary">
+          <ion-icon name="code-slash"></ion-icon>
+          <ion-label>Has Demo</ion-label>
+        </ion-chip>
+
+        <!-- Progress -->
+        <div *ngIf="selectedChapter.progress">
+          <h4>Progress</h4>
+          <ion-progress-bar [value]="selectedChapter.progress.percentage / 100"></ion-progress-bar>
+          <p>{{ selectedChapter.progress.percentage }}% complete</p>
+        </div>
+
+        <!-- Sections -->
+        <div *ngIf="selectedChapter.sections && selectedChapter.sections.length > 0">
+          <h4>Sections</h4>
+          <ion-list>
+            <ion-item *ngFor="let section of selectedChapter.sections">
+              <ion-label>{{ section.title }}</ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- MUTATIONS TAB -->
+  <div *ngIf="activeTab === 'mutations'" class="tab-content">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Mutation Operations</ion-card-title>
+        <ion-card-subtitle>Modify data with GraphQL mutations</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Complete Chapter -->
+        <div class="mutation-section">
+          <h3>Complete Chapter</h3>
+          <ion-list>
+            <ion-item *ngFor="let chapter of chapters">
+              <ion-label>{{ chapter.title }}</ion-label>
+              <ion-button
+                slot="end"
+                fill="outline"
+                size="small"
+                (click)="completeChapter(chapter.id)"
+                [disabled]="chapter.completed"
+              >
+                <ion-icon name="checkmark" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <!-- Update Progress -->
+        <div class="mutation-section">
+          <h3>Update Progress</h3>
+          <ion-list>
+            <ion-item *ngFor="let chapter of chapters">
+              <ion-label>
+                <h4>{{ chapter.title }}</h4>
+                <ion-range
+                  min="0"
+                  max="100"
+                  step="10"
+                  pin="true"
+                  [value]="chapter.progress?.percentage || 0"
+                  (ionChange)="updateProgress(chapter.id, $event.detail.value)"
+                >
+                  <ion-label slot="start">0%</ion-label>
+                  <ion-label slot="end">100%</ion-label>
+                </ion-range>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- SUBSCRIPTIONS TAB -->
+  <div *ngIf="activeTab === 'subscriptions'" class="tab-content">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Real-time Subscriptions</ion-card-title>
+        <ion-card-subtitle>Listen to real-time GraphQL updates</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Progress Updates -->
+        <div class="subscription-section">
+          <h3>Progress Updates</h3>
+          <ion-button
+            expand="block"
+            (click)="subscribeToProgressUpdates()"
+            [disabled]="progressSubActive"
+          >
+            <ion-icon name="notifications" slot="start"></ion-icon>
+            {{ progressSubActive ? 'Subscribed' : 'Subscribe' }}
+          </ion-button>
+
+          <ion-list *ngIf="progressUpdates.length > 0">
+            <ion-item *ngFor="let progress of progressUpdates">
+              <ion-label>
+                <h4>Chapter: {{ progress.chapterId }}</h4>
+                <p>Progress: {{ progress.percentage }}%</p>
+                <p>Last accessed: {{ progress.lastAccessed | date:'short' }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </div>
+
+        <!-- Chapter Completions -->
+        <div class="subscription-section">
+          <h3>Chapter Completions</h3>
+          <ion-button
+            expand="block"
+            (click)="subscribeToChapterCompletions()"
+            [disabled]="completionSubActive"
+          >
+            <ion-icon name="checkmark-done" slot="start"></ion-icon>
+            {{ completionSubActive ? 'Subscribed' : 'Subscribe' }}
+          </ion-button>
+
+          <ion-list *ngIf="chapterCompletions.length > 0">
+            <ion-item *ngFor="let chapter of chapterCompletions">
+              <ion-label>
+                <h4>{{ chapter.title }}</h4>
+                <p>Completed at: {{ chapter.completedAt | date:'short' }}</p>
+              </ion-label>
+              <ion-icon name="checkmark-circle" color="success" slot="end"></ion-icon>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <!-- CACHE TAB -->
+  <div *ngIf="activeTab === 'cache'" class="tab-content">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Cache Management</ion-card-title>
+        <ion-card-subtitle>Inspect and manage Apollo Cache</ion-card-subtitle>
+      </ion-card-header>
+      <ion-card-content>
+        <!-- Cache Info -->
+        <div class="cache-info">
+          <h3>Cache Statistics</h3>
+          <ion-chip>
+            <ion-label>Entities: {{ cacheSize }}</ion-label>
+          </ion-chip>
+
+          <ion-button expand="block" (click)="updateCacheInfo()">
+            <ion-icon name="refresh" slot="start"></ion-icon>
+            Refresh Cache Info
+          </ion-button>
+
+          <ion-button expand="block" color="danger" (click)="clearCache()">
+            <ion-icon name="trash" slot="start"></ion-icon>
+            Clear Cache
+          </ion-button>
+        </div>
+
+        <!-- Inspect Chapters -->
+        <div class="cache-inspect">
+          <h3>Inspect Chapter Cache</h3>
+          <ion-list>
+            <ion-item *ngFor="let chapter of chapters">
+              <ion-label>{{ chapter.title }}</ion-label>
+              <ion-button
+                slot="end"
+                fill="outline"
+                size="small"
+                (click)="inspectChapterCache(chapter.id)"
+              >
+                <ion-icon name="eye" slot="icon-only"></ion-icon>
+              </ion-button>
+            </ion-item>
+          </ion-list>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
