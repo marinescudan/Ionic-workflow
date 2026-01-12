@@ -1,0 +1,45 @@
+overwrite: true
+schema: 'src/app/graphql/schema.graphql'
+documents: 'src/app/graphql/**/*.graphql'
+generates:
+  src/app/graphql/generated/types.ts:
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-apollo-angular'
+    config:
+      # TypeScript configuration
+      avoidOptionals: false
+      maybeValue: T | null
+      inputMaybeValue: T | null | undefined
+      strictScalars: true
+      scalars:
+        DateTime: string
+        Upload: File
+
+      # Apollo Angular configuration
+      addExplicitOverride: true
+      serviceName: 'GQL'
+      serviceProvidedInRoot: false
+      sdkClass: true
+
+      # Naming conventions - use defaults
+      # namingConvention: pascal-case#PascalCase
+
+      # Type generation options
+      skipTypename: false
+      nonOptionalTypename: true
+      preResolveTypes: true
+
+      # Fragment configuration
+      fragmentVariablePrefix: ''
+      fragmentVariableSuffix: 'Fragment'
+
+      # Enum as types (not string unions)
+      enumsAsTypes: false
+
+      # Generate immutable types
+      immutableTypes: false
+
+      # Include operation documents in output
+      documentMode: documentNode

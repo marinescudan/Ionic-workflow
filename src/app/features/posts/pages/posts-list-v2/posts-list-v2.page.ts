@@ -6,6 +6,18 @@ import {
   selectPostsLoading,
   selectPostsError,
 } from '../../store/posts.selectors';
+import {
+  IonButton,
+  IonButtons,
+  IonContent, IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonSpinner, IonTitle, IonToolbar
+} from '@ionic/angular/standalone';
+import { AsyncPipe } from '@angular/common';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-posts-list',
@@ -46,9 +58,24 @@ import {
     </ion-content>
   `,
   standalone: true,
+  imports: [
+    IonContent,
+    IonSpinner,
+    IonButton,
+    IonList,
+    IonItem,
+    IonLabel,
+    AsyncPipe,
+    RouterLink,
+    IonIcon,
+    IonButtons,
+    IonTitle,
+    IonToolbar,
+    IonHeader
+  ]
 })
-export class PostsListPage implements OnInit {
-  private store = inject(Store);
+export class PostsListV2Page implements OnInit {
+  private readonly store = inject(Store);
 
   // Observables from store
   posts$ = this.store.select(selectAllPosts);

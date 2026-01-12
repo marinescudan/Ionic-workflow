@@ -1,0 +1,61 @@
+# Mutation to complete a chapter
+mutation CompleteChapter($id: ID!) {
+  completeChapter(id: $id) {
+    id
+    title
+    completed
+    completedAt
+    progress {
+      percentage
+    }
+  }
+}
+
+# Mutation to update progress
+mutation UpdateProgress($chapterId: ID!, $percentage: Float!, $timeSpent: Int) {
+  updateProgress(
+    chapterId: $chapterId
+    percentage: $percentage
+    timeSpent: $timeSpent
+  ) {
+    id
+    chapterId
+    percentage
+    timeSpent
+    lastAccessed
+  }
+}
+
+# Mutation to create a bookmark
+mutation CreateBookmark($input: BookmarkInput!) {
+  createBookmark(input: $input) {
+    id
+    chapterId
+    sectionId
+    note
+    createdAt
+  }
+}
+
+# Mutation to update a bookmark
+mutation UpdateBookmark($id: ID!, $note: String!) {
+  updateBookmark(id: $id, note: $note) {
+    id
+    note
+  }
+}
+
+# Mutation to delete a bookmark
+mutation DeleteBookmark($id: ID!) {
+  deleteBookmark(id: $id)
+}
+
+# Mutation to complete multiple chapters
+mutation CompleteMultipleChapters($ids: [ID!]!) {
+  completeMultipleChapters(ids: $ids) {
+    id
+    title
+    completed
+    completedAt
+  }
+}

@@ -57,6 +57,24 @@ export const routes: Routes = [
     loadComponent: () => import('./features/realtime/pages/realtime-demo/realtime-demo.page').then(m => m.RealtimeDemoPage)
   },
 
+  // GraphQL Demo
+  {
+    path: 'graphql-demo',
+    loadComponent: () => import('./features/graphql-demo/pages/graphql-demo/graphql-demo.page').then(m => m.GraphqlDemoPage)
+  },
+
+  // WebRTC Video Call Demo
+  // {
+  //   path: 'video-call-demo',
+  //   loadComponent: () => import('./features/webrtc/pages/video-call-demo/video-call-demo.page').then(m => m.VideoCallDemoPage)
+  // },
+
+  // Photo Gallery Demo (Camera)
+  // {
+  //   path: 'photo-gallery-demo',
+  //   loadComponent: () => import('./features/photo-gallery/pages/photo-gallery.page').then(m => m.PhotoGalleryPage)
+  // },
+
   // Default redirect
   {
     path: '',
@@ -66,17 +84,18 @@ export const routes: Routes = [
   {
     path: 'posts-list',
     loadComponent: () => import('./features/posts/pages/posts-list/posts-list.page').then( m => m.PostsListPage)
-  },  {
+  },
+  {
     path: 'file-upload.page.ts',
-    loadComponent: () => import('./features/files/pages/file-upload/file-upload.page.ts/file-upload.page.ts.page').then( m => m.FileUploadPageTsPage)
+    loadComponent: () => import('./features/files/pages/file-upload/file-upload.page').then( m => m.FileUploadPage)
   },
   {
     path: 'file-upload',
-    loadComponent: () => import('./features/files/pages/file-upload/file-upload/file-upload.page').then( m => m.FileUploadPage)
+    loadComponent: () => import('./features/files/pages/file-upload/file-upload.page').then( m => m.FileUploadPage)
   },
   {
     path: 'search',
-    loadComponent: () => import('./features/search/pages/search/search/search.page').then( m => m.SearchPage)
+    loadComponent: () => import('./features/search/pages/search/search.page').then( m => m.SearchPage)
   },
   {
     path: 'posts-list-v2',

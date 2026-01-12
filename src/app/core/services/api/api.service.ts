@@ -83,14 +83,15 @@ export class ApiService {
   /**
    * Helper: Build HTTP options from QueryOptions
    */
-  private buildHttpOptions(options?: QueryOptions) {
-    const httpOptions: any = {};
+  private buildHttpOptions(options?: QueryOptions): { params?: HttpParams; headers?: HttpHeaders } {
+    const httpOptions: { params?: HttpParams; headers?: HttpHeaders } = {};
 
     if (options?.params) {
-      httpOptions.params = new HttpParams();
+      let params = new HttpParams();
       Object.entries(options.params).forEach(([key, value]) => {
-        httpOptions.params = httpOptions.params.set(key, String(value));
+        params = params.set(key, String(value));
       });
+      httpOptions.params = params;
     }
 
     if (options?.headers) {

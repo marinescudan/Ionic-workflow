@@ -1,0 +1,167 @@
+# GraphQL Schema for Ionic Workflow App
+
+# Custom scalars
+scalar DateTime
+scalar Upload
+
+# Chapter Type
+type Chapter {
+  id: ID!
+  title: String!
+  description: String
+  category: ChapterCategory!
+  completed: Boolean!
+  completedAt: DateTime
+  hasDemo: Boolean!
+  sections: [Section!]!
+  progress: Progress
+  bookmarks: [Bookmark!]!
+}
+
+# Enum for chapter categories
+enum ChapterCategory {
+  FUNDAMENTALS
+  ESSENTIALS
+  INTERMEDIATE
+  ADVANCED
+  EXPERT
+}
+
+# Section Type
+type Section {
+  id: ID!
+  title: String!
+  content: String!
+  codeSnippets: [CodeSnippet!]!
+}
+
+# Code Snippet Type
+type CodeSnippet {
+  id: ID!
+  language: CodeLanguage!
+  code: String!
+  title: String!
+  description: String
+}
+
+# Enum for code languages
+enum CodeLanguage {
+  TYPESCRIPT
+  HTML
+  SCSS
+  BASH
+  GRAPHQL
+}
+
+# Progress Type
+type Progress {
+  id: ID!
+  chapterId: ID!
+  percentage: Float!
+  timeSpent: Int!
+  lastAccessed: DateTime!
+}
+
+# Bookmark Type
+type Bookmark {
+  id: ID!
+  chapterId: ID!
+  sectionId: String!
+  note: String
+  createdAt: DateTime!
+}
+
+# Root Query Type
+type Query {
+  # Get all chapters with optional filtering
+  chapters(
+    category: ChapterCategory
+    completed: Boolean
+  ): [Chapter!]!
+
+  # Get single chapter by ID
+  chapter(id: ID!): Chapter
+
+  # Search chapters by query string
+  searchChapters(query: String!): [Chapter!]!
+
+  # Paginated chapters (offset-based)
+  paginatedChapters(
+    offset: Int! = 0
+    limit: Int! = 10
+  ): ChapterConnection!
+
+  # Get progress for a chapter
+  progress(chapterId: ID!): Progress
+
+  # Get all bookmarks, optionally filtered by chapter
+  bookmarks(chapterId: ID): [Bookmark!]!
+}
+
+# Root Mutation Type
+type Mutation {
+  # Complete a chapter
+  completeChapter(id: ID!): Chapter!
+
+  # Update progress for a chapter
+  updateProgress(
+    chapterId: ID!
+    percentage: Float!
+    timeSpent: Int
+  ): Progress!
+
+  # Create a bookmark
+  createBookmark(input: BookmarkInput!): Bookmark!
+
+  # Update a bookmark
+  updateBookmark(id: ID!, note: String!): Bookmark!
+
+  # Delete a bookmark
+  deleteBookmark(id: ID!): Boolean!
+
+  # Complete multiple chapters at once
+  completeMultipleChapters(ids: [ID!]!): [Chapter!]!
+
+  # Upload a file
+  uploadFile(file: Upload!): String!
+}
+
+# Root Subscription Type
+type Subscription {
+  # Subscribe to chapter completion events
+  chapterCompleted: Chapter!
+
+  # Subscribe to progress updates for a specific chapter
+  progressUpdated(chapterId: ID!): Progress!
+
+  # Subscribe to all progress updates
+  allProgressUpdates: Progress!
+}
+
+# Input type for creating bookmarks
+input BookmarkInput {
+  chapterId: ID!
+  sectionId: String!
+  note: String
+}
+
+# Connection type for cursor-based pagination (Relay spec)
+type ChapterConnection {
+  edges: [ChapterEdge!]!
+  pageInfo: PageInfo!
+  totalCount: Int!
+}
+
+# Edge type for pagination
+type ChapterEdge {
+  node: Chapter!
+  cursor: String!
+}
+
+# Page info for pagination
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}

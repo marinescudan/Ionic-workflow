@@ -1,9 +1,13 @@
 import { Component, inject, signal, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 import { Subject, takeUntil, switchMap, debounceTime, distinctUntilChanged } from 'rxjs';
-import { SearchService } from '../../services/search.service';
+import { SearchService, SearchResult } from '../../services/search.service';
 
 @Component({
   selector: 'app-search',
+  standalone: true,
+  imports: [CommonModule, IonicModule],
   template: `
     <ion-header>
       <ion-toolbar>
@@ -27,14 +31,13 @@ import { SearchService } from '../../services/search.service';
       </ion-list>
     </ion-content>
   `,
-  standalone: true,
 })
 export class SearchPage implements OnDestroy {
   private searchService = inject(SearchService);
   private searchSubject = new Subject<string>();
   private destroy$ = new Subject<void>();
 
-  results = signal<any[]>([]);
+  results = signal<SearchResult[]>([]);
   searching = signal(false);
 
   constructor() {

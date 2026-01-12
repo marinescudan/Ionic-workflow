@@ -18,11 +18,24 @@ export type ConnectionState =
 @Injectable({ providedIn: 'root' })
 export class SocketService {
   private config = inject(SOCKET_CONFIG);
-  private socket: SocketType | null = null;
+  private socket: SocketType;
 
   // Connection state as Observable
   private connectionState$ = new BehaviorSubject<ConnectionState>('disconnected');
   private reconnectAttempts$ = new BehaviorSubject<number>(0);
+
+  constructor() {
+    // Initialize socket instance (but don't connect yet)
+    // This allows effects to set up listeners before connection
+    console.log('Initializing socket instance:', this.config.url);
+    this.socket = io(this.config.url, {
+      ...this.config.options,
+      autoConnect: false, // Don't auto-connect, wait for explicit connect() call
+    });
+
+    // Set up connection event listeners
+    this.setupConnectionListeners();
+  }
 
   /**
    * Get current connection state
@@ -35,7 +48,7 @@ export class SocketService {
    * Get current connection state value
    */
   get isConnected(): boolean {
-    return this.socket?.connected ?? false;
+    return this.socket.connected;
   }
 
   /**
@@ -49,7 +62,7 @@ export class SocketService {
    * Connect to socket server
    */
   connect(): void {
-    if (this.socket?.connected) {
+    if (this.socket.connected) {
       console.log('Socket already connected');
       return;
     }
@@ -57,21 +70,14 @@ export class SocketService {
     console.log('Connecting to socket server:', this.config.url);
     this.connectionState$.next('connecting');
 
-    // Create socket instance
-    this.socket = io(this.config.url, this.config.options);
-
-    // Set up connection event listeners
-    this.setupConnectionListeners();
+    // Connect the socket (instance already created in constructor)
+    this.socket.connect();
   }
 
   /**
    * Disconnect from socket server
    */
   disconnect(): void {
-    if (!this.socket) {
-      return;
-    }
-
     console.log('Disconnecting from socket server');
     this.connectionState$.next('disconnecting');
     this.socket.disconnect();
@@ -83,11 +89,6 @@ export class SocketService {
    * @example this.socket.emit('message', { text: 'Hello' })
    */
   emit<T = any>(event: string, data?: T): void {
-    if (!this.socket) {
-      console.warn('Socket not initialized. Call connect() first.');
-      return;
-    }
-
     if (!this.socket.connected) {
       console.warn('Socket not connected. Message not sent:', event);
       return;
@@ -104,7 +105,7 @@ export class SocketService {
    */
   emitWithAck<T = any, R = any>(event: string, data?: T): Observable<R> {
     return new Observable((observer) => {
-      if (!this.socket?.connected) {
+      if (!this.socket.connected) {
         observer.error(new Error('Socket not connected'));
         return;
       }
@@ -123,10 +124,6 @@ export class SocketService {
    *   .subscribe(msg => console.log('New message:', msg))
    */
   on<T = any>(event: string): Observable<T> {
-    if (!this.socket) {
-      throw new Error('Socket not initialized. Call connect() first.');
-    }
-
     return fromEvent<T>(this.socket, event);
   }
 
@@ -135,11 +132,6 @@ export class SocketService {
    */
   once<T = any>(event: string): Observable<T> {
     return new Observable((observer) => {
-      if (!this.socket) {
-        observer.error(new Error('Socket not initialized'));
-        return;
-      }
-
       this.socket.once(event, (data: T) => {
         observer.next(data);
         observer.complete();
@@ -165,11 +157,9 @@ export class SocketService {
    * Set up connection lifecycle event listeners
    */
   private setupConnectionListeners(): void {
-    if (!this.socket) return;
-
     // Connection successful
     this.socket.on('connect', () => {
-      console.log('✅ Socket connected:', this.socket!.id);
+      console.log('✅ Socket connected:', this.socket.id);
       this.connectionState$.next('connected');
       this.reconnectAttempts$.next(0);
     });
@@ -182,7 +172,7 @@ export class SocketService {
       // Automatic reconnection if disconnect wasn't intentional
       if (reason === 'io server disconnect') {
         // Server forcefully closed connection, manually reconnect
-        this.socket?.connect();
+        this.socket.connect();
       }
     });
 

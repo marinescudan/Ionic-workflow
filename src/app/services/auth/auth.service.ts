@@ -64,4 +64,10 @@ export class AuthService {
     const user = this.getCurrentUser();
     return user?.role === 'admin';
   }
+
+  getToken(): string | null {
+    // Mock token - in real app, would be stored during login
+    const user = this.getCurrentUser();
+    return user ? `mock-jwt-token-${user.id}` : null;
+  }
 }

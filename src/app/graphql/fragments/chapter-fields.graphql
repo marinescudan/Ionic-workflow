@@ -1,0 +1,44 @@
+# Fragment for basic chapter fields
+fragment ChapterBasicFields on Chapter {
+  id
+  title
+  description
+  category
+  completed
+  hasDemo
+}
+
+# Fragment for chapter with progress
+fragment ChapterWithProgress on Chapter {
+  ...ChapterBasicFields
+  completedAt
+  progress {
+    id
+    percentage
+    timeSpent
+    lastAccessed
+  }
+}
+
+# Fragment for full chapter details
+fragment ChapterFullDetails on Chapter {
+  ...ChapterWithProgress
+  sections {
+    id
+    title
+    content
+    codeSnippets {
+      id
+      language
+      code
+      title
+      description
+    }
+  }
+  bookmarks {
+    id
+    sectionId
+    note
+    createdAt
+  }
+}

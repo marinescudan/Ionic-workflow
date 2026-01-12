@@ -1,10 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { IonicModule } from '@ionic/angular';
 import { FileUploadService, UploadResult } from '../../services/file-upload.service';
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: 'file-upload.page.html',
   standalone: true,
+  imports: [CommonModule, IonicModule],
 })
 export class FileUploadPage {
   private readonly fileUploadService = inject(FileUploadService);
