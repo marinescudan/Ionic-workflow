@@ -16,6 +16,7 @@ import { CHAPTER_11_DATA } from './data/chapter-11.data';
 import { CHAPTER_12_DATA } from './data/chapter-12.data';
 import { CHAPTER_13_DATA } from './data/chapter-13.data';
 import { CHAPTER_14_DATA } from './data/chapter-14.data';
+import { CHAPTER_15_DATA } from './data/chapter-15.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -32,16 +33,7 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_12_DATA,  // Internationalization & Localization
   CHAPTER_13_DATA,  // WebRTC - Video & Audio Calls
   CHAPTER_14_DATA,  // Native Device APIs - Camera
-  {
-    id: 15,
-    title: 'Audio Recording & File System',
-    description: '...',
-    icon: 'checkmark-done-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: false,
-    sections: [],
-  },
+  CHAPTER_15_DATA,  // Audio Recording & File System
   {
     id: 16,
     title: 'Local Database - SQLite',
