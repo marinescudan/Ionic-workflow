@@ -19,6 +19,7 @@ import { CHAPTER_14_DATA } from './data/chapter-14.data';
 import { CHAPTER_15_DATA } from './data/chapter-15.data';
 import { CHAPTER_16_DATA } from './data/chapter-16.data';
 import { CHAPTER_17_DATA } from './data/chapter-17.data';
+import { CHAPTER_18_DATA } from './data/chapter-18.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -38,16 +39,7 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_15_DATA,  // Audio Recording & File System
   CHAPTER_16_DATA,  // Local Database - SQLite
   CHAPTER_17_DATA,  // Offline-First Architecture
-  {
-    id: 18,
-    title: 'Testing Strategies',
-    description: 'Unit, integration, and E2E testing',
-    icon: 'flask-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: false,
-    sections: [],
-  },
+  CHAPTER_18_DATA,  // Testing Strategies
   {
     id: 19,
     title: 'Production & Deployment',
