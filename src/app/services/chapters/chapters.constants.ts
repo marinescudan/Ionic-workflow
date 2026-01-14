@@ -18,6 +18,7 @@ import { CHAPTER_13_DATA } from './data/chapter-13.data';
 import { CHAPTER_14_DATA } from './data/chapter-14.data';
 import { CHAPTER_15_DATA } from './data/chapter-15.data';
 import { CHAPTER_16_DATA } from './data/chapter-16.data';
+import { CHAPTER_17_DATA } from './data/chapter-17.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -36,21 +37,12 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_14_DATA,  // Native Device APIs - Camera
   CHAPTER_15_DATA,  // Audio Recording & File System
   CHAPTER_16_DATA,  // Local Database - SQLite
-  {
-    id: 17,
-    title: 'Offline-First Architecture',
-    description: '...',
-    icon: 'checkmark-done-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: false,
-    sections: [],
-  },
+  CHAPTER_17_DATA,  // Offline-First Architecture
   {
     id: 18,
     title: 'Testing Strategies',
     description: 'Unit, integration, and E2E testing',
-    icon: 'checkmark-done-outline',
+    icon: 'flask-outline',
     category: 'advanced',
     completed: false,
     hasDemo: false,
@@ -66,4 +58,24 @@ export const CHAPTERS_DATA: Chapter[] = [
     hasDemo: false,
     sections: [],
   },
+  {
+    id: 20,
+    title: 'Styling, Branding & Theming',
+    description: 'Master advanced styling with Ionic theming, CSS variables, dark mode, custom branding, responsive design, and animation patterns',
+    icon: 'color-palette-outline',
+    category: 'intermediate',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  },
+  {
+    id: 21,
+    title: 'Web & Mobile Security',
+    description: 'Master authentication, secure storage, API security, XSS/CSRF prevention, biometric auth, and protect your Ionic app from common vulnerabilities',
+    icon: 'shield-checkmark-outline',
+    category: 'expert',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  }
 ];
