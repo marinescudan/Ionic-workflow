@@ -17,6 +17,7 @@ import { CHAPTER_12_DATA } from './data/chapter-12.data';
 import { CHAPTER_13_DATA } from './data/chapter-13.data';
 import { CHAPTER_14_DATA } from './data/chapter-14.data';
 import { CHAPTER_15_DATA } from './data/chapter-15.data';
+import { CHAPTER_16_DATA } from './data/chapter-16.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -34,16 +35,7 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_13_DATA,  // WebRTC - Video & Audio Calls
   CHAPTER_14_DATA,  // Native Device APIs - Camera
   CHAPTER_15_DATA,  // Audio Recording & File System
-  {
-    id: 16,
-    title: 'Local Database - SQLite',
-    description: '...',
-    icon: 'checkmark-done-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: false,
-    sections: [],
-  },
+  CHAPTER_16_DATA,  // Local Database - SQLite
   {
     id: 17,
     title: 'Offline-First Architecture',
