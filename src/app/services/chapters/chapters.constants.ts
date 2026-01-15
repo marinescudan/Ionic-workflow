@@ -20,6 +20,9 @@ import { CHAPTER_15_DATA } from './data/chapter-15.data';
 import { CHAPTER_16_DATA } from './data/chapter-16.data';
 import { CHAPTER_17_DATA } from './data/chapter-17.data';
 import { CHAPTER_18_DATA } from './data/chapter-18.data';
+import { CHAPTER_19_DATA } from './data/chapter-19.data';
+import { CHAPTER_20_DATA } from './data/chapter-20.data';
+import { CHAPTER_21_DATA } from './data/chapter-21.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -40,34 +43,7 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_16_DATA,  // Local Database - SQLite
   CHAPTER_17_DATA,  // Offline-First Architecture
   CHAPTER_18_DATA,  // Testing Strategies
-  {
-    id: 19,
-    title: 'Production & Deployment',
-    description: 'Build, optimize, and deploy to stores',
-    icon: 'rocket-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: false,
-    sections: [],
-  },
-  {
-    id: 20,
-    title: 'Styling, Branding & Theming',
-    description: 'Master advanced styling with Ionic theming, CSS variables, dark mode, custom branding, responsive design, and animation patterns',
-    icon: 'brush-outline',
-    category: 'intermediate',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  },
-  {
-    id: 21,
-    title: 'Web & Mobile Security',
-    description: 'Master authentication, secure storage, API security, XSS/CSRF prevention, biometric auth, and protect your Ionic app from common vulnerabilities',
-    icon: 'shield-outline',
-    category: 'expert',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  }
+  CHAPTER_19_DATA,  // Production & Deployment
+  CHAPTER_20_DATA,  // Styling, Branding & Theming
+  CHAPTER_21_DATA,  // Web & Mobile Security
 ];
