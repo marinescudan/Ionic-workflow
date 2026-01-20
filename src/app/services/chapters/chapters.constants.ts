@@ -20,6 +20,9 @@ import { CHAPTER_15_DATA } from './data/chapter-15.data';
 import { CHAPTER_16_DATA } from './data/chapter-16.data';
 import { CHAPTER_17_DATA } from './data/chapter-17.data';
 import { CHAPTER_18_DATA } from './data/chapter-18.data';
+import { CHAPTER_19_DATA } from './data/chapter-19.data';
+import { CHAPTER_20_DATA } from './data/chapter-20.data';
+import { CHAPTER_21_DATA } from './data/chapter-21.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -40,31 +43,74 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_16_DATA,  // Local Database - SQLite
   CHAPTER_17_DATA,  // Offline-First Architecture
   CHAPTER_18_DATA,  // Testing Strategies
+  CHAPTER_19_DATA,  // Production & Deployment
+  CHAPTER_20_DATA,  // Styling, Branding & Theming
+  CHAPTER_21_DATA,  // Web & Mobile Security
   {
-    id: 19,
-    title: 'Production & Deployment',
-    description: 'Build, optimize, and deploy to stores',
-    icon: 'rocket-outline',
+    id: 22,
+    title: 'Web Performance',
+    description: 'Optimize Angular/Ionic apps with bundle optimization, lazy loading, change detection strategies, memory management, and Core Web Vitals monitoring',
+    icon: 'speedometer-outline',
     category: 'advanced',
-    completed: false,
-    hasDemo: false,
-    sections: [],
-  },
-  {
-    id: 20,
-    title: 'Styling, Branding & Theming',
-    description: 'Master advanced styling with Ionic theming, CSS variables, dark mode, custom branding, responsive design, and animation patterns',
-    icon: 'brush-outline',
-    category: 'intermediate',
     completed: false,
     hasDemo: true,
     sections: [],
   },
   {
-    id: 21,
-    title: 'Web & Mobile Security',
-    description: 'Master authentication, secure storage, API security, XSS/CSRF prevention, biometric auth, and protect your Ionic app from common vulnerabilities',
-    icon: 'shield-outline',
+    id: 23,
+    title: 'QR Code & Barcode Scanner',
+    description: 'Scan QR codes and barcodes with ML Kit, generate custom QR codes, handle multiple barcode formats, and build inventory/ticket scanning features',
+    icon: 'qr-code-outline',
+    category: 'advanced',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  },
+  {
+    id: 24,
+    title: 'Maps Integration',
+    description: 'Integrate Google Maps and OpenStreetMap with markers, clustering, geocoding, directions, drawing tools, layers, and turn-by-turn navigation',
+    icon: 'map-outline',
+    category: 'advanced',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  },
+  {
+    id: 25,
+    title: 'Biometric Authentication',
+    description: 'Secure your app with Face ID, Touch ID, fingerprint authentication, PIN fallback, app locking, session management, and auto-lock features',
+    icon: 'finger-print-outline',
+    category: 'expert',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  },
+  {
+    id: 26,
+    title: 'Custom Capacitor Plugins',
+    description: 'Build custom Capacitor plugins with Swift/Kotlin, bridge native to JavaScript, implement background tasks, custom UI, and publish to npm',
+    icon: 'code-working-outline',
+    category: 'expert',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  },
+  {
+    id: 27,
+    title: 'Interactive Media Gallery Widget',
+    description: 'Build a reusable media gallery widget with gesture navigation, video playback, action buttons, view tracking, and publish as npm module',
+    icon: 'images-outline',
+    category: 'expert',
+    completed: false,
+    hasDemo: true,
+    sections: [],
+  },
+  {
+    id: 28,
+    title: 'Social Media Advertising & PWA',
+    description: 'Create ads for Instagram, TikTok, Facebook, YouTube Reels that redirect to a PWA with integrated media gallery widget from Chapter 27',
+    icon: 'megaphone-outline',
     category: 'expert',
     completed: false,
     hasDemo: true,
