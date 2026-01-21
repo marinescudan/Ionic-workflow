@@ -23,6 +23,7 @@ import { CHAPTER_18_DATA } from './data/chapter-18.data';
 import { CHAPTER_19_DATA } from './data/chapter-19.data';
 import { CHAPTER_20_DATA } from './data/chapter-20.data';
 import { CHAPTER_21_DATA } from './data/chapter-21.data';
+import { CHAPTER_22_DATA } from './data/chapter-22.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -46,16 +47,7 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_19_DATA,  // Production & Deployment
   CHAPTER_20_DATA,  // Styling, Branding & Theming
   CHAPTER_21_DATA,  // Web & Mobile Security
-  {
-    id: 22,
-    title: 'Web Performance',
-    description: 'Optimize Angular/Ionic apps with bundle optimization, lazy loading, change detection strategies, memory management, and Core Web Vitals monitoring',
-    icon: 'speedometer-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  },
+  CHAPTER_22_DATA,  // Web Performance
   {
     id: 23,
     title: 'QR Code & Barcode Scanner',
