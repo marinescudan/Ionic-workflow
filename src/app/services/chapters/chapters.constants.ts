@@ -24,6 +24,12 @@ import { CHAPTER_19_DATA } from './data/chapter-19.data';
 import { CHAPTER_20_DATA } from './data/chapter-20.data';
 import { CHAPTER_21_DATA } from './data/chapter-21.data';
 import { CHAPTER_22_DATA } from './data/chapter-22.data';
+import { CHAPTER_23_DATA } from './data/chapter-23.data';
+import { CHAPTER_24_DATA } from './data/chapter-24.data';
+import { CHAPTER_25_DATA } from './data/chapter-25.data';
+import { CHAPTER_26_DATA } from './data/chapter-26.data';
+import { CHAPTER_27_DATA } from './data/chapter-27.data';
+import { CHAPTER_28_DATA } from './data/chapter-28.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -48,64 +54,10 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_20_DATA,  // Styling, Branding & Theming
   CHAPTER_21_DATA,  // Web & Mobile Security
   CHAPTER_22_DATA,  // Web Performance
-  {
-    id: 23,
-    title: 'QR Code & Barcode Scanner',
-    description: 'Scan QR codes and barcodes with ML Kit, generate custom QR codes, handle multiple barcode formats, and build inventory/ticket scanning features',
-    icon: 'qr-code-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  },
-  {
-    id: 24,
-    title: 'Maps Integration',
-    description: 'Integrate Google Maps and OpenStreetMap with markers, clustering, geocoding, directions, drawing tools, layers, and turn-by-turn navigation',
-    icon: 'map-outline',
-    category: 'advanced',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  },
-  {
-    id: 25,
-    title: 'Biometric Authentication',
-    description: 'Secure your app with Face ID, Touch ID, fingerprint authentication, PIN fallback, app locking, session management, and auto-lock features',
-    icon: 'finger-print-outline',
-    category: 'expert',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  },
-  {
-    id: 26,
-    title: 'Custom Capacitor Plugins',
-    description: 'Build custom Capacitor plugins with Swift/Kotlin, bridge native to JavaScript, implement background tasks, custom UI, and publish to npm',
-    icon: 'code-working-outline',
-    category: 'expert',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  },
-  {
-    id: 27,
-    title: 'Interactive Media Gallery Widget',
-    description: 'Build a reusable media gallery widget with gesture navigation, video playback, action buttons, view tracking, and publish as npm module',
-    icon: 'images-outline',
-    category: 'expert',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  },
-  {
-    id: 28,
-    title: 'Social Media Advertising & PWA',
-    description: 'Create ads for Instagram, TikTok, Facebook, YouTube Reels that redirect to a PWA with integrated media gallery widget from Chapter 27',
-    icon: 'megaphone-outline',
-    category: 'expert',
-    completed: false,
-    hasDemo: true,
-    sections: [],
-  }
+  CHAPTER_23_DATA,  // QR Code & Barcode Scanner
+  CHAPTER_24_DATA,  // Maps Integration
+  CHAPTER_25_DATA,  // Biometric Authentication & App Security
+  CHAPTER_26_DATA,  // Custom Capacitor Plugins
+  CHAPTER_27_DATA,  // Interactive Media Gallery Widget
+  CHAPTER_28_DATA   // Social Media Advertising & PWA
 ];
