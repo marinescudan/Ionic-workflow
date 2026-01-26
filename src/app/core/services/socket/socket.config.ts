@@ -1,5 +1,3 @@
-// src/app/core/services/socket/socket.config.ts
-
 import { InjectionToken } from '@angular/core';
 
 export interface SocketConfig {

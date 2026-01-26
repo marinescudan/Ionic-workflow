@@ -1,4 +1,3 @@
-// src/app/constants/category-colors.constants.ts
 // API-ready constant - category color configuration using CSS variables
 
 /**

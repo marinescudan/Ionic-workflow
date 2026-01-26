@@ -1,5 +1,3 @@
-// src/app/features/realtime/models/notification.model.ts
-
 export interface RealtimeNotification {
   id: string;
   type: 'info' | 'success' | 'warning' | 'error';

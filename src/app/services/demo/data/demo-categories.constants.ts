@@ -1,4 +1,3 @@
-// src/app/services/demo/data/demo-categories.constants.ts
 // API-ready constant - demo category definitions
 
 /**

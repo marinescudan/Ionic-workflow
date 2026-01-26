@@ -1,5 +1,3 @@
-// src/app/features/realtime/services/notification.service.ts
-
 import { Injectable, inject } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { SocketService } from '@app/core/services/socket/socket.service';

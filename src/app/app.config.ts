@@ -1,23 +1,32 @@
-import { ApplicationConfig, isDevMode, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, isDevMode, provideZoneChangeDetection, importProvidersFrom } from '@angular/core';
 import { PreloadAllModules, provideRouter, RouteReuseStrategy, withPreloading } from '@angular/router';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, HttpClient } from '@angular/common/http';
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideApollo } from 'apollo-angular';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 
 import { routes } from './app.routes';
 import { notesReducer } from './features/notes/store/notes.reducer';
 import { NotesEffects } from './features/notes/store/notes.effects';
 import { realtimeReducer } from './features/realtime/store/realtime.reducer';
 import { RealtimeEffects } from './features/realtime/store/realtime.effects';
+import { i18nReducer } from './features/i18n-demo/store/i18n.reducer';
+import { I18nEffects } from './features/i18n-demo/store/i18n.effects';
 import { loggingInterceptor } from '@app/core/interceptors/logging.interceptor';
 import { authInterceptor } from '@app/core/interceptors/auth.interceptor';
 import { cacheInterceptor } from '@app/core/interceptors/cache.interceptor';
 import { errorInterceptor } from '@app/core/interceptors/error.interceptor';
 import { SOCKET_CONFIG, defaultSocketConfig } from '@app/core/services/socket/socket.config';
 import { createApollo } from './core/services/graphql/apollo.config';
+
+// Translation loader factory
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,6 +46,18 @@ export const appConfig: ApplicationConfig = {
     ),
     provideIonicAngular(),
 
+    // Internationalization (i18n)
+    importProvidersFrom(
+      TranslateModule.forRoot({
+        defaultLanguage: 'en',
+        loader: {
+          provide: TranslateLoader,
+          useFactory: HttpLoaderFactory,
+          deps: [HttpClient],
+        },
+      })
+    ),
+
     // Socket.IO Configuration
     { provide: SOCKET_CONFIG, useValue: defaultSocketConfig },
 
@@ -47,6 +68,7 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       notes: notesReducer,
       realtime: realtimeReducer,
+      i18n: i18nReducer,
       // Add more feature reducers here
     }),
 
@@ -54,6 +76,7 @@ export const appConfig: ApplicationConfig = {
     provideEffects([
       NotesEffects,
       RealtimeEffects,
+      I18nEffects,
       // Add more effects classes here
     ]),
 

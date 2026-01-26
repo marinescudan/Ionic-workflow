@@ -1,5 +1,3 @@
-// src/app/features/realtime/store/realtime.effects.ts
-
 import { Injectable, inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';

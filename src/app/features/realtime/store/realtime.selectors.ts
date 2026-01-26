@@ -1,5 +1,3 @@
-// src/app/features/realtime/store/realtime.selectors.ts
-
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { RealtimeState } from './realtime.reducer';
 

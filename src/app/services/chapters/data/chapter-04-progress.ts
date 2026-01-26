@@ -1,5 +1,3 @@
-// src/app/services/chapters/data/chapter-04-progress.ts
-
 import { Chapter } from '@app/models/chapter.model';
 
 export const CHAPTER_04_DATA: Chapter = {

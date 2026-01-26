@@ -1,5 +1,3 @@
-// src/app/features/realtime/store/realtime.reducer.ts
-
 import { createReducer, on } from '@ngrx/store';
 import { OnlineUser } from '../models/presence.model';
 import { RealtimeNotification } from '../models/notification.model';

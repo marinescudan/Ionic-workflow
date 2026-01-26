@@ -1,0 +1,136 @@
+{
+  "app": {
+    "title": "سير عمل Ionic",
+    "subtitle": "تعلم Ionic مع Angular",
+    "description": "دليل شامل لبناء تطبيقات الهاتف المحمول باستخدام Ionic Framework"
+  },
+  "navigation": {
+    "home": "الرئيسية",
+    "chapters": "الفصول",
+    "notes": "الملاحظات",
+    "settings": "الإعدادات",
+    "profile": "الملف الشخصي",
+    "back": "رجوع",
+    "menu": "القائمة",
+    "close": "إغلاق"
+  },
+  "chapters": {
+    "title": "الفصول",
+    "lesson": "الدرس",
+    "completed": "مكتمل",
+    "inProgress": "قيد التقدم",
+    "notStarted": "لم يبدأ",
+    "startLearning": "ابدأ التعلم",
+    "continueLearning": "متابعة التعلم",
+    "viewDetails": "عرض التفاصيل",
+    "markComplete": "وضع علامة كمكتمل"
+  },
+  "actions": {
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تحرير",
+    "create": "إنشاء",
+    "update": "تحديث",
+    "submit": "إرسال",
+    "reset": "إعادة تعيين",
+    "confirm": "تأكيد",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "فرز",
+    "refresh": "تحديث",
+    "load_more": "تحميل المزيد",
+    "retry": "إعادة المحاولة"
+  },
+  "messages": {
+    "success": "تمت العملية بنجاح",
+    "error": "حدث خطأ",
+    "loading": "جاري التحميل...",
+    "noData": "لا توجد بيانات متاحة",
+    "confirmDelete": "هل أنت متأكد من أنك تريد حذف هذا العنصر؟",
+    "saved": "تم حفظ التغييرات بنجاح",
+    "deleted": "تم حذف العنصر بنجاح",
+    "updated": "تم تحديث العنصر بنجاح",
+    "created": "تم إنشاء العنصر بنجاح",
+    "networkError": "خطأ في الشبكة. يرجى التحقق من اتصالك.",
+    "serverError": "خطأ في الخادم. يرجى المحاولة مرة أخرى لاحقًا.",
+    "welcome": "مرحبا بعودتك!",
+    "goodbye": "أراك قريباً!"
+  },
+  "validation": {
+    "required": "هذا الحقل مطلوب",
+    "email": "يرجى إدخال عنوان بريد إلكتروني صالح",
+    "minLength": "الحد الأدنى للطول هو {{min}} أحرف",
+    "maxLength": "الحد الأقصى للطول هو {{max}} أحرف",
+    "pattern": "تنسيق غير صالح",
+    "min": "الحد الأدنى للقيمة هو {{min}}",
+    "max": "الحد الأقصى للقيمة هو {{max}}",
+    "passwordMismatch": "كلمات المرور غير متطابقة",
+    "invalidUrl": "يرجى إدخال عنوان URL صالح",
+    "invalidPhone": "يرجى إدخال رقم هاتف صالح"
+  },
+  "dates": {
+    "today": "اليوم",
+    "yesterday": "أمس",
+    "tomorrow": "غداً",
+    "now": "الآن",
+    "justNow": "الآن",
+    "minuteAgo": "منذ {{count}} دقيقة",
+    "minuteAgo_plural": "منذ {{count}} دقائق",
+    "hourAgo": "منذ {{count}} ساعة",
+    "hourAgo_plural": "منذ {{count}} ساعات",
+    "dayAgo": "منذ {{count}} يوم",
+    "dayAgo_plural": "منذ {{count}} أيام",
+    "weekAgo": "منذ {{count}} أسبوع",
+    "weekAgo_plural": "منذ {{count}} أسابيع",
+    "monthAgo": "منذ {{count}} شهر",
+    "monthAgo_plural": "منذ {{count}} أشهر",
+    "yearAgo": "منذ {{count}} سنة",
+    "yearAgo_plural": "منذ {{count}} سنوات"
+  },
+  "settings": {
+    "title": "الإعدادات",
+    "language": "اللغة",
+    "selectLanguage": "اختر اللغة",
+    "theme": "السمة",
+    "notifications": "الإشعارات",
+    "privacy": "الخصوصية",
+    "about": "حول",
+    "version": "الإصدار",
+    "logout": "تسجيل الخروج"
+  },
+  "i18n": {
+    "title": "عرض توضيحي للتدويل",
+    "subtitle": "ميزات اللغة والتوطين",
+    "sections": {
+      "languageSelector": "اختيار اللغة",
+      "basicTranslations": "الترجمات الأساسية",
+      "interpolation": "استيفاء المعلمات",
+      "pluralization": "الجمع",
+      "dateFormatting": "تنسيق التاريخ",
+      "numberFormatting": "تنسيق الأرقام",
+      "currencyFormatting": "تنسيق العملة",
+      "rtlSupport": "دعم RTL"
+    },
+    "examples": {
+      "greeting": "مرحباً، {{name}}!",
+      "welcome": "مرحباً بك في {{appName}}",
+      "userCount": "{{count}} مستخدم متصل",
+      "userCount_plural": "{{count}} مستخدمين متصلين",
+      "itemCount": {
+        "zero": "لا توجد عناصر",
+        "one": "عنصر واحد",
+        "other": "{{count}} عناصر"
+      },
+      "notification": {
+        "zero": "لا توجد إشعارات جديدة",
+        "one": "لديك إشعار جديد واحد",
+        "other": "لديك {{count}} إشعارات جديدة"
+      }
+    },
+    "currentLanguage": "اللغة الحالية",
+    "direction": "اتجاه النص",
+    "ltr": "من اليسار إلى اليمين",
+    "rtl": "من اليمين إلى اليسار"
+  }
+}

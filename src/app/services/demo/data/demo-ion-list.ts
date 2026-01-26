@@ -1,4 +1,3 @@
-// src/app/services/demo/data/demo-ion-list.ts
 
 import { DemoComponent } from '@app/models/demo.model';
 

@@ -1,5 +1,3 @@
-// src/app/features/realtime/models/presence.model.ts
-
 export interface OnlineUser {
   userId: string;
   username: string;

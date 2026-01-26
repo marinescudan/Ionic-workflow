@@ -1,0 +1,136 @@
+{
+  "app": {
+    "title": "Ionic Workflow",
+    "subtitle": "Lerne Ionic mit Angular",
+    "description": "Ein umfassender Leitfaden zum Erstellen mobiler Apps mit Ionic Framework"
+  },
+  "navigation": {
+    "home": "Startseite",
+    "chapters": "Kapitel",
+    "notes": "Notizen",
+    "settings": "Einstellungen",
+    "profile": "Profil",
+    "back": "Zurück",
+    "menu": "Menü",
+    "close": "Schließen"
+  },
+  "chapters": {
+    "title": "Kapitel",
+    "lesson": "Lektion",
+    "completed": "Abgeschlossen",
+    "inProgress": "In Bearbeitung",
+    "notStarted": "Nicht begonnen",
+    "startLearning": "Lernen beginnen",
+    "continueLearning": "Weiter lernen",
+    "viewDetails": "Details anzeigen",
+    "markComplete": "Als abgeschlossen markieren"
+  },
+  "actions": {
+    "save": "Speichern",
+    "cancel": "Abbrechen",
+    "delete": "Löschen",
+    "edit": "Bearbeiten",
+    "create": "Erstellen",
+    "update": "Aktualisieren",
+    "submit": "Absenden",
+    "reset": "Zurücksetzen",
+    "confirm": "Bestätigen",
+    "search": "Suchen",
+    "filter": "Filtern",
+    "sort": "Sortieren",
+    "refresh": "Aktualisieren",
+    "load_more": "Mehr laden",
+    "retry": "Wiederholen"
+  },
+  "messages": {
+    "success": "Vorgang erfolgreich abgeschlossen",
+    "error": "Ein Fehler ist aufgetreten",
+    "loading": "Wird geladen...",
+    "noData": "Keine Daten verfügbar",
+    "confirmDelete": "Sind Sie sicher, dass Sie dieses Element löschen möchten?",
+    "saved": "Änderungen erfolgreich gespeichert",
+    "deleted": "Element erfolgreich gelöscht",
+    "updated": "Element erfolgreich aktualisiert",
+    "created": "Element erfolgreich erstellt",
+    "networkError": "Netzwerkfehler. Bitte überprüfen Sie Ihre Verbindung.",
+    "serverError": "Serverfehler. Bitte versuchen Sie es später erneut.",
+    "welcome": "Willkommen zurück!",
+    "goodbye": "Bis bald!"
+  },
+  "validation": {
+    "required": "Dieses Feld ist erforderlich",
+    "email": "Bitte geben Sie eine gültige E-Mail-Adresse ein",
+    "minLength": "Die Mindestlänge beträgt {{min}} Zeichen",
+    "maxLength": "Die Maximallänge beträgt {{max}} Zeichen",
+    "pattern": "Ungültiges Format",
+    "min": "Der Mindestwert ist {{min}}",
+    "max": "Der Maximalwert ist {{max}}",
+    "passwordMismatch": "Passwörter stimmen nicht überein",
+    "invalidUrl": "Bitte geben Sie eine gültige URL ein",
+    "invalidPhone": "Bitte geben Sie eine gültige Telefonnummer ein"
+  },
+  "dates": {
+    "today": "Heute",
+    "yesterday": "Gestern",
+    "tomorrow": "Morgen",
+    "now": "Jetzt",
+    "justNow": "Gerade eben",
+    "minuteAgo": "Vor {{count}} Minute",
+    "minuteAgo_plural": "Vor {{count}} Minuten",
+    "hourAgo": "Vor {{count}} Stunde",
+    "hourAgo_plural": "Vor {{count}} Stunden",
+    "dayAgo": "Vor {{count}} Tag",
+    "dayAgo_plural": "Vor {{count}} Tagen",
+    "weekAgo": "Vor {{count}} Woche",
+    "weekAgo_plural": "Vor {{count}} Wochen",
+    "monthAgo": "Vor {{count}} Monat",
+    "monthAgo_plural": "Vor {{count}} Monaten",
+    "yearAgo": "Vor {{count}} Jahr",
+    "yearAgo_plural": "Vor {{count}} Jahren"
+  },
+  "settings": {
+    "title": "Einstellungen",
+    "language": "Sprache",
+    "selectLanguage": "Sprache auswählen",
+    "theme": "Design",
+    "notifications": "Benachrichtigungen",
+    "privacy": "Datenschutz",
+    "about": "Über",
+    "version": "Version",
+    "logout": "Abmelden"
+  },
+  "i18n": {
+    "title": "Internationalisierungs-Demo",
+    "subtitle": "Sprach- und Lokalisierungsfunktionen",
+    "sections": {
+      "languageSelector": "Sprachauswahl",
+      "basicTranslations": "Grundlegende Übersetzungen",
+      "interpolation": "Parameterinterpolation",
+      "pluralization": "Pluralisierung",
+      "dateFormatting": "Datumsformatierung",
+      "numberFormatting": "Zahlenformatierung",
+      "currencyFormatting": "Währungsformatierung",
+      "rtlSupport": "RTL-Unterstützung"
+    },
+    "examples": {
+      "greeting": "Hallo, {{name}}!",
+      "welcome": "Willkommen bei {{appName}}",
+      "userCount": "{{count}} Benutzer online",
+      "userCount_plural": "{{count}} Benutzer online",
+      "itemCount": {
+        "zero": "Keine Elemente",
+        "one": "Ein Element",
+        "other": "{{count}} Elemente"
+      },
+      "notification": {
+        "zero": "Keine neuen Benachrichtigungen",
+        "one": "Sie haben 1 neue Benachrichtigung",
+        "other": "Sie haben {{count}} neue Benachrichtigungen"
+      }
+    },
+    "currentLanguage": "Aktuelle Sprache",
+    "direction": "Textrichtung",
+    "ltr": "Links nach rechts",
+    "rtl": "Rechts nach links"
+  }
+}

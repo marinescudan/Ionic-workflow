@@ -1,5 +1,3 @@
-// src/app/core/services/socket/socket-events.ts
-
 /**
  * Type-safe socket event definitions
  */

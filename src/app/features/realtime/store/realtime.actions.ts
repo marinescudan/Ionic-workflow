@@ -1,5 +1,3 @@
-// src/app/features/realtime/store/realtime.actions.ts
-
 import { createActionGroup, props, emptyProps } from '@ngrx/store';
 import { OnlineUser } from '../models/presence.model';
 import { RealtimeNotification } from '../models/notification.model';

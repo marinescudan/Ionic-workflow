@@ -1,5 +1,3 @@
-// src/app/core/services/socket/socket.service.ts
-
 import { Injectable, inject } from '@angular/core';
 import { BehaviorSubject, Observable, fromEvent } from 'rxjs';
 import { SOCKET_CONFIG } from './socket.config';

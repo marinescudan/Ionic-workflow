@@ -1,0 +1,72 @@
+.i18n-demo-container {
+  padding: 16px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+ion-card {
+  margin-bottom: 16px;
+}
+
+ion-card-title {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+h4 {
+  margin: 16px 0 8px 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ion-color-medium);
+  text-transform: uppercase;
+}
+
+ion-badge {
+  margin-inline-end: 8px;
+  min-width: 32px;
+  text-align: center;
+}
+
+ion-chip {
+  margin-inline-end: 8px;
+  margin-bottom: 8px;
+}
+
+// RTL Demo specific styles
+.rtl-demo {
+  p {
+    margin-bottom: 16px;
+  }
+}
+
+.rtl-example {
+  display: flex;
+  gap: 8px;
+  padding: 16px;
+  background: var(--ion-color-light);
+  border-radius: 8px;
+  justify-content: flex-start;
+
+  ion-chip {
+    margin: 0;
+  }
+}
+
+// RTL-specific overrides
+:host-context([dir='rtl']) {
+  .rtl-example {
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .i18n-demo-container {
+    padding: 8px;
+  }
+
+  ion-card {
+    margin-bottom: 12px;
+  }
+}

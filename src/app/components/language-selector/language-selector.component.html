@@ -1,0 +1,22 @@
+<ion-list>
+  <ion-radio-group [value]="currentLanguage" (ionChange)="onLanguageChange($event)">
+    <ion-item *ngFor="let language of supportedLanguages" [button]="true" [detail]="false">
+      <ion-radio slot="start" [value]="language.code"></ion-radio>
+      <ion-label>
+        <div class="language-item">
+          <span class="language-flag">{{ language.flag }}</span>
+          <div class="language-info">
+            <h3 class="language-native">{{ language.nativeName }}</h3>
+            <p class="language-english">{{ language.englishName }}</p>
+          </div>
+          <ion-icon
+            *ngIf="isCurrentLanguage(language.code)"
+            name="checkmark-circle"
+            color="primary"
+            class="current-indicator"
+          ></ion-icon>
+        </div>
+      </ion-label>
+    </ion-item>
+  </ion-radio-group>
+</ion-list>

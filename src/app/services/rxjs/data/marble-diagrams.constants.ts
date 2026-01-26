@@ -1,4 +1,3 @@
-// src/app/services/rxjs/data/marble-diagrams.constants.ts
 // API-ready constant - marble diagram examples for RxJS visualization
 
 import { MarbleStream } from '@app/models/rxjs.model';
