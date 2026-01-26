@@ -1,4 +1,3 @@
-// src/app/services/demo/data/demo-rxjs-map.ts
 
 import { DemoComponent } from '@app/models/demo.model';
 

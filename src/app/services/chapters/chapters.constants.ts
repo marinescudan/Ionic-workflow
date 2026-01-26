@@ -1,4 +1,3 @@
-// src/app/services/chapters/chapters.constants.ts
 // AGGREGATOR FILE - Imports all chapter data
 
 import { Chapter } from '@app/models/chapter.model';

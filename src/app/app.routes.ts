@@ -63,6 +63,12 @@ export const routes: Routes = [
     loadComponent: () => import('./features/graphql-demo/pages/graphql-demo/graphql-demo.page').then(m => m.GraphqlDemoPage)
   },
 
+  // I18n Demo
+  {
+    path: 'i18n-demo',
+    loadComponent: () => import('./features/i18n-demo/pages/i18n-demo/i18n-demo.page').then(m => m.I18nDemoPage)
+  },
+
   // WebRTC Video Call Demo
   // {
   //   path: 'video-call-demo',

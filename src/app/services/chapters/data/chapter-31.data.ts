@@ -1,4 +1,3 @@
-// src/app/services/chapters/data/chapter-31.data.ts
 
 import { Chapter } from '@app/models/chapter.model';
 

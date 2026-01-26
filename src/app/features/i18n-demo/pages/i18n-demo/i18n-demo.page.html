@@ -1,0 +1,249 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/chapters"></ion-back-button>
+    </ion-buttons>
+    <ion-title>{{ 'i18n.title' | translate }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="i18n-demo-container">
+
+    <!-- Current Language Info -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.currentLanguage' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <h3>{{ 'i18n.currentLanguage' | translate }}</h3>
+              <p>{{ (currentLanguage$ | async) }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>{{ 'i18n.direction' | translate }}</h3>
+              <p>{{ (direction$ | async) }} - {{ (isRTL$ | async) ? ('i18n.rtl' | translate) : ('i18n.ltr' | translate) }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Language Selector -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.sections.languageSelector' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <app-language-selector></app-language-selector>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Basic Translations -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.sections.basicTranslations' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <h3>app.title</h3>
+              <p>{{ 'app.title' | translate }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>messages.welcome</h3>
+              <p>{{ 'messages.welcome' | translate }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>actions.save</h3>
+              <p>{{ 'actions.save' | translate }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Parameter Interpolation -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.sections.interpolation' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <h3>i18n.examples.greeting</h3>
+              <p>{{ 'i18n.examples.greeting' | translate:{ name: demoData.userName } }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>i18n.examples.welcome</h3>
+              <p>{{ 'i18n.examples.welcome' | translate:{ appName: demoData.appName } }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Pluralization -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.sections.pluralization' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <h4>User Count Examples:</h4>
+        <ion-list>
+          <ion-item *ngFor="let count of demoData.userCounts">
+            <ion-label>
+              <p>
+                <ion-badge>{{ count }}</ion-badge>
+                {{ 'i18n.examples.userCount' | translate:{ count: count } }}
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+
+        <h4 style="margin-top: 20px;">Item Count Examples:</h4>
+        <ion-list>
+          <ion-item *ngFor="let count of demoData.itemCounts">
+            <ion-label>
+              <p>
+                <ion-badge color="secondary">{{ count }}</ion-badge>
+                {{ translate(getPluralKey('i18n.examples.itemCount', count), { count: count }) }}
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Date Formatting -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.sections.dateFormatting' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <h3>Short Format</h3>
+              <p>{{ demoData.today | localizedDate:'short' }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>Medium Format</h3>
+              <p>{{ demoData.today | localizedDate:'medium' }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>Long Format</h3>
+              <p>{{ demoData.today | localizedDate:'long' }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>Time Format</h3>
+              <p>{{ demoData.today | localizedDate:'time' }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>Date & Time Format</h3>
+              <p>{{ demoData.today | localizedDate:'dateTime' }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>Relative Time</h3>
+              <p>{{ demoData.twoHoursAgo | localizedDate:'relative' }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Number Formatting -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.sections.numberFormatting' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item>
+            <ion-label>
+              <h3>Large Number</h3>
+              <p>{{ demoData.largeNumber | localizedNumber }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>Small Number (5 decimals)</h3>
+              <p>{{ demoData.smallNumber | localizedNumber:{ minimumFractionDigits: 5, maximumFractionDigits: 5 } }}</p>
+            </ion-label>
+          </ion-item>
+          <ion-item>
+            <ion-label>
+              <h3>Percentage</h3>
+              <p>{{ formatPercent(demoData.percentage) }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- Currency Formatting -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.sections.currencyFormatting' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-list>
+          <ion-item *ngFor="let currency of demoData.currencies">
+            <ion-label>
+              <h3>{{ currency.name }} ({{ currency.code }})</h3>
+              <p>
+                <ion-chip color="primary">
+                  Symbol: {{ currency.amount | localizedCurrency:currency.code:'symbol' }}
+                </ion-chip>
+                <ion-chip color="secondary">
+                  Code: {{ currency.amount | localizedCurrency:currency.code:'code' }}
+                </ion-chip>
+              </p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    <!-- RTL Support Demo -->
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>{{ 'i18n.sections.rtlSupport' | translate }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="rtl-demo">
+          <p>{{ 'i18n.subtitle' | translate }}</p>
+          <p>Switch to Arabic (العربية) to see RTL layout in action.</p>
+          <div class="rtl-example">
+            <ion-chip color="primary">Start</ion-chip>
+            <ion-chip color="secondary">Middle</ion-chip>
+            <ion-chip color="tertiary">End</ion-chip>
+          </div>
+        </div>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>

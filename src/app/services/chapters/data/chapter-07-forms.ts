@@ -1,5 +1,3 @@
-// src/app/services/chapters/data/chapter-07-forms.ts
-
 import { Chapter } from '@app/models/chapter.model';
 
 export const CHAPTER_07_DATA: Chapter = {

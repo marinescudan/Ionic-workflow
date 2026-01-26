@@ -1,0 +1,136 @@
+{
+  "app": {
+    "title": "Flux de travail Ionic",
+    "subtitle": "Apprendre Ionic avec Angular",
+    "description": "Un guide complet pour créer des applications mobiles avec Ionic Framework"
+  },
+  "navigation": {
+    "home": "Accueil",
+    "chapters": "Chapitres",
+    "notes": "Notes",
+    "settings": "Paramètres",
+    "profile": "Profil",
+    "back": "Retour",
+    "menu": "Menu",
+    "close": "Fermer"
+  },
+  "chapters": {
+    "title": "Chapitres",
+    "lesson": "Leçon",
+    "completed": "Terminé",
+    "inProgress": "En cours",
+    "notStarted": "Non commencé",
+    "startLearning": "Commencer à apprendre",
+    "continueLearning": "Continuer à apprendre",
+    "viewDetails": "Voir les détails",
+    "markComplete": "Marquer comme terminé"
+  },
+  "actions": {
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Créer",
+    "update": "Mettre à jour",
+    "submit": "Soumettre",
+    "reset": "Réinitialiser",
+    "confirm": "Confirmer",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "refresh": "Actualiser",
+    "load_more": "Charger plus",
+    "retry": "Réessayer"
+  },
+  "messages": {
+    "success": "Opération réussie",
+    "error": "Une erreur s'est produite",
+    "loading": "Chargement...",
+    "noData": "Aucune donnée disponible",
+    "confirmDelete": "Êtes-vous sûr de vouloir supprimer cet élément ?",
+    "saved": "Modifications enregistrées avec succès",
+    "deleted": "Élément supprimé avec succès",
+    "updated": "Élément mis à jour avec succès",
+    "created": "Élément créé avec succès",
+    "networkError": "Erreur réseau. Veuillez vérifier votre connexion.",
+    "serverError": "Erreur serveur. Veuillez réessayer plus tard.",
+    "welcome": "Bienvenue !",
+    "goodbye": "À bientôt !"
+  },
+  "validation": {
+    "required": "Ce champ est obligatoire",
+    "email": "Veuillez saisir une adresse e-mail valide",
+    "minLength": "La longueur minimale est de {{min}} caractères",
+    "maxLength": "La longueur maximale est de {{max}} caractères",
+    "pattern": "Format invalide",
+    "min": "La valeur minimale est {{min}}",
+    "max": "La valeur maximale est {{max}}",
+    "passwordMismatch": "Les mots de passe ne correspondent pas",
+    "invalidUrl": "Veuillez saisir une URL valide",
+    "invalidPhone": "Veuillez saisir un numéro de téléphone valide"
+  },
+  "dates": {
+    "today": "Aujourd'hui",
+    "yesterday": "Hier",
+    "tomorrow": "Demain",
+    "now": "Maintenant",
+    "justNow": "À l'instant",
+    "minuteAgo": "Il y a {{count}} minute",
+    "minuteAgo_plural": "Il y a {{count}} minutes",
+    "hourAgo": "Il y a {{count}} heure",
+    "hourAgo_plural": "Il y a {{count}} heures",
+    "dayAgo": "Il y a {{count}} jour",
+    "dayAgo_plural": "Il y a {{count}} jours",
+    "weekAgo": "Il y a {{count}} semaine",
+    "weekAgo_plural": "Il y a {{count}} semaines",
+    "monthAgo": "Il y a {{count}} mois",
+    "monthAgo_plural": "Il y a {{count}} mois",
+    "yearAgo": "Il y a {{count}} an",
+    "yearAgo_plural": "Il y a {{count}} ans"
+  },
+  "settings": {
+    "title": "Paramètres",
+    "language": "Langue",
+    "selectLanguage": "Sélectionner la langue",
+    "theme": "Thème",
+    "notifications": "Notifications",
+    "privacy": "Confidentialité",
+    "about": "À propos",
+    "version": "Version",
+    "logout": "Déconnexion"
+  },
+  "i18n": {
+    "title": "Démonstration d'internationalisation",
+    "subtitle": "Fonctionnalités de langue et de localisation",
+    "sections": {
+      "languageSelector": "Sélection de la langue",
+      "basicTranslations": "Traductions de base",
+      "interpolation": "Interpolation des paramètres",
+      "pluralization": "Pluralisation",
+      "dateFormatting": "Formatage des dates",
+      "numberFormatting": "Formatage des nombres",
+      "currencyFormatting": "Formatage des devises",
+      "rtlSupport": "Support RTL"
+    },
+    "examples": {
+      "greeting": "Bonjour, {{name}} !",
+      "welcome": "Bienvenue dans {{appName}}",
+      "userCount": "{{count}} utilisateur en ligne",
+      "userCount_plural": "{{count}} utilisateurs en ligne",
+      "itemCount": {
+        "zero": "Aucun élément",
+        "one": "Un élément",
+        "other": "{{count}} éléments"
+      },
+      "notification": {
+        "zero": "Aucune nouvelle notification",
+        "one": "Vous avez 1 nouvelle notification",
+        "other": "Vous avez {{count}} nouvelles notifications"
+      }
+    },
+    "currentLanguage": "Langue actuelle",
+    "direction": "Direction du texte",
+    "ltr": "Gauche à droite",
+    "rtl": "Droite à gauche"
+  }
+}

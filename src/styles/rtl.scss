@@ -1,0 +1,353 @@
+// RTL (Right-to-Left) support for languages like Arabic, Hebrew, etc.
+
+/*
+💡 RTL Best Practices
+
+1. Use Logical CSS Properties
+   - margin-inline-start/end instead of margin-left/right
+   - padding-inline-start/end instead of padding-left/right
+   - border-inline-start/end instead of border-left/right
+   - inset-inline-start/end instead of left/right
+
+2. Let Flexbox Handle Direction
+   - Flexbox automatically flips in RTL
+   - Use justify-content: flex-start (not left)
+   - Use align-items: flex-start (not left)
+
+3. Icons and Images
+   - Directional icons should flip (arrows, chevrons)
+   - Non-directional icons should not flip (logos, photos)
+
+4. Text Alignment
+   - Use text-align: start (not left)
+   - Use text-align: end (not right)
+*/
+
+// ==================== GLOBAL RTL STYLES ====================
+
+html[dir='rtl'] {
+  direction: rtl;
+
+  // Flip horizontal direction for specific elements
+  body {
+    text-align: start;
+  }
+
+  // Ionic components that need RTL adjustments
+  ion-back-button {
+    transform: scaleX(-1);
+  }
+
+  // Navigation arrows
+  ion-icon[name*='arrow'],
+  ion-icon[name*='chevron'] {
+    transform: scaleX(-1);
+  }
+
+  // Lists with detail arrows
+  ion-item[detail] {
+    --detail-icon-transform: scaleX(-1);
+  }
+
+  // Floating Action Buttons
+  ion-fab[slot='end'] {
+    inset-inline-end: auto;
+    inset-inline-start: 16px;
+  }
+
+  ion-fab[slot='start'] {
+    inset-inline-start: auto;
+    inset-inline-end: 16px;
+  }
+}
+
+// ==================== IONIC COMPONENT OVERRIDES ====================
+
+// RTL-aware spacing using logical properties
+html[dir='rtl'] {
+  // Toolbar buttons
+  ion-buttons[slot='start'] {
+    order: 2; // Swap start/end buttons
+  }
+
+  ion-buttons[slot='end'] {
+    order: 1;
+  }
+
+  // Item text alignment
+  ion-label {
+    text-align: start;
+  }
+
+  // Input fields
+  ion-input,
+  ion-textarea {
+    text-align: start;
+  }
+
+  // Select options
+  ion-select {
+    text-align: start;
+  }
+
+  // Card content
+  ion-card-content {
+    text-align: start;
+  }
+
+  // Toasts and alerts
+  ion-toast {
+    text-align: start;
+  }
+
+  ion-alert .alert-message {
+    text-align: start;
+  }
+
+  // Modals
+  ion-modal .modal-wrapper {
+    text-align: start;
+  }
+
+  // Tabs (flip icon and label)
+  ion-tab-bar {
+    flex-direction: row-reverse;
+  }
+
+  // Searchbar
+  ion-searchbar {
+    .searchbar-input {
+      text-align: start;
+    }
+  }
+
+  // Segment
+  ion-segment {
+    flex-direction: row-reverse;
+  }
+
+  // Breadcrumbs
+  ion-breadcrumbs {
+    flex-direction: row-reverse;
+  }
+}
+
+// ==================== CUSTOM COMPONENT STYLES ====================
+
+// RTL-aware flexbox layouts
+html[dir='rtl'] {
+  .flex-row {
+    flex-direction: row-reverse;
+  }
+
+  .flex-start {
+    justify-content: flex-end;
+  }
+
+  .flex-end {
+    justify-content: flex-start;
+  }
+
+  // Text alignment utilities
+  .text-left {
+    text-align: right;
+  }
+
+  .text-right {
+    text-align: left;
+  }
+
+  // Margin/padding utilities (use logical properties instead)
+  .margin-start {
+    margin-inline-start: 8px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .margin-end {
+    margin-inline-end: 8px;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  .padding-start {
+    padding-inline-start: 16px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .padding-end {
+    padding-inline-end: 16px;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+// ==================== ANIMATION ADJUSTMENTS ====================
+
+html[dir='rtl'] {
+  // Slide-in animations should come from right in RTL
+  @keyframes slideInStart {
+    from {
+      transform: translateX(100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  @keyframes slideInEnd {
+    from {
+      transform: translateX(-100%);
+    }
+    to {
+      transform: translateX(0);
+    }
+  }
+
+  // Rotate animations for directional indicators
+  .rotate-icon-rtl {
+    transform: rotate(180deg);
+  }
+}
+
+// ==================== NUMBERS AND DATES ====================
+
+html[dir='rtl'] {
+  // Keep numbers LTR even in RTL languages (optional, depends on locale)
+  .ltr-numbers {
+    direction: ltr;
+    display: inline-block;
+  }
+
+  // Keep dates in natural reading order
+  .date-format {
+    unicode-bidi: plaintext;
+  }
+}
+
+// ==================== FORM ELEMENTS ====================
+
+html[dir='rtl'] {
+  // Checkboxes and radio buttons
+  ion-checkbox,
+  ion-radio {
+    margin-inline-end: 16px;
+    margin-inline-start: 0;
+  }
+
+  // Toggle switches
+  ion-toggle {
+    margin-inline-start: 16px;
+    margin-inline-end: 0;
+  }
+
+  // Form validation icons
+  .form-control {
+    .validation-icon {
+      inset-inline-end: auto;
+      inset-inline-start: 12px;
+    }
+  }
+}
+
+// ==================== RESPONSIVE RTL ====================
+
+// Mobile-specific RTL adjustments
+@media (max-width: 768px) {
+  html[dir='rtl'] {
+    // Adjust mobile menu
+    ion-menu[side='start'] {
+      --side: end;
+    }
+
+    ion-menu[side='end'] {
+      --side: start;
+    }
+
+    // Mobile swipe gestures
+    .swipe-options-start {
+      flex-direction: row-reverse;
+    }
+
+    .swipe-options-end {
+      flex-direction: row-reverse;
+    }
+  }
+}
+
+// ==================== DEBUGGING RTL ====================
+
+// Add visual indicator for RTL mode (development only)
+@if false {
+  // Set to true to enable RTL debug mode
+  html[dir='rtl']::before {
+    content: 'RTL MODE';
+    position: fixed;
+    top: 0;
+    right: 0;
+    background: red;
+    color: white;
+    padding: 4px 8px;
+    font-size: 12px;
+    z-index: 9999;
+    pointer-events: none;
+  }
+}
+
+/*
+💡 INTERVIEW: RTL Implementation
+
+Key Concepts:
+
+1. **Logical Properties**
+   - Modern CSS properties that adapt to text direction
+   - margin-inline-start = margin-left in LTR, margin-right in RTL
+   - Eliminates need for duplicate RTL rules
+
+2. **What to Flip**
+   DO flip:
+   - Layout direction (flex, grid)
+   - Directional icons (arrows, chevrons)
+   - Text alignment (start/end)
+   - Margins and padding (use logical properties)
+
+   DON'T flip:
+   - Logos and brand images
+   - Photos and non-directional icons
+   - Numbers (usually stay LTR)
+   - Mathematical operators
+
+3. **Ionic Components**
+   - Most Ionic components support RTL automatically
+   - Some need explicit styles (back button, detail arrows)
+   - Use CSS variables for customization
+
+4. **Testing RTL**
+   - Test with actual RTL language (Arabic, Hebrew)
+   - Use browser DevTools to toggle dir attribute
+   - Verify all layouts, icons, and animations
+   - Test on mobile devices (swipe gestures)
+
+Common Interview Questions:
+
+Q: Why use logical properties instead of left/right?
+A: Logical properties automatically adapt to text direction.
+   One set of styles works for both LTR and RTL.
+
+Q: How do you handle mixed content (LTR text in RTL page)?
+A: Use unicode-bidi: plaintext or wrap in span with dir="ltr"
+
+Q: What about third-party libraries without RTL support?
+A: Add custom RTL styles, or use transform: scaleX(-1) to flip.
+   Consider contributing RTL support back to the library.
+
+Q: How do you test RTL if you don't speak Arabic?
+A: Use Chrome DevTools, check visual layout, verify icon direction,
+   test navigation flow. Get native speaker to verify text quality.
+
+Real-world Tip:
+Always design with RTL in mind from the start. Retrofitting RTL
+is much harder than building it in from day one. Use logical
+properties and flexbox, avoid absolute positioning.
+*/

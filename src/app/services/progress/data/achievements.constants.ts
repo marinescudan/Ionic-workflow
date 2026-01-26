@@ -1,4 +1,3 @@
-// src/app/services/progress/data/achievements.constants.ts
 // API-ready constant - achievement definitions
 
 import { Achievement } from '@app/models/progress.model';

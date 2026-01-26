@@ -1,4 +1,3 @@
-// src/app/services/demo/demo.constants.ts
 // Aggregator for demo components data
 
 import { DemoComponent } from '@app/models/demo.model';

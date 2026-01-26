@@ -1,0 +1,136 @@
+{
+  "app": {
+    "title": "Flujo de trabajo Ionic",
+    "subtitle": "Aprende Ionic con Angular",
+    "description": "Una guía completa para crear aplicaciones móviles con Ionic Framework"
+  },
+  "navigation": {
+    "home": "Inicio",
+    "chapters": "Capítulos",
+    "notes": "Notas",
+    "settings": "Configuración",
+    "profile": "Perfil",
+    "back": "Atrás",
+    "menu": "Menú",
+    "close": "Cerrar"
+  },
+  "chapters": {
+    "title": "Capítulos",
+    "lesson": "Lección",
+    "completed": "Completado",
+    "inProgress": "En progreso",
+    "notStarted": "No iniciado",
+    "startLearning": "Comenzar a aprender",
+    "continueLearning": "Continuar aprendiendo",
+    "viewDetails": "Ver detalles",
+    "markComplete": "Marcar como completo"
+  },
+  "actions": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "create": "Crear",
+    "update": "Actualizar",
+    "submit": "Enviar",
+    "reset": "Restablecer",
+    "confirm": "Confirmar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "sort": "Ordenar",
+    "refresh": "Actualizar",
+    "load_more": "Cargar más",
+    "retry": "Reintentar"
+  },
+  "messages": {
+    "success": "Operación completada con éxito",
+    "error": "Ocurrió un error",
+    "loading": "Cargando...",
+    "noData": "No hay datos disponibles",
+    "confirmDelete": "¿Está seguro de que desea eliminar este elemento?",
+    "saved": "Cambios guardados con éxito",
+    "deleted": "Elemento eliminado con éxito",
+    "updated": "Elemento actualizado con éxito",
+    "created": "Elemento creado con éxito",
+    "networkError": "Error de red. Por favor, verifique su conexión.",
+    "serverError": "Error del servidor. Por favor, inténtelo de nuevo más tarde.",
+    "welcome": "¡Bienvenido de nuevo!",
+    "goodbye": "¡Hasta pronto!"
+  },
+  "validation": {
+    "required": "Este campo es obligatorio",
+    "email": "Por favor, introduzca una dirección de correo electrónico válida",
+    "minLength": "La longitud mínima es de {{min}} caracteres",
+    "maxLength": "La longitud máxima es de {{max}} caracteres",
+    "pattern": "Formato no válido",
+    "min": "El valor mínimo es {{min}}",
+    "max": "El valor máximo es {{max}}",
+    "passwordMismatch": "Las contraseñas no coinciden",
+    "invalidUrl": "Por favor, introduzca una URL válida",
+    "invalidPhone": "Por favor, introduzca un número de teléfono válido"
+  },
+  "dates": {
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "tomorrow": "Mañana",
+    "now": "Ahora",
+    "justNow": "Justo ahora",
+    "minuteAgo": "Hace {{count}} minuto",
+    "minuteAgo_plural": "Hace {{count}} minutos",
+    "hourAgo": "Hace {{count}} hora",
+    "hourAgo_plural": "Hace {{count}} horas",
+    "dayAgo": "Hace {{count}} día",
+    "dayAgo_plural": "Hace {{count}} días",
+    "weekAgo": "Hace {{count}} semana",
+    "weekAgo_plural": "Hace {{count}} semanas",
+    "monthAgo": "Hace {{count}} mes",
+    "monthAgo_plural": "Hace {{count}} meses",
+    "yearAgo": "Hace {{count}} año",
+    "yearAgo_plural": "Hace {{count}} años"
+  },
+  "settings": {
+    "title": "Configuración",
+    "language": "Idioma",
+    "selectLanguage": "Seleccionar idioma",
+    "theme": "Tema",
+    "notifications": "Notificaciones",
+    "privacy": "Privacidad",
+    "about": "Acerca de",
+    "version": "Versión",
+    "logout": "Cerrar sesión"
+  },
+  "i18n": {
+    "title": "Demostración de internacionalización",
+    "subtitle": "Funciones de idioma y localización",
+    "sections": {
+      "languageSelector": "Selección de idioma",
+      "basicTranslations": "Traducciones básicas",
+      "interpolation": "Interpolación de parámetros",
+      "pluralization": "Pluralización",
+      "dateFormatting": "Formato de fecha",
+      "numberFormatting": "Formato de número",
+      "currencyFormatting": "Formato de moneda",
+      "rtlSupport": "Soporte RTL"
+    },
+    "examples": {
+      "greeting": "¡Hola, {{name}}!",
+      "welcome": "Bienvenido a {{appName}}",
+      "userCount": "{{count}} usuario en línea",
+      "userCount_plural": "{{count}} usuarios en línea",
+      "itemCount": {
+        "zero": "Sin elementos",
+        "one": "Un elemento",
+        "other": "{{count}} elementos"
+      },
+      "notification": {
+        "zero": "Sin notificaciones nuevas",
+        "one": "Tiene 1 notificación nueva",
+        "other": "Tiene {{count}} notificaciones nuevas"
+      }
+    },
+    "currentLanguage": "Idioma actual",
+    "direction": "Dirección del texto",
+    "ltr": "Izquierda a derecha",
+    "rtl": "Derecha a izquierda"
+  }
+}

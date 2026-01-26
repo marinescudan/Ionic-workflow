@@ -1,0 +1,55 @@
+.language-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.language-flag {
+  font-size: 32px;
+  line-height: 1;
+  min-width: 40px;
+  text-align: center;
+}
+
+.language-info {
+  flex: 1;
+  min-width: 0; // Allow text truncation
+}
+
+.language-native {
+  font-size: 16px;
+  font-weight: 500;
+  margin: 0 0 4px 0;
+  color: var(--ion-text-color);
+}
+
+.language-english {
+  font-size: 14px;
+  margin: 0;
+  color: var(--ion-color-medium);
+}
+
+.current-indicator {
+  font-size: 24px;
+  margin-inline-start: auto;
+}
+
+// RTL support
+:host-context([dir='rtl']) {
+  .language-item {
+    flex-direction: row-reverse;
+  }
+
+  .language-info {
+    text-align: right;
+  }
+}
+
+// Hover effect (desktop)
+@media (hover: hover) {
+  ion-item:hover {
+    --background: var(--ion-color-light);
+  }
+}

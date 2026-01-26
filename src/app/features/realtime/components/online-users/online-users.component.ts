@@ -1,4 +1,3 @@
-// src/app/features/realtime/components/online-users/online-users.component.ts
 
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';

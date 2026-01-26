@@ -1,4 +1,3 @@
-// src/app/services/rxjs/data/rxjs-patterns.constants.ts
 // API-ready constant - RxJS pattern examples for learning
 
 import { RxJSPattern } from '@app/models/rxjs.model';

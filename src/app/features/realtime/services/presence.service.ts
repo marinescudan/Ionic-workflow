@@ -1,5 +1,3 @@
-// src/app/features/realtime/services/presence.service.ts
-
 import { Injectable, inject } from '@angular/core';
 import { Observable, map, BehaviorSubject } from 'rxjs';
 import { SocketService } from '@app/core/services/socket/socket.service';
