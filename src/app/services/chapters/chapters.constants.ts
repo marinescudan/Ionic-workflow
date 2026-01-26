@@ -30,6 +30,9 @@ import { CHAPTER_25_DATA } from './data/chapter-25.data';
 import { CHAPTER_26_DATA } from './data/chapter-26.data';
 import { CHAPTER_27_DATA } from './data/chapter-27.data';
 import { CHAPTER_28_DATA } from './data/chapter-28.data';
+import { CHAPTER_29_DATA } from './data/chapter-29.data';
+import { CHAPTER_30_DATA } from './data/chapter-30.data';
+import { CHAPTER_31_DATA } from './data/chapter-31.data';
 
 export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_01_DATA,  // Getting Started
@@ -59,5 +62,8 @@ export const CHAPTERS_DATA: Chapter[] = [
   CHAPTER_25_DATA,  // Biometric Authentication & App Security
   CHAPTER_26_DATA,  // Custom Capacitor Plugins
   CHAPTER_27_DATA,  // Interactive Media Gallery Widget
-  CHAPTER_28_DATA   // Social Media Advertising & PWA
+  CHAPTER_28_DATA,  // Social Media Advertising & PWA
+  CHAPTER_29_DATA,  // AI Integration Fundamentals
+  CHAPTER_30_DATA,  // AI-Powered Learning Tutor
+  CHAPTER_31_DATA   // AI Interview Practice Companion
 ];
