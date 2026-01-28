@@ -8,6 +8,7 @@ export interface Chapter {
   sections: Section[];
   completed: boolean;
   hasDemo: boolean; // Does this chapter have a live demo?
+  demoRoute?: string; // Route to demo page (e.g., '/forms-demo', '/i18n-demo')
 }
 
 // Progression-based category naming:
