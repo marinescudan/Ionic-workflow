@@ -164,7 +164,10 @@ export class ChaptersPage implements OnInit, OnDestroy {
 
   openDemo(event: Event, chapter: Chapter) {
     event.stopPropagation(); // Prevent card click
-    this.router.navigate(['/demo', chapter.id]);
+
+    // Use chapter's demoRoute if available, otherwise use generic demo page
+    const route = chapter.demoRoute || `/demo/${chapter.id}`;
+    this.router.navigate([route]);
   }
 
   getCategoryChipClass(category: string): string {

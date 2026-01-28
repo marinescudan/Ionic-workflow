@@ -8,6 +8,7 @@ export const CHAPTER_11_DATA: Chapter = {
   category: 'advanced',
   completed: false,
   hasDemo: true,
+  demoRoute: '/graphql-demo',
   sections: [
     {
       id: 110,
