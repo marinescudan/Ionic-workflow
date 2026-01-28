@@ -81,11 +81,11 @@ export const routes: Routes = [
   //   loadComponent: () => import('./features/photo-gallery/pages/photo-gallery.page').then(m => m.PhotoGalleryPage)
   // },
 
-  // Default redirect
+  // Home page
   {
     path: '',
-    redirectTo: 'chapters',
-    pathMatch: 'full',
+    loadComponent: () =>
+      import('./pages/home/home.page').then(m => m.HomePage),
   },
   {
     path: 'posts-list',

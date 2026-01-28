@@ -1,0 +1,104 @@
+// ============================================
+// BRAND THEME VARIABLES
+// ============================================
+
+// This file contains brand-specific variables that can be easily customized
+// for white-label applications or different brand identities
+
+// Brand Colors
+:root {
+  // Primary brand colors
+  --brand-primary: #3880ff;
+  --brand-primary-rgb: 56, 128, 255;
+  --brand-primary-contrast: #ffffff;
+  --brand-primary-contrast-rgb: 255, 255, 255;
+  --brand-primary-shade: #3171e0;
+  --brand-primary-tint: #4c8dff;
+
+  // Secondary brand colors
+  --brand-secondary: #3dc2ff;
+  --brand-secondary-rgb: 61, 194, 255;
+  --brand-secondary-contrast: #ffffff;
+  --brand-secondary-contrast-rgb: 255, 255, 255;
+  --brand-secondary-shade: #36abe0;
+  --brand-secondary-tint: #50c8ff;
+
+  // Accent colors
+  --brand-accent: #5260ff;
+  --brand-accent-rgb: 82, 96, 255;
+  --brand-accent-contrast: #ffffff;
+  --brand-accent-contrast-rgb: 255, 255, 255;
+  --brand-accent-shade: #4854e0;
+  --brand-accent-tint: #6370ff;
+
+  // Map brand colors to Ionic color system
+  --ion-color-primary: var(--brand-primary);
+  --ion-color-primary-rgb: var(--brand-primary-rgb);
+  --ion-color-primary-contrast: var(--brand-primary-contrast);
+  --ion-color-primary-contrast-rgb: var(--brand-primary-contrast-rgb);
+  --ion-color-primary-shade: var(--brand-primary-shade);
+  --ion-color-primary-tint: var(--brand-primary-tint);
+
+  --ion-color-secondary: var(--brand-secondary);
+  --ion-color-secondary-rgb: var(--brand-secondary-rgb);
+  --ion-color-secondary-contrast: var(--brand-secondary-contrast);
+  --ion-color-secondary-contrast-rgb: var(--brand-secondary-contrast-rgb);
+  --ion-color-secondary-shade: var(--brand-secondary-shade);
+  --ion-color-secondary-tint: var(--brand-secondary-tint);
+
+  --ion-color-tertiary: var(--brand-accent);
+  --ion-color-tertiary-rgb: var(--brand-accent-rgb);
+  --ion-color-tertiary-contrast: var(--brand-accent-contrast);
+  --ion-color-tertiary-contrast-rgb: var(--brand-accent-contrast-rgb);
+  --ion-color-tertiary-shade: var(--brand-accent-shade);
+  --ion-color-tertiary-tint: var(--brand-accent-tint);
+}
+
+// Dark mode brand adjustments
+@media (prefers-color-scheme: dark) {
+  :root {
+    // Slightly adjust brand colors for better visibility in dark mode
+    --brand-primary: #428cff;
+    --brand-primary-rgb: 66, 140, 255;
+    --brand-primary-shade: #3a7be0;
+    --brand-primary-tint: #5598ff;
+
+    --brand-secondary: #50c8ff;
+    --brand-secondary-rgb: 80, 200, 255;
+    --brand-secondary-shade: #46b0e0;
+    --brand-secondary-tint: #62ceff;
+
+    --brand-accent: #6a64ff;
+    --brand-accent-rgb: 106, 100, 255;
+    --brand-accent-shade: #5d58e0;
+    --brand-accent-tint: #7974ff;
+  }
+}
+
+// Brand-specific mixins
+@mixin brand-gradient() {
+  background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+}
+
+@mixin brand-gradient-reverse() {
+  background: linear-gradient(135deg, var(--brand-accent), var(--brand-primary));
+}
+
+@mixin brand-gradient-secondary() {
+  background: linear-gradient(135deg, var(--brand-secondary), var(--brand-primary));
+}
+
+// Brand shadow utilities
+@mixin brand-shadow-sm() {
+  box-shadow: 0 2px 4px rgba(var(--brand-primary-rgb), 0.2);
+}
+
+@mixin brand-shadow-md() {
+  box-shadow: 0 4px 6px -1px rgba(var(--brand-primary-rgb), 0.3),
+              0 2px 4px -1px rgba(var(--brand-primary-rgb), 0.06);
+}
+
+@mixin brand-shadow-lg() {
+  box-shadow: 0 10px 15px -3px rgba(var(--brand-primary-rgb), 0.3),
+              0 4px 6px -2px rgba(var(--brand-primary-rgb), 0.05);
+}

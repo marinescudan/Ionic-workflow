@@ -36,6 +36,9 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
+/* Brand Theme Variables - must be imported first to override defaults */
+@import './theme/brand';
+
 /* RTL Support */
 @import './styles/rtl.scss';
 

@@ -1,0 +1,212 @@
+<ion-content [fullscreen]="true" class="home-page">
+  <!-- Hero Section -->
+  <div class="hero-section">
+    <!-- Header within hero -->
+    <div class="hero-header">
+      <ion-grid>
+        <ion-row class="ion-align-items-center">
+          <ion-col size="6">
+            <h3 class="brand-title">Ionic Workflow</h3>
+          </ion-col>
+          <ion-col size="6" class="ion-text-right">
+            <ion-button
+              fill="clear"
+              (click)="startLearning()"
+              class="header-cta">
+              Get Started
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </div>
+    <ion-grid>
+      <ion-row class="ion-justify-content-center ion-align-items-center">
+        <ion-col size="12" sizeMd="10" sizeLg="8" class="ion-text-center">
+          <h1 class="hero-title">
+            Master Ionic & Angular Development
+          </h1>
+          <p class="hero-subtitle">
+            Learn to build professional cross-platform applications with our comprehensive 31-chapter curriculum
+          </p>
+          <ion-button
+            (click)="startLearning()"
+            size="large"
+            shape="round"
+            class="cta-button"
+            expand="block"
+            mode="ios">
+            <ion-icon slot="start" name="rocket-outline"></ion-icon>
+            Start Learning for Free
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
+  <!-- Stats Section -->
+  <section class="stats-section">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="6" sizeMd="3" *ngFor="let stat of stats" class="ion-text-center">
+          <div class="stat-item">
+            <h3 class="stat-number">{{ stat.number }}</h3>
+            <p class="stat-label">{{ stat.label }}</p>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features-section">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" class="ion-text-center">
+          <h2 class="section-title">Why Choose This Learning Path?</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" sizeMd="6" sizeLg="3" *ngFor="let feature of features">
+          <ion-card class="feature-card">
+            <ion-card-content class="ion-text-center">
+              <div class="feature-icon">{{ feature.icon }}</div>
+              <h3>{{ feature.title }}</h3>
+              <p>{{ feature.description }}</p>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <!-- Tech Stack Section -->
+  <section class="tech-stack-section">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" class="ion-text-center">
+          <h2 class="section-title">Technologies You'll Master</h2>
+          <div class="tech-chips">
+            <ion-chip *ngFor="let tech of techStack" [color]="tech.color">
+              <ion-label>{{ tech.name }}</ion-label>
+            </ion-chip>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <!-- Target Audience Section -->
+  <section class="audience-section">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" sizeMd="8" sizeLg="6">
+          <ion-card class="audience-card">
+            <ion-card-header>
+              <ion-card-title class="ion-text-center">Who Is This For?</ion-card-title>
+            </ion-card-header>
+            <ion-card-content>
+              <ion-list lines="none">
+                <ion-item *ngFor="let audience of targetAudience">
+                  <ion-icon name="checkmark-circle" slot="start" color="success"></ion-icon>
+                  <ion-label class="ion-text-wrap">{{ audience }}</ion-label>
+                </ion-item>
+              </ion-list>
+            </ion-card-content>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <!-- Learning Path Overview -->
+  <section class="learning-path-section">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" sizeMd="10" sizeLg="8">
+          <h2 class="section-title ion-text-center">Your Learning Journey</h2>
+          <ion-grid>
+            <ion-row>
+              <ion-col size="12" sizeMd="6">
+                <ion-card class="journey-card">
+                  <ion-card-header>
+                    <ion-card-title>
+                      <ion-icon name="school-outline"></ion-icon>
+                      Foundation
+                    </ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <p>Start with environment setup, component library, and core concepts</p>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col size="12" sizeMd="6">
+                <ion-card class="journey-card">
+                  <ion-card-header>
+                    <ion-card-title>
+                      <ion-icon name="code-working-outline"></ion-icon>
+                      Core Development
+                    </ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <p>Master RxJS, state management, forms, and navigation patterns</p>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col size="12" sizeMd="6">
+                <ion-card class="journey-card">
+                  <ion-card-header>
+                    <ion-card-title>
+                      <ion-icon name="globe-outline"></ion-icon>
+                      Advanced Features
+                    </ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <p>Implement real-time features, native APIs, and offline capabilities</p>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+              <ion-col size="12" sizeMd="6">
+                <ion-card class="journey-card">
+                  <ion-card-header>
+                    <ion-card-title>
+                      <ion-icon name="trending-up-outline"></ion-icon>
+                      AI & Innovation
+                    </ion-card-title>
+                  </ion-card-header>
+                  <ion-card-content>
+                    <p>Integrate cutting-edge AI features and modern development practices</p>
+                  </ion-card-content>
+                </ion-card>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center">
+        <ion-col size="12" sizeMd="8" sizeLg="6" class="ion-text-center">
+          <h2 class="cta-title">Ready to Build Amazing Apps?</h2>
+          <p class="cta-subtitle">
+            Join thousands of developers learning Ionic development.
+            No credit card required. Start your journey today!
+          </p>
+          <ion-button
+            (click)="startLearning()"
+            size="large"
+            shape="round"
+            expand="block"
+            mode="ios"
+            class="final-cta-button">
+            <ion-icon slot="start" name="play-circle-outline"></ion-icon>
+            Begin Your Learning Journey
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </section>
+</ion-content>
