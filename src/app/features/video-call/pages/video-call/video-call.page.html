@@ -1,0 +1,221 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Video Call</ion-title>
+    <ion-chip slot="end" [color]="isCallActive() ? 'success' : 'medium'">
+      {{ getCallStateLabel() }}
+    </ion-chip>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="video-container" [class.idle-state]="callState === 'idle'" [class.active-state]="callState !== 'idle'">
+    <!-- Remote video (full screen) -->
+    <video
+      #remoteVideo
+      class="remote-video"
+      autoplay
+      playsinline
+      [class.hidden]="callState !== 'connected'"
+    ></video>
+
+    <!-- Local video (picture-in-picture) -->
+    <video
+      #localVideo
+      class="local-video"
+      autoplay
+      playsinline
+      muted
+      [class.hidden]="isCameraOff || callState === 'idle'"
+    ></video>
+
+    <!-- Debug info (remove after testing) -->
+    <div class="debug-info" *ngIf="callState !== 'idle'">
+      <p><strong>Call:</strong> {{ callState }}</p>
+      <p><strong>ICE:</strong> {{ iceConnectionState }}</p>
+      <p><strong>Conn:</strong> {{ connectionState }}</p>
+      <p *ngIf="hasLocalStream()">✅ Local stream</p>
+      <p *ngIf="!hasLocalStream()">❌ No local stream</p>
+      <p *ngIf="hasRemoteStream()">✅ Remote stream</p>
+      <p *ngIf="!hasRemoteStream()">❌ No remote stream</p>
+      <ion-button size="small" fill="clear" (click)="debugConnection()">
+        Full Debug
+      </ion-button>
+    </div>
+
+    <!-- Call status overlay -->
+    <div class="call-status" *ngIf="callState !== 'connected' && callState !== 'idle' && callState !== 'ringing'">
+      <ion-spinner></ion-spinner>
+      <p>{{ getCallStateLabel() }}</p>
+      <p class="peer-id-display" *ngIf="remotePeerId">
+        <strong>Calling:</strong> {{ remotePeerId }}
+      </p>
+      <ion-button color="danger" (click)="endCall()" class="cancel-call-btn">
+        Cancel Call
+      </ion-button>
+    </div>
+
+    <!-- Incoming call overlay -->
+    <div class="incoming-call" *ngIf="isIncomingCall()">
+      <h2>📞 Incoming Call</h2>
+      <p>From: {{ remotePeerId || 'Unknown' }}</p>
+      <p class="debug-state">DEBUG: Call state = {{ callState }}</p>
+      <div class="call-actions">
+        <ion-button color="success" (click)="acceptCall()">
+          ✓ Accept
+        </ion-button>
+        <ion-button color="danger" (click)="rejectCall()">
+          ✗ Decline
+        </ion-button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call controls -->
+  <div class="controls" *ngIf="isCallActive()">
+    <ion-button
+      [color]="isMuted ? 'danger' : 'medium'"
+      (click)="toggleMute()"
+    >
+      {{ isMuted ? '🔇' : '🎤' }}
+    </ion-button>
+
+    <ion-button
+      [color]="isCameraOff ? 'danger' : 'medium'"
+      (click)="toggleCamera()"
+    >
+      {{ isCameraOff ? '📵' : '📹' }}
+    </ion-button>
+
+    <ion-button
+      color="danger"
+      (click)="endCall()"
+    >
+      ☎️
+    </ion-button>
+
+    <ion-button
+      [color]="isRecording ? 'danger' : 'medium'"
+      (click)="toggleRecording()"
+    >
+      {{ isRecording ? '⏹️' : '⏺️' }}
+    </ion-button>
+  </div>
+
+  <!-- Premium Call Interface -->
+  <div class="call-interface" *ngIf="callState === 'idle'">
+
+    <!-- Identity Section -->
+    <div class="section-identity">
+      <ion-card class="identity-card">
+        <ion-card-content>
+          <div class="identity-header">
+            <span class="identity-label">Your ID</span>
+          </div>
+          <div class="peer-id-display">
+            <code class="peer-id-code">{{ myPeerId }}</code>
+          </div>
+          <div class="identity-actions">
+            <ion-button expand="block" fill="clear" size="small" (click)="copyPeerId()">
+              📋 Copy ID
+            </ion-button>
+            <ion-button expand="block" fill="clear" size="small" (click)="generateNewPeerId()">
+              🔄 New ID
+            </ion-button>
+          </div>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Call Actions Section -->
+    <div class="section-actions">
+      <h3 class="section-title">Start Communication</h3>
+
+      <ion-item class="peer-input" lines="none">
+        <ion-label position="floating">Enter Peer ID</ion-label>
+        <ion-input [(ngModel)]="remotePeerId" placeholder="Paste peer ID here"></ion-input>
+      </ion-item>
+
+      <div class="action-buttons">
+        <ion-button expand="block" color="primary" (click)="startCall()" [disabled]="!remotePeerId">
+          <span class="button-content">
+            <span class="button-icon">📹</span>
+            <span class="button-text">Video Call</span>
+          </span>
+        </ion-button>
+
+        <ion-button expand="block" color="secondary" disabled class="coming-soon">
+          <span class="button-content">
+            <span class="button-icon">📞</span>
+            <span class="button-text">Audio Call</span>
+            <span class="badge">Soon</span>
+          </span>
+        </ion-button>
+
+        <ion-button expand="block" color="tertiary" disabled class="coming-soon">
+          <span class="button-content">
+            <span class="button-icon">💬</span>
+            <span class="button-text">Chat</span>
+            <span class="badge">Soon</span>
+          </span>
+        </ion-button>
+
+        <ion-button expand="block" color="success" disabled class="coming-soon">
+          <span class="button-content">
+            <span class="button-icon">🖥️</span>
+            <span class="button-text">Share Screen</span>
+            <span class="badge">Soon</span>
+          </span>
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- Settings Section -->
+    <div class="section-settings">
+      <h3 class="section-title">Device Settings</h3>
+
+      <ion-card class="settings-card">
+        <ion-card-content>
+          <ion-button expand="block" fill="outline" (click)="testLocalCamera()">
+            📹 Test Camera & Microphone
+          </ion-button>
+
+          <div *ngIf="cameras.length > 0 || microphones.length > 0" class="device-selectors">
+            <ion-item lines="none" *ngIf="cameras.length > 0">
+              <ion-label>Camera</ion-label>
+              <ion-select [(ngModel)]="selectedCamera" (ionChange)="switchCamera()" interface="alert">
+                <ion-select-option *ngFor="let cam of cameras" [value]="cam.deviceId">
+                  {{ cam.label || 'Camera ' + cam.deviceId.substr(0, 5) }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item lines="none" *ngIf="microphones.length > 0">
+              <ion-label>Microphone</ion-label>
+              <ion-select [(ngModel)]="selectedMicrophone" interface="alert">
+                <ion-select-option *ngFor="let mic of microphones" [value]="mic.deviceId">
+                  {{ mic.label || 'Microphone ' + mic.deviceId.substr(0, 5) }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </div>
+
+          <p class="settings-hint" *ngIf="cameras.length === 0 && microphones.length === 0">
+            💡 Test your camera first to see available devices
+          </p>
+        </ion-card-content>
+      </ion-card>
+    </div>
+
+    <!-- Test Mode Warning -->
+    <ion-card color="warning" class="test-mode-warning" *ngIf="isTestMode()">
+      <ion-card-content>
+        <strong>🧪 Test Mode Active</strong>
+        <p>Signaling server required for calls. Set TEST_MODE=false in webrtc.service.ts</p>
+      </ion-card-content>
+    </ion-card>
+
+  </div>
+</ion-content>

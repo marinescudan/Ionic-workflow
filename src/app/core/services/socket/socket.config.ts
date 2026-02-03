@@ -1,4 +1,5 @@
 import { InjectionToken } from '@angular/core';
+import { environment } from '../../../../environments/environment';
 
 export interface SocketConfig {
   url: string;
@@ -16,8 +17,10 @@ export interface SocketConfig {
 export const SOCKET_CONFIG = new InjectionToken<SocketConfig>('SOCKET_CONFIG');
 
 export const defaultSocketConfig: SocketConfig = {
-  // Replace with your backend URL
-  url: 'http://localhost:3000',
+  // Automatically uses environment configuration
+  // Development: http://localhost:3001 (or custom IP from environment)
+  // Production: https://your-signaling-server.onrender.com
+  url: environment.signalingServerUrl,
   options: {
     // Try WebSocket first, fallback to polling
     transports: ['websocket', 'polling'],

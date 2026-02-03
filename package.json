@@ -6,12 +6,15 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "serve": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "lint": "ng lint",
     "codegen": "graphql-codegen --config codegen.yml",
-    "codegen:watch": "graphql-codegen --config codegen.yml --watch"
+    "codegen:watch": "graphql-codegen --config codegen.yml --watch",
+    "setup:network": "node scripts/setup-network.js",
+    "setup:localhost": "node scripts/setup-localhost.js"
   },
   "private": true,
   "dependencies": {

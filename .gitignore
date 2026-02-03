@@ -71,3 +71,11 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Environment files (contains local IPs, may contain secrets)
+src/environments/environment.backup.ts
+src/environments/environment.local.ts
+
+# Local network setup
+.env
+.env.local
