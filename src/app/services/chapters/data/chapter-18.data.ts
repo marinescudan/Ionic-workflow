@@ -8,6 +8,7 @@ export const CHAPTER_18_DATA: Chapter = {
   category: 'advanced',
   completed: false,
   hasDemo: true,
+  demoRoute: '/demo/18',
   sections: [
     {
       id: 180,
@@ -444,6 +445,7 @@ describe('ChapterCardComponent', () => {
       category: 'beginner',
       completed: false,
       hasDemo: true,
+  demoRoute: '/demo/18',
       sections: []
     };
 
@@ -1621,6 +1623,7 @@ export class ChapterFixtures {
       category: 'beginner',
       completed: false,
       hasDemo: true,
+  demoRoute: '/demo/18',
       sections: [],
       ...overrides
     };

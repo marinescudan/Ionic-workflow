@@ -106,7 +106,12 @@ export class ChapterDetailPage implements OnInit {
 
   openDemo() {
     if (this.chapter?.hasDemo) {
-      this.router.navigate(['/demo', this.chapterId]);
+      // Use custom demoRoute if available, otherwise use default /demo/:chapterId
+      if (this.chapter.demoRoute) {
+        this.router.navigate([this.chapter.demoRoute]);
+      } else {
+        this.router.navigate(['/demo', this.chapterId]);
+      }
     }
   }
 

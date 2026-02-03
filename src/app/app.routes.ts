@@ -70,10 +70,10 @@ export const routes: Routes = [
   },
 
   // WebRTC Video Call Demo
-  // {
-  //   path: 'video-call-demo',
-  //   loadComponent: () => import('./features/webrtc/pages/video-call-demo/video-call-demo.page').then(m => m.VideoCallDemoPage)
-  // },
+  {
+    path: 'video-call',
+    loadComponent: () => import('./features/video-call/pages/video-call/video-call.page').then(m => m.VideoCallPage)
+  },
 
   // Photo Gallery Demo (Camera)
   // {

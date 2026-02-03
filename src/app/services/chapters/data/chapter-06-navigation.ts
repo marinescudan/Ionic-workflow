@@ -8,6 +8,7 @@ export const CHAPTER_06_DATA: Chapter = {
   category: 'intermediate',
   completed: false,
   hasDemo: true,
+  demoRoute: '/demo/6',
   sections: [
     {
       id: 20,
